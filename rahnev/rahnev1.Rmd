@@ -1,0 +1,684 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r}
+library(tidyverse)
+library(quickpsy)
+library(R.matlab)
+
+dat_raw <- read_csv("data/data_Rouault_2018_Expt1.csv")
+
+
+```
+
+
+matlab
+```{r}
+allDataMio <- allData %>% 
+  mutate(Subj_idx = row_number()) %>% 
+  mutate(anxiety_high = if_else(anxiety > mean(anxiety), "high", "low")) %>% 
+  select(Subj_idx, anxiety_high)
+```
+
+```{r}
+dat <- dat_raw %>% 
+ # filter(RT_dec > .2, RT_dec < 2) %>% 
+  mutate(sti = if_else(Stimulus == 1, 1, -1)) %>% 
+  mutate(signed_dot_diff = sti * DotDiff) %>% 
+  group_by(Subj_idx) %>% 
+  mutate(trial = row_number()) %>% 
+  mutate(odd = trial %% 2) %>% 
+  mutate(signed_conf = (2*Response - 1) * Confidence) %>% 
+  # select(Subj_idx, sti, signed_dot_diff, Response, Confidence, 
+  #        Accuracy, odd, signed_conf) %>% 
+  ungroup()
+```
+
+### Confidence
+OJO! La low confidence include finger errors! 
+```{r}
+dat %>% 
+  left_join(allDataMio) %>% 
+  group_by(signed_dot_diff, Confidence, anxiety_high) %>% 
+  summarise(p = mean(Response)) %>% 
+  ggplot(aes(x = signed_dot_diff, y = p, color = anxiety_high)) +
+  facet_wrap(~Confidence) +
+  geom_point(size = .5) +
+geom_smooth(se = FALSE) +
+  theme()
+```
+
+### Criterio calculado usando la curva psicometrica
+```{r}
+fit <- dat %>% 
+  quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx"),
+           bootstrap = "none")
+
+sdt_psy <- fit$par %>% 
+  pivot_wider(names_from = parn, values_from = par) %>% 
+  mutate(crit_psy = p1 /p2)
+
+sdt_psy %>% 
+  ggplot() + 
+  geom_histogram(aes(x = crit_psy))
+```
+
+```{r} 
+fit10 <- dat %>% 
+  filter(Subj_idx < 11) %>% 
+  quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx"),
+           bootstrap = "none", 
+           xmin = -60, xmax = 60)
+
+bias10 <- fit10$par %>% 
+  filter(parn == "p1") %>% 
+  mutate(bias = (par > 0))
+
+fitbias10 <- dat %>%
+  filter(Subj_idx < 20) %>% 
+    left_join(bias10) %>% 
+    quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx", "bias", "Stimulus"),
+           bootstrap = "none")
+
+ggplot()+
+  facet_wrap(bias~Subj_idx) +
+  geom_point(data = fitbias10$averages, aes(x = signed_dot_diff, y = prob, color = factor(Stimulus))) +
+  geom_line(data = fitbias10$curves, aes(x = x, y = y, color = factor(Stimulus)))
+```
+
+```{r} 
+fit <- dat %>% 
+  quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx"),
+           bootstrap = "none",
+           xmin = -60, xmax = 60)
+
+bias <- fit$par %>% 
+  filter(parn == "p1") %>% 
+  mutate(bias = (par > 0))
+
+fitbias <- dat %>%
+    left_join(bias) %>% 
+    quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx", "bias", "Stimulus"),
+           bootstrap = "none")
+
+```
+```{r}
+dd <- fitbias$par %>% 
+  filter(parn == "p2") %>% 
+  filter(par < 200)
+
+ggplot(dd) +
+  facet_wrap(~bias) +
+  # geom_point(aes(x = Stimulus, y = par, color = bias), position = position_jitter(height = 0)) +
+  stat_summary(aes(x = Stimulus, y = par)) 
+```
+
+
+```{r}
+fitbias$curves %>% 
+  mutate(x = round(x)) %>% 
+  group_by(bias, Stimulus, x) %>% 
+  summarise(y = mean(y)) %>%  
+  ggplot()+
+  facet_wrap(~bias) +
+  geom_line(aes(x = x, y = y, color = factor(Stimulus)), size = .1)
+```
+
+```{r}
+dd %>% 
+  ggplot(aes(x = par)) +
+  geom_histogram(bins = 100) +
+  xlim(0, 1000)
+```
+
+### Criterio calculado usando sdt
+```{r}
+sdt <- dat %>% 
+  group_by(Subj_idx, sti) %>% 
+  summarise(p = mean(Accuracy)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)))
+```
+
+```{r}
+sdt %>% 
+  left_join(sdt_psy) %>% 
+  ggplot(aes(x = crit_psy, y = crit)) +
+  geom_point() +
+  geom_abline(color = "red") +
+  geom_smooth(method = "lm", se = FALSE) +
+  coord_equal()
+```
+
+### Confidence
+```{r}
+dat1 <- dat %>% 
+  filter(Subj_idx == 1)
+
+confidence_levels <- dat1 %>% 
+  distinct(signed_conf) %>% 
+  arrange(signed_conf) %>% 
+  mutate(conf_lev = row_number()) 
+
+dat_conf <- dat1 %>% 
+  left_join(confidence_levels, by = "signed_conf") 
+
+dat_conf_full <- confidence_levels %>% 
+  head(-1) %>% 
+  rename(conf_base = conf_lev) %>% 
+  select(-signed_conf) %>% 
+  crossing(dat_conf) %>% 
+  mutate(Response2 = if_else(conf_lev <= conf_base, 0, 1), 
+         Accuracy2 = if_else((sti == 1 & Response2 == 1) | 
+                               (sti == -1 & Response2 ==0), 1, 0))
+
+full_hits_fa <- dat_conf_full %>% 
+  group_by(conf_base, sti) %>% 
+  summarise(p = mean(Accuracy2)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)),
+         zFA = qnorm(FA),
+         zH = qnorm(H)) %>% 
+  filter(is.finite(dprime))
+
+full_hits_fa %>% 
+  ggplot(aes(x = FA, y = H)) +
+  geom_line() +
+  geom_point() +
+  coord_equal()
+
+```
+
+
+```{r}
+conf_fun <- function(.dat) {
+
+confidence_levels <- .dat %>% 
+  distinct(signed_conf) %>% 
+  arrange(signed_conf) %>% 
+  mutate(conf_lev = row_number()) 
+
+dat_conf <- .dat %>% 
+  left_join(confidence_levels, by = "signed_conf") 
+
+dat_conf_full <- confidence_levels %>% 
+  head(-1) %>% 
+  rename(conf_base = conf_lev) %>% 
+  select(-signed_conf) %>% 
+  crossing(dat_conf) %>% 
+  mutate(Response2 = if_else(conf_lev <= conf_base, 0, 1), 
+         Accuracy2 = if_else((sti == 1 & Response2 == 1) | 
+                               (sti == -1 & Response2 ==0), 1, 0))
+
+dat_conf_full %>% 
+  group_by(conf_base, sti) %>% 
+  summarise(p = mean(Accuracy2)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)),
+         zFA = qnorm(FA),
+         zH = qnorm(H)) %>% 
+  filter(is.finite(dprime))
+}
+
+dat %>% 
+  filter(Subj_idx == 1) %>% 
+  conf_fun() %>% 
+  ggplot(aes(x = FA, y = H)) +
+  geom_line() +
+  geom_point() +
+  coord_equal()
+```
+
+
+```{r}
+all_conf <- dat %>% 
+  group_by(Subj_idx) %>% 
+  group_modify(~conf_fun(.x))
+```
+
+```{r}
+linearmodels <- all_conf %>% 
+  group_by(Subj_idx) %>% 
+  group_modify(~lm(zH ~ zFA, data = .x) %>% tidy()) %>% 
+  select(Subj_idx, term, estimate) %>% 
+  pivot_wider(names_from = term, values_from = estimate) %>% 
+  rename(intercept = `(Intercept)`, slope = zFA) %>% 
+  mutate(log_slope = log(slope)) %>% 
+  left_join(sdt)
+```
+
+```{r}
+linearmodels_out <- linearmodels %>%
+  filter(log_slope > -.8, log_slope <  1) 
+```
+
+```{r}
+linearmodels %>% 
+  ggplot(aes(x = log_slope, y = crit)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+linearmodels_out %>%
+  ggplot(aes(x = log_slope, y = crit)) +
+  geom_point() +
+  geom_smooth(method = "lm") 
+```
+
+```{r}
+cor.test(linearmodels_out$crit, linearmodels_out$log_slope)
+```
+
+
+```{r}
+all_conf %>% 
+  filter(Subj_idx < 20) %>% 
+  ggplot(aes(x = zFA, y = zH)) +
+  facet_wrap(~Subj_idx) +
+  geom_line() +
+  geom_point() 
+```
+
+```{r}
+dat %>% 
+  group_modify(~conf_fun(.x)) %>% 
+  group_by(conf_base) %>% 
+  summarise(zFA = mean(zFA), zH = mean(zH)) %>% 
+  ggplot(aes(x = zFA, y = zH)) +
+  geom_line() +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+dat1 <- dat %>% 
+  filter(Subj_idx == 1)
+
+confidence_levels <- dat1 %>% 
+  distinct(signed_conf) %>% 
+  arrange(signed_conf) %>% 
+  mutate(conf_lev = row_number()) 
+
+dat_conf <- dat1 %>% 
+  left_join(confidence_levels, by = "signed_conf") 
+
+dat_conf_full <- confidence_levels %>% 
+  head(-1) %>% 
+  rename(conf_base = conf_lev) %>% 
+  select(-signed_conf) %>% 
+  crossing(dat_conf) %>% 
+  mutate(Response2 = if_else(conf_lev <= conf_base, 0, 1), 
+         Accuracy2 = if_else((sti == 1 & Response2 == 1) | 
+                               (sti == -1 & Response2 ==0), 1, 0))
+
+dat_conf_full_larry <- dat_conf_full %>% 
+  select(conf_base, sti, Response2) %>% 
+  rename(Resp = Response2, Stim = sti, Cond = conf_base) %>% 
+  mutate(Cond = paste0("p", Cond), 
+         Stim = if_else(Stim == 1, 1, 0), 
+         Resp = if_else(Resp == 1, TRUE, FALSE)) %>% 
+  select(Resp, Stim, Cond) %>% 
+    filter(Cond != "p9") %>% 
+  mutate(Stim = as.factor(Stim), Cond = as.factor(Cond))
+
+fit_sdt_conf <- function(.dat) {
+
+
+
+minLam <- optimize(function(X, dp, sig)
+  -((1 - sig^2) * X^2 - 2 * dp * X +
+      dp^2 + 2 * sig^2 * log(sig))/(2 * sig^2),
+  c(-20, 20), dp = dp, sig = sig)$objective
+
+UVG.opt <- optim(c(1.1, 1.6, rep(1,8)), lUVG,
+                 d = .dat,
+                 method = "L-BFGS-B", hessian = TRUE,
+                 lower = c(0, 1, rep(minLam, length(lb))))
+
+est <- UVG.opt$par
+names(est) <- c("dprime", "sigma",paste("log beta", seq(length(lb)), sep = ""))
+
+est %>% as.list() %>% as_tibble()
+}
+
+fit_sdt_conf(dat_conf_full_larry)
+  
+
+full_hits_fa <- dat_conf_full %>% 
+  group_by(conf_base, sti) %>% 
+  summarise(p = mean(Accuracy2)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)),
+         zFA = qnorm(FA),
+         zH = qnorm(H)) %>% 
+  filter(is.finite(dprime))
+
+full_hits_fa %>% 
+  ggplot(aes(x = FA, y = H)) +
+  geom_line() +
+  geom_point() +
+  coord_equal()
+
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+conf_fun <- function(.dat) {
+  
+confidence_levels <- .dat %>% 
+  mutate(signed_conf = (2*Response - 1) *Confidence) %>% 
+  distinct(signed_conf) %>% 
+  arrange(signed_conf) %>% 
+  mutate(conf_lev = row_number()) 
+
+dat_conf <- .dat %>%
+  mutate(signed_conf = (2*Response - 1) * Confidence) %>%
+  left_join(confidence_levels, by = "signed_conf") #%>%
+#  nest()
+
+# dat_conf_full <- confidence_levels %>%
+#   head(-1) %>%
+#   rename(conf_base = conf_lev) %>%
+#   select(-signed_conf) %>%
+#   left_join(dat_conf) %>%
+#   unnest(cols = c(data)) %>%
+#   mutate(Response2 = if_else(conf_lev <= conf_base, 0, 1),
+#          Accuracy2 = if_else((sti == 1 & Response2 == 1) |
+#                                (sti == -1 & Response2 ==0), 1, 0))
+
+# full_hits_fa <- dat_conf_full %>% 
+#   group_by(conf_base, sti) %>% 
+#   summarise(p = mean(Accuracy2)) %>% 
+#   mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+#   pivot_wider(names_from = sti, values_from = p) %>% 
+#   mutate(FA = 1 - CR, 
+#          M = 1 - H, 
+#          dprime = qnorm(H) - qnorm(FA), 
+#          crit = -0.5 * (qnorm(H) + qnorm(FA)),
+#          zFA = qnorm(FA),
+#          zH = qnorm(H)) %>% 
+#   filter(is.finite(dprime))
+# 
+# full_hits_fa
+}
+
+
+conf <- dat %>% 
+  group_by(Subj_idx) %>% 
+  group_map(~conf_fun(.x))
+  
+  
+conf %>% filter(Subj_idx == 1) %>% 
+  unnest(cols = c(data)) %>% 
+  ggplot(aes(x = FA, y = H)) +
+  geom_line() +
+  geom_point() +
+  coord_equal()
+```
+
+
+
+
+
+
+```{r}
+
+confidence_levels <- dat %>% 
+  mutate(signed_conf = (2*Response - 1) *Confidence) %>% 
+  group_by(Subj_idx) %>% 
+  distinct(signed_conf) %>% 
+  arrange(Subj_idx, signed_conf) %>% 
+  mutate(conf_lev = row_number()) 
+
+dat_conf <- dat %>% 
+  mutate(signed_conf = (2*Response - 1) * Confidence) %>% 
+  left_join(confidence_levels) %>% 
+  nest() 
+
+dat_conf_full <- confidence_levels %>% 
+  head(-1) %>% 
+  rename(conf_base = conf_lev) %>% 
+  select(-signed_conf) %>% 
+  left_join(dat_conf) %>% 
+  unnest(cols = c(data)) %>% 
+  mutate(Response2 = if_else(conf_lev <= conf_base, 0, 1), 
+         Accuracy2 = if_else((sti == 1 & Response2 == 1) | 
+                               (sti == -1 & Response2 ==0), 1, 0))
+
+full_hits_fa <- dat_conf_full %>% 
+  group_by(conf_base, sti) %>% 
+  summarise(p = mean(Accuracy2)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)),
+         zFA = qnorm(FA),
+         zH = qnorm(H)) %>% 
+  filter(is.finite(dprime))
+```
+
+```{r}
+sdt <- dat %>% 
+  group_by(Subj_idx, sti) %>% 
+  summarise(p = mean(Accuracy)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)))
+
+sdt_crit <- sdt_odd %>% 
+  select(Subj_idx, odd, crit) %>% 
+  pivot_wider(names_from = odd, values_from = crit, names_prefix = "c") %>%
+  filter(is.finite(c0)) %>% 
+  filter(is.finite(c1)) 
+
+sdt_crit %>% 
+  ggplot() + 
+  geom_point(aes(x = c1, y = c0))
+```
+
+
+
+### Even and odd trials
+
+```{r}
+fit_odd <- dat %>% 
+  quickpsy(signed_dot_diff, Response, grouping = c("Subj_idx", "odd"),
+           bootstrap = "none")
+
+crit_odd <- fit_odd$par %>% 
+  group_by(odd) %>% 
+  pivot_wider(names_from = parn, values_from = par) %>% 
+  mutate(c = p1 /p2) %>% 
+  select(-p1, -p2) %>% 
+  pivot_wider(names_from = odd, values_from = c, names_prefix = "c") %>% 
+  filter(is.finite(c0)) %>%
+  filter(is.finite(c1)) %>%
+  as_tibble()
+
+crit_odd %>% 
+  ggplot() + 
+  geom_point(aes(x = c1, y = c0))
+```
+
+```{r}
+cor.test(crit_odd$c0, crit_odd$c1)
+```
+
+### Even y odd pero usando la formula de sdt
+
+```{r}
+dat %>% 
+  filter(Subj_idx == 1) %>% 
+  group_by(Subj_idx, sti) %>% 
+  summarise(p = mean(Accuracy))
+```
+
+```{r}
+sdt_odd <- dat %>% 
+  group_by(Subj_idx, sti, odd) %>% 
+  summarise(p = mean(Accuracy)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)))
+
+sdt_crit <- sdt_odd %>% 
+  select(Subj_idx, odd, crit) %>% 
+  pivot_wider(names_from = odd, values_from = crit, names_prefix = "c") %>%
+  filter(is.finite(c0)) %>% 
+  filter(is.finite(c1)) 
+
+sdt_crit %>% 
+  ggplot() + 
+  geom_point(aes(x = c1, y = c0))
+```
+```{r}
+cor.test(sdt_crit$c0, sdt_crit$c1)
+```
+
+### Confidence
+```{r}
+dat %>% 
+  filter(Subj_idx == 1) %>% 
+  group_by(Subj_idx, Confidence, sti) %>% 
+  summarise(n = n(), correct = sum(Accuracy)) %>% 
+  group_by(Subj_idx, sti) %>% 
+  mutate(conf = Confidence - min(Confidence)) %>% 
+  group_by(Subj_idx, sti) %>% 
+  mutate(n_cum_sum = cumsum(n), correct_cum_sum = cumsum(correct),
+         n_less = n_cum_sum -n, correct_less = correct_cum_sum - correct) %>% 
+  filter(conf != 0) %>% 
+  group_by(Subj_idx, Confidence) %>% 
+  mutate(one_two = n()) %>% 
+  filter(one_two != 1) %>% 
+  select(Subj_idx, Confidence, sti, n, correct, n_less, correct_less) %>% 
+  mutate(p_yes = correct /n, p_no = correct_less / n_less) %>% 
+  select(Subj_idx, Confidence, sti, p_yes, p_no) %>% 
+  pivot_wider(names_from = sti, values_from = )
+```
+
+```{r}
+sdt <- dat %>% 
+  group_by(Subj_idx, Confidence, sti) %>% 
+  summarise(n = n(), correct = sum(Accuracy)) %>%
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = c(n, correct)) %>% 
+    head()
+  drop_na() %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         zFA = qnorm(FA),
+         zH = qnorm(H),
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA))) %>% 
+  filter(is.finite(dprime)) %>% 
+  group_by(Subj_idx) %>% 
+  nest() %>% 
+  mutate(lin = map(data, ~ lm(zH ~ zFA, data = .x) %>% tidy())) %>% 
+  unnest(lin) %>% 
+  filter(term == "zFA") %>% 
+  mutate(logs = estimate)
+
+sdt %>% 
+  ggplot(aes(x = logs)) +
+  geom_histogram() +
+  xlim(-2,2)
+```
+```{r}
+crit %>% 
+  left_join(sdt, by = "Subj_idx") %>% 
+  ggplot(aes(x = logs, y = c)) + 
+  geom_point() +
+  xlim(-5, 5) +
+  geom_smooth(method = "lm")
+```
+```{r}
+sdt_pru <- dat %>% 
+  group_by(Subj_idx, sti) %>% 
+  summarise(p = mean(Accuracy)) %>% 
+  mutate(sti = if_else(sti == 1, "H", "CR")) %>% 
+  pivot_wider(names_from = sti, values_from = p) %>% 
+  mutate(FA = 1 - CR, 
+         M = 1 - H, 
+         dprime = qnorm(H) - qnorm(FA), 
+         crit = -0.5 * (qnorm(H) + qnorm(FA)))
+```
+
+
+
+```{r}
+summ <- dat %>% 
+  group_by(Subj_idx, signed_dot_diff) %>% 
+  summarise(resp = mean(Response))
+
+summ %>% 
+  filter(Subj_idx < 10) %>% 
+  ggplot(aes(signed_dot_diff, resp)) +
+  facet_wrap(~Subj_idx) +
+  geom_point() +
+  geom_line(data = fit$curves, aes(x = x, y = y))
+```
+
+```{r}
+crit %>% 
+  ggplot(aes(x = c)) +
+  geom_histokgram()
+```
+```{r}
+bias <- fit$par %>% 
+  filter(parn == "p1") %>% 
+  mutate(sign = sign(par))
+```
+ 
+```{r}
+dd <- dat %>% 
+  left_join(bias) %>% 
+  group_by(signed_dot_diff, sign) %>% 
+  summarise(p = mean(Response))
+
+dd %>% 
+  ggplot() +
+  geom_point(aes(x = signed_dot_diff, y = qnorm(p), color = factor(sign))) +
+
+  geom_smooth(method = "lm", aes(x = signed_dot_diff, y = qnorm(p), color = factor(sign)),se = F) +
+    geom_smooth(aes(x = signed_dot_diff, y = qnorm(p), group = factor(sign)),se = F, color = "black") 
+```
+ 
+
