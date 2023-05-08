@@ -3,6 +3,7 @@ title: "glmhmm metacognition"
 output: html_notebook
 ---
 
+
 ```{r}
 library(reticulate)
 use_condaenv("glmhmm")
@@ -18,6 +19,9 @@ import ssm
 #from ssm.util import find_permutation
 ```
 
+
+Introduce the function create_psychometric in the R folder
+
 ```{r}
 library(tidyverse)
 library(broom)
@@ -26,11 +30,6 @@ library(R.matlab)
 
 list.files("R", full.names = TRUE) |> 
   walk(source)
-
-create_psychometric <- function(.value) {
-  tibble(signed_contrast = seq(-1, 1, .01)) |> 
-    mutate(prop = glm_logistic_fun(signed_contrast, .value))
-}
 ```
 
 ----------------------------------------------------
@@ -44,28 +43,40 @@ experiment and across participants
 - stimulus refers to which group of dots (right or left) has more of them (check; the quantity of trials with more dots either on the left or right group varies from subject to subject).
 - dot_diff is the difference of dots between stimuli (subject where asked which stimulus had more dots).
 - confidence is the confidence scale meassured with a 11-point probabilistic 
-rating scale (1=certainly wrong, 3=probably wrong, 5=maybe wrong, 7=maybe 
-correct, 9=probably correct, 11=certainly correct)
+rating scale (1=certainly wrong, 3=probably wrong, 5=maybe wrong, 7=maybe correct, 9=probably correct, 11=certainly correct)
+
+
+I think that it is easier to use rename that colnames
+
+It is more standard in R to use <- than = for assignment
+
+I don't think the serial_bias column is correct. You just need to have a column that is lag(response). From Ashwood: The third column in the design matrix was the animal’s choice on the previous trial .... (search in the article)
+
+The independent variable is not properly calculated. The stimulus is the location of the stimulus (0: left, 1: right). You need to calculate signed_dot_diff. For that, you need to transform the 0 value of the stimulus to -1. Use something like
+
+df |> 
+mutate(stimulus = if_else(stimulus == 0, -1, 1))
+
+and then multiply stimulus by dot_diff. 
+
 ```{r}
-data_trials <- read_csv("data_Rouault_2018_Expt1.csv") 
-colnames(data_trials)[1] = "subject"
-colnames(data_trials)[2] = "stimulus"
-colnames(data_trials)[3] = "response"
-colnames(data_trials)[4] = "confidence"
-colnames(data_trials)[5] = "RT"
-colnames(data_trials)[6] = "dot_diff"
-colnames(data_trials)[7] = "correct"
+data_trials <- read_csv("data/data_Rouault_2018_Expt1.csv", show_col_types = FALSE) 
+data_trials <- rename(data_trials, subject = Subj_idx, stimulus = Stimulus, response = Response, confidence = Confidence, RT = RT_dec, dot_diff = DotDiff, correct = Accuracy)
 
 data_trials <- data_trials |>
   group_by(subject) |>
   mutate(trial = row_number()) |>
-  ungroup()
+  ungroup() |> 
+  mutate(stimulus = if_else(stimulus == 0, -1, 1), 
+         dot_diff = stimulus * dot_diff, 
+         prev_resp = lag(response), 
+         fing_err = if_else(confidence == 1, 1, 0)) |>
+  drop_na()
   
-data_trials <- data_trials |>
-  mutate(serial_bias = if_else(!is.na(lag(response)) & response != lag(stimulus) & correct == 0, 1, 0))
-
 data_trials
 ```
+
+
 
 ----------------------------------------------------
 Download of data (Dani)
@@ -75,9 +86,9 @@ Estos datos permiten comparar los resultados globales de lo trials de cada sujet
 
 No wntiendo qué es HDDM, a, t, v_inter, y v_delta.
 ```{r}
-qnData = readMat("rahnev/data/ME_phase2_excludqnadata_all.mat") # load questionnaire data
-taskData = readMat("rahnev/data/ME_phase2_excludanalyseddat_all.mat") # load task performance data
-HDDM = read.csv('rahnev/data/subjParams_2k_3chain.csv') # load HDDM data
+qnData = readMat("data/ME_phase2_excludqnadata_all.mat") # load questionnaire data
+taskData = readMat("data/ME_phase2_excludanalyseddat_all.mat") # load task performance data
+HDDM = read.csv('data/subjParams_2k_3chain.csv') # load HDDM data
 HDDMpara = data.frame(t(HDDM[1:nrow(HDDM),2:length(HDDM)]))
 colnames(HDDMpara) <- c("a", "t", "v_inter", "v_delta")
 ```
@@ -195,9 +206,9 @@ s01_trials <- data_trials %>%
   filter(subject == 1) %>%
   mutate(session = 1, 
          intercept = 1, 
-         signed_contrast = dot_diff) %>% 
+         dot_diff = dot_diff) %>% 
   ungroup() %>% 
-  select(session, correct, intercept, signed_contrast)
+  select(session, response, intercept, dot_diff)
 
 s01_trials
 ```
@@ -212,16 +223,25 @@ glm_hmm2_s01
 glm_hmm2_s01$recovered_weights
 ```
 
+
 ```{r}
 psycho_2_s01 <- glm_hmm2_s01$recovered_weights |> 
   group_by(state) |> 
-  reframe(create_psychometric(value))
+  reframe(create_psychometric(dot_diff, value))
 ```
 
+Me parece que esto no logra graficar bien una curva psicométrica, porque la función crate_psychometric() utilizada en el chunk anterior marca los límites del eje x del -1 al 1, mientras que en este caso el signed_contrast va desde el -70 al 70; propongo modificar la función de la siguiente manera:
+create_psychometric <- function(.value, min_signed_contrast, max_signed_contrast, interval) {
+  tibble(min_signed_contrast, 
+  max_signed_contrast, 
+  interval) |> 
+    mutate(prop = glm_logistic_fun(signed_contrast, .value))
+}
+
 ```{r}
-psycho_2_s01 |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line() + 
+ggplot() +
+  geom_line(data = psycho_2_s01, 
+            aes(x = dot_diff, y = prop, color = state)) +
   ylim(0, 1)
 ```
 
@@ -253,6 +273,11 @@ glm_hmm2_s01 %>%
   geom_point()
 ```
 
+
+
+HASTA AQUÍ LLEGAN LAS CORRECCIONES, QUISIERA ASEGURARME DE QUE LO ANTERIOR FUNCIONE BIEN ANTES DE APLICARLO AL RESTO
+
+
 ---------------------------------------------------------------
 s01 3 states
 ---------------------------------------------------------------
@@ -269,23 +294,32 @@ psycho_3_s01 <- glm_hmm3_s01$recovered_weights |>
   reframe(create_psychometric(value))
 ```
 
-No sé por qué no aparece la línea correspondiente al estado S1; también parece que no hay diferencia entre estados.
+Tampoco aparece ninguna función psicométrica 
 ```{r}
-psycho_3_s01 |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line() + 
-  ylim(0, 1)
+psycho_3_s01 |> ggplot(aes(x = signed_contrast, y = prop, color = state), xlim(-70, 70), ylim(0, 1)) +
+  geom_line() 
 ```
 
 ```{r}
+s01_trials <- data_trials %>%
+  filter(subject == 1) %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) %>% 
+  ungroup() %>% 
+  select(session, response, intercept, signed_contrast, trial)
+
 ggplot() +
   geom_line(data = glm_hmm3_s01$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = s01_trials, aes(x = trial, y = correct), shape = "|")
+  geom_point(data = s01_trials, aes(x = trial, y = response), shape = "|")
 ```
 
 Tres estados con diversas condiciones iniciales
 ```{r}
+s01_trials <- s01_trials %>%
+  select(session, response, intercept, signed_contrast)
+
 glm_hmm3_s01 <- s01_trials %>% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
@@ -344,9 +378,8 @@ psycho_2_s01_sb <- glm_hmm2_s01_sb$recovered_weights |>
 No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
 ```{r}
 psycho_2_s01_sb |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line() + 
-  ylim(0, 1)
+  ggplot(aes(x = signed_contrast, y = prop, color = state), xlim(-70, 70), ylim(0, 1)) +
+  geom_line() 
 ```
 
 ```{r}
@@ -455,7 +488,7 @@ rand_10_sub_trials <- data_trials |>
          intercept = 1, 
          signed_contrast = dot_diff) |> 
   ungroup() |> 
-  select(session, correct, intercept, signed_contrast)
+  select(session, response, intercept, signed_contrast)
 ```
 
 ```{r}
@@ -474,11 +507,11 @@ psycho_2_10 <- glm_hmm2_10$recovered_weights |>
   reframe(create_psychometric(value))
 ```
 
+
 ```{r}
 psycho_2_10 |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line() + 
-  ylim(0, 1)
+  ggplot(aes(x = signed_contrast, y = prop, color = state), xlim(-70, 70), ylim(0, 1)) +
+  geom_line() 
 ```
 
 ```{r}
@@ -487,6 +520,14 @@ glm_hmm2_10$posterior_probs
 
 Me parece que este chunk no se debe hacer con tantos sujetos
 ```{r}
+rand_10_sub_trials <- data_trials |>
+  filter(subject %in% rand_10_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, response, intercept, signed_contrast, trial)
+
 ggplot() +
   geom_line(data = glm_hmm2_10$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
@@ -495,6 +536,8 @@ ggplot() +
 
 Dos estados con diversas condiciones iniciales:
 ```{r}
+rand_10_sub_trials <- select(rand_10_sub_trials, session, response, intercept, signed_contrast)
+
 glm_hmm2_10 <- rand_10_sub_trials %>% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
@@ -543,6 +586,14 @@ glm_hmm3_10$posterior_probs
 
 Me parece que este chunk no se debe hacer con tantos sujetos
 ```{r}
+rand_10_sub_trials <- data_trials |>
+  filter(subject %in% rand_10_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, response, intercept, signed_contrast, trial)
+
 ggplot() +
   geom_line(data = glm_hmm3_10$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
@@ -551,6 +602,8 @@ ggplot() +
 
 Dos estados con diversas condiciones iniciales:
 ```{r}
+rand_10_sub_trials <- select(rand_10_sub_trials, session, response, intercept, signed_contrast)
+
 glm_hmm3_10 <- rand_10_sub_trials %>% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
@@ -738,6 +791,14 @@ glm_hmm2_30$posterior_probs
 
 Me parece que este chunk no se debe hacer con tantos sujetos
 ```{r}
+rand_30_sub_trials <- data_trials |>
+  filter(subject %in% rand_30_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, response, intercept, signed_contrast, trial)
+
 ggplot() +
   geom_line(data = glm_hmm2_30$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
@@ -746,6 +807,8 @@ ggplot() +
 
 Dos estados con diversas condiciones iniciales:
 ```{r}
+rand_30_sub_trials <- select(rand_30_sub_trials, session, response, intercept, signed_contrast)
+
 glm_hmm2_30 <- rand_30_sub_trials %>% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
@@ -794,14 +857,24 @@ glm_hmm3_30$posterior_probs
 
 Me parece que este chunk no se debe hacer con tantos sujetos
 ```{r}
+rand_30_sub_trials <- data_trials |>
+  filter(subject %in% rand_30_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, response, intercept, signed_contrast, trial)
+
 ggplot() +
   geom_line(data = glm_hmm3_30$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
   geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = correct), shape = "|")
 ```
 
-Dos estados con diversas condiciones iniciales:
+Tres estados con diversas condiciones iniciales:
 ```{r}
+rand_30_sub_trials <- select(rand_30_sub_trials, session, response, intercept, signed_contrast)
+
 glm_hmm3_30 <- rand_30_sub_trials %>% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
