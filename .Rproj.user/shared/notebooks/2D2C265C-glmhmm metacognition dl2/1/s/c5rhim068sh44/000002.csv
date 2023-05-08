@@ -1,9 +1,0 @@
-"0","```r
-rand_10_sub_sb <- data_trials |>
-  filter(subject %in% rand_10_sub) |>
-  mutate(session = 1, 
-         intercept = 1, 
-         signed_contrast = dot_diff) |> 
-  ungroup() |> 
-  select(session, serial_bias, intercept, signed_contrast)
-```"

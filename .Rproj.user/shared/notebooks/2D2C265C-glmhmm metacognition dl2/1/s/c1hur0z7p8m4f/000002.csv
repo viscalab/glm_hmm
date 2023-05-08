@@ -1,6 +1,0 @@
-"0","```r
-ggplot() +
-  geom_line(data = glm_hmm3_s01_sb$posterior_probs, 
-            aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = \"|\")
-```"

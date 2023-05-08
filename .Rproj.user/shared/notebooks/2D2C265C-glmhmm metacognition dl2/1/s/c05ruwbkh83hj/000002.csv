@@ -1,9 +1,0 @@
-"0","```r
-# create objects for variables from task performance data
-id<-matrix(0,length(taskData$analyseddata),1) # subject id
-age<-matrix(0,length(taskData$analyseddata),1)
-gender<-matrix(0,length(taskData$analyseddata),1)
-accuracy<-matrix(0,length(taskData$analyseddata),1) # accuracy
-mRatio<-matrix(0,length(taskData$analyseddata),1)   # metacognitive efficiency
-confMean<-matrix(0,length(taskData$analyseddata),1) # mean confidence
-```"

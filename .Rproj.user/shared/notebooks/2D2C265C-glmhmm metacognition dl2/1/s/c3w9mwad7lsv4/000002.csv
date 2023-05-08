@@ -1,5 +1,0 @@
-"0","```r
-psycho_3_30 |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line()
-```"

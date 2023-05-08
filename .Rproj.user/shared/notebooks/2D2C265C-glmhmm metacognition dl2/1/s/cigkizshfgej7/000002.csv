@@ -1,5 +1,0 @@
-"0","```r
-glm_hmm3_30 <- rand_30_sub_trials %>% 
-  glm_hmm_r(.num_states = 3, .seeds = 1:20)
-glm_hmm3_30
-```"

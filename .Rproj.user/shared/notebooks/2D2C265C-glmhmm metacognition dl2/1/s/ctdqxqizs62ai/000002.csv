@@ -1,5 +1,0 @@
-"0","```r
-glm_hmm2_10_sb <- rand_10_sub_sb %>% 
-  glm_hmm_r(.num_states = 2)
-glm_hmm2_10_sb
-```"

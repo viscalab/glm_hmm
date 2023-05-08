@@ -1,6 +1,0 @@
-"0","```r
-psycho_2_10_sb |> 
-  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
-  geom_line() + 
-  ylim(0, 1)
-```"

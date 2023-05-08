@@ -1,6 +1,0 @@
-"0","```r
-glm_hmm3_10_sb <- rand_10_sub_sb %>% 
-  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
-
-glm_hmm3_10_sb
-```"
