@@ -1,0 +1,4 @@
+"0","library(reticulate)"
+"0","use_condaenv(""glmhmm"")"
+"0",""
+"0","source_python(""python/glm_hmm.py"")"

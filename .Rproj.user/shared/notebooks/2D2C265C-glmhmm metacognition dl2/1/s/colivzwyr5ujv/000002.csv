@@ -1,0 +1,5 @@
+"0","```r
+qnData = readMat(\"rahnev/data/ME_phase2_excludqnadata_all.mat\") # load questionnaire data
+```"
+"1","Warning: cannot open file 'rahnev/data/ME_phase2_excludqnadata_all.mat': No such file or directoryError in file(con, open = \"rb\") : cannot open the connection
+"

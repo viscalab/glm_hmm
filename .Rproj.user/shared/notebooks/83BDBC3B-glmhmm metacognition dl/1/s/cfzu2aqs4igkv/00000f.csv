@@ -1,0 +1,4 @@
+"0","ggplot() +"
+"0","  geom_line(data = glm_hmm2_s01$posterior_probs, "
+"0","            aes(x = trial, y = p, color = state)) +"
+"0","  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = correct), shape = ""|"")"

@@ -1,0 +1,13 @@
+"0","```r
+rand_10_sub <- unique(data_trials$subject)
+rand_10_sub <- rand_10_sub |>
+  sample(10)
+
+rand_10_sub_trials <- data_trials |>
+  filter(subject %in% rand_10_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, correct, intercept, signed_contrast)
+```"

@@ -1,0 +1,8 @@
+"0","```r
+glm_hmm2_10_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```"

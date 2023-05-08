@@ -1,0 +1,3 @@
+"0","data_trials <- read_csv(""data_Rouault_2018_Expt1.csv"") "
+"2","Error: 'data_Rouault_2018_Expt1.csv' does not exist in current working directory ('/Users/daniellinares/Dropbox/viscalab/glm_hmm').
+"

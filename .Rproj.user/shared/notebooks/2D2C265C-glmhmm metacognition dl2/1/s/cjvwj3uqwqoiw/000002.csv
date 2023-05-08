@@ -1,0 +1,5 @@
+"0","```r
+glm_hmm2_10 <- rand_10_sub_trials %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20)
+glm_hmm2_10
+```"

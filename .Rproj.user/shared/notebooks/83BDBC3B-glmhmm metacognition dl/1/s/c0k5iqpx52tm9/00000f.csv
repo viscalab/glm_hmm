@@ -1,0 +1,4 @@
+"0","psycho_2_s01 |> "
+"0","  ggplot(aes(x = signed_contrast, y = prop, color = state)) + "
+"0","  geom_line() + "
+"0","  ylim(0, 1)"

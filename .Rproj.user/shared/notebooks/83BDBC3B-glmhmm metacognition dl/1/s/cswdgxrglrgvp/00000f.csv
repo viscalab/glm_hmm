@@ -1,0 +1,19 @@
+"0","glm_hmm2_s01 <- s01_trials %>% "
+"0","  glm_hmm_r(.num_states = 2)"
+"2","Warning: [38;5;232mThere was 1 warning in `mutate()`.[39m
+[38;5;232m[36mℹ[38;5;232m In argument: `value = map(value, as_tibble)`.
+[36mℹ[38;5;232m In row 0.[39m
+Caused by warning:
+[33m![39m [38;5;232mThere was 1 warning in `mutate()`.[39m
+[38;5;232m[36mℹ[38;5;232m In argument: `value = map(value, as_tibble)`.[39m
+Caused by warning:
+[38;5;232m[33m![38;5;232m The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is
+  omitted as of tibble 2.0.0.
+[36mℹ[38;5;232m Using compatibility `.name_repair`.
+[36mℹ[38;5;232m The deprecated feature was likely used in the [34mpurrr[38;5;232m package.
+  Please report the issue at [3m[34m<]8;;https://github.com/tidyverse/purrr/issueshttps://github.com/tidyverse/purrr/issues]8;;>[38;5;232m[23m.
+[90mThis warning is displayed once every 8 hours.[38;5;232m
+[90mCall `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.[38;5;232m[39m"
+"0","glm_hmm2_s01"
+"1","$model_matrix_with_session
+"

@@ -1,0 +1,5 @@
+"0","```r
+glm_hmm3_30_sb <- rand_30_sub_sb %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_30_sb
+```"

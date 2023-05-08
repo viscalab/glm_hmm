@@ -1,0 +1,13 @@
+"0","```r
+# extracting data from analysed data
+# loop over for all subjects
+for (i in 1:length(taskData$analyseddata))
+{
+  id[i]=taskData$analyseddata[[i]][[1]][,,1]$data[1,4]
+  age[i] =taskData$analyseddata[[i]][[1]][,,1]$data[1,2]
+  gender[i]=taskData$analyseddata[[i]][[1]][,,1]$data[1,3]
+  confMean[i] = mean(taskData$analyseddata[[i]][[1]][,,1]$data[,9])
+  accuracy[i] = mean(taskData$analyseddata[[i]][[1]][,,1]$data[,6])
+  mRatio[i] = taskData$analyseddata[[i]][[1]][,,1]$mratio
+}
+```"

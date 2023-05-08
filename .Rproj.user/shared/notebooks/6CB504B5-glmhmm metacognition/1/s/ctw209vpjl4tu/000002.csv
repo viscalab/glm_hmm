@@ -1,0 +1,4 @@
+"0","```r
+# set gender as factor (male or female)
+gender <- factor(gender)
+```"

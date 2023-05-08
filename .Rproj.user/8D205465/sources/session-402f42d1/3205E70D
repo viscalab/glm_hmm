@@ -1,0 +1,27 @@
+{
+    "id": "3205E70D",
+    "path": "~/Dropbox/viscalab/glm_hmm/glmhmm metacognition dl2.Rmd",
+    "project_path": "glmhmm metacognition dl2.Rmd",
+    "type": "r_markdown",
+    "hash": "1419802973",
+    "contents": "",
+    "dirty": true,
+    "created": 1683210335723.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "chunk_output_type": "inline",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "44,10",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1683545018,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1683545020680,
+    "read_only": false,
+    "read_only_alternatives": []
+}

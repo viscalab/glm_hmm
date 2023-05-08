@@ -1,0 +1,5 @@
+"0","```r
+psycho_3_s01_sb <- glm_hmm3_s01_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```"

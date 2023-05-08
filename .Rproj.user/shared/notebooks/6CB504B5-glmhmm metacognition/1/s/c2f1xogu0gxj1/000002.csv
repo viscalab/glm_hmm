@@ -1,0 +1,14 @@
+"0","```r
+# create objects for variables from task questionnaire data
+qnid<-matrix(0,length(qnData$allqna),1) # subject id
+zung<-matrix(0,length(qnData$allqna),1)
+anxiety<-matrix(0,length(qnData$allqna),1)
+ocir<-matrix(0,length(qnData$allqna),1)
+leb<-matrix(0,length(qnData$allqna),1)
+iq<-matrix(0,length(qnData$allqna),1)
+bis<-matrix(0,length(qnData$allqna),1)
+schizo<-matrix(0,length(qnData$allqna),1)
+eat<-matrix(0,length(qnData$allqna),1)
+apathy<-matrix(0,length(qnData$allqna),1)
+alcohol<-matrix(0,length(qnData$allqna),1)
+```"

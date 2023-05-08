@@ -1,0 +1,7 @@
+"0","# create objects for variables from task performance data"
+"0","id<-matrix(0,length(taskData$analyseddata),1) # subject id"
+"0","age<-matrix(0,length(taskData$analyseddata),1)"
+"0","gender<-matrix(0,length(taskData$analyseddata),1)"
+"0","accuracy<-matrix(0,length(taskData$analyseddata),1) # accuracy"
+"0","mRatio<-matrix(0,length(taskData$analyseddata),1)   # metacognitive efficiency"
+"0","confMean<-matrix(0,length(taskData$analyseddata),1) # mean confidence"
