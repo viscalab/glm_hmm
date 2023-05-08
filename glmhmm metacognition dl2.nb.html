@@ -1764,19 +1764,22 @@ source_python(&quot;python/glm_hmm.py&quot;)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBudW1weS5yYW5kb20gYXMgbnByXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5pbXBvcnQgc3NtIFxuI2Zyb20gc3NtLnV0aWwgaW1wb3J0IGZpbmRfcGVybXV0YXRpb25cbmBgYCJ9 -->
-<pre class="python"><code>import numpy as np
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgcHl0aG9uXG5yZXRpY3VsYXRlOjpyZXBsX3B5dGhvbigpXG5pbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBudW1weS5yYW5kb20gYXMgbnByXG5pbXBvcnQgbWF0cGxvdGxpYi5weXBsb3QgYXMgcGx0XG5pbXBvcnQgc3NtIFxuI2Zyb20gc3NtLnV0aWwgaW1wb3J0IGZpbmRfcGVybXV0YXRpb25cblxuYGBgIn0= -->
+<pre class="python"><code>reticulate::repl_python()
+import numpy as np
 import numpy.random as npr
 import matplotlib.pyplot as plt
 import ssm 
-#from ssm.util import find_permutation</code></pre>
+#from ssm.util import find_permutation
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGJyb29tKVxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoUi5tYXRsYWIpXG5cbmxpc3QuZmlsZXMoXCJSXCIsIGZ1bGwubmFtZXMgPSBUUlVFKSB8PiBcbiAgd2Fsayhzb3VyY2UpXG5cbmNyZWF0ZV9wc3ljaG9tZXRyaWMgPC0gZnVuY3Rpb24oLnZhbHVlKSB7XG4gIHRpYmJsZShzaWduZWRfY29udHJhc3QgPSBzZXEoLTEsIDEsIC4wMSkpIHw+IFxuICAgIG11dGF0ZShwcm9wID0gZ2xtX2xvZ2lzdGljX2Z1bihzaWduZWRfY29udHJhc3QsIC52YWx1ZSkpXG59XG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXVpdFxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KGJyb29tKVxubGlicmFyeShkcGx5cilcbmxpYnJhcnkoUi5tYXRsYWIpXG5cbmxpc3QuZmlsZXMoXCJSXCIsIGZ1bGwubmFtZXMgPSBUUlVFKSB8PiBcbiAgd2Fsayhzb3VyY2UpXG5cbmNyZWF0ZV9wc3ljaG9tZXRyaWMgPC0gZnVuY3Rpb24oLnZhbHVlKSB7XG4gIHRpYmJsZShzaWduZWRfY29udHJhc3QgPSBzZXEoLTEsIDEsIC4wMSkpIHw+IFxuICAgIG11dGF0ZShwcm9wID0gZ2xtX2xvZ2lzdGljX2Z1bihzaWduZWRfY29udHJhc3QsIC52YWx1ZSkpXG59XG5gYGAifQ== -->
+<pre class="r"><code>quit
+library(tidyverse)
 library(broom)
 library(dplyr)
 library(R.matlab)
@@ -1813,26 +1816,12 @@ wrong, 7=maybe correct, 9=probably correct, 11=certainly correct)</li>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV90cmlhbHMgPC0gcmVhZF9jc3YoXCJkYXRhX1JvdWF1bHRfMjAxOF9FeHB0MS5jc3ZcIikgXG5jb2xuYW1lcyhkYXRhX3RyaWFscylbMV0gPSBcInN1YmplY3RcIlxuY29sbmFtZXMoZGF0YV90cmlhbHMpWzJdID0gXCJzdGltdWx1c1wiXG5jb2xuYW1lcyhkYXRhX3RyaWFscylbM10gPSBcInJlc3BvbnNlXCJcbmNvbG5hbWVzKGRhdGFfdHJpYWxzKVs0XSA9IFwiY29uZmlkZW5jZVwiXG5jb2xuYW1lcyhkYXRhX3RyaWFscylbNV0gPSBcIlJUXCJcbmNvbG5hbWVzKGRhdGFfdHJpYWxzKVs2XSA9IFwiZG90X2RpZmZcIlxuY29sbmFtZXMoZGF0YV90cmlhbHMpWzddID0gXCJjb3JyZWN0XCJcblxuZGF0YV90cmlhbHMgPC0gZGF0YV90cmlhbHMgfD5cbiAgZ3JvdXBfYnkoc3ViamVjdCkgfD5cbiAgbXV0YXRlKHRyaWFsID0gcm93X251bWJlcigpKSB8PlxuICB1bmdyb3VwKClcbiAgXG5kYXRhX3RyaWFscyA8LSBkYXRhX3RyaWFscyB8PlxuICBtdXRhdGUoc2VyaWFsX2JpYXMgPSBpZl9lbHNlKCFpcy5uYShsYWcocmVzcG9uc2UpKSAmIHJlc3BvbnNlICE9IGxhZyhzdGltdWx1cykgJiBjb3JyZWN0ID09IDAsIDEsIDApKVxuXG5kYXRhX3RyaWFsc1xuYGBgIn0= -->
-<pre class="r"><code>data_trials &lt;- read_csv(&quot;data_Rouault_2018_Expt1.csv&quot;) 
-colnames(data_trials)[1] = &quot;subject&quot;
-colnames(data_trials)[2] = &quot;stimulus&quot;
-colnames(data_trials)[3] = &quot;response&quot;
-colnames(data_trials)[4] = &quot;confidence&quot;
-colnames(data_trials)[5] = &quot;RT&quot;
-colnames(data_trials)[6] = &quot;dot_diff&quot;
-colnames(data_trials)[7] = &quot;correct&quot;
-
-data_trials &lt;- data_trials |&gt;
-  group_by(subject) |&gt;
-  mutate(trial = row_number()) |&gt;
-  ungroup()
-  
-data_trials &lt;- data_trials |&gt;
-  mutate(serial_bias = if_else(!is.na(lag(response)) &amp; response != lag(stimulus) &amp; correct == 0, 1, 0))
-
-data_trials</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV90cmlhbHMgPC0gcmVhZF9jc3YoXCJkYXRhX1JvdWF1bHRfMjAxOF9FeHB0MS5jc3ZcIikgXG5gYGAifQ== -->
+<pre class="r"><code>data_trials &lt;- read_csv(&quot;data_Rouault_2018_Expt1.csv&quot;) </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6ICdkYXRhX1JvdWF1bHRfMjAxOF9FeHB0MS5jc3YnIGRvZXMgbm90IGV4aXN0IGluIGN1cnJlbnQgd29ya2luZyBkaXJlY3RvcnkgKCcvVXNlcnMvZGFuaWVsbGluYXJlcy9Ecm9wYm94L3Zpc2NhbGFiL2dsbV9obW0nKS5cbiJ9 -->
+<pre><code>Error: &#39;data_Rouault_2018_Expt1.csv&#39; does not exist in current working directory (&#39;/Users/daniellinares/Dropbox/viscalab/glm_hmm&#39;).</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <table>
@@ -1849,32 +1838,61 @@ escalas.</p>
 <p>No wntiendo qué es HDDM, a, t, v_inter, y v_delta.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucW5EYXRhID0gcmVhZE1hdChcInJhaG5ldi9kYXRhL01FX3BoYXNlMl9leGNsdWRxbmFkYXRhX2FsbC5tYXRcIikgIyBsb2FkIHF1ZXN0aW9ubmFpcmUgZGF0YVxudGFza0RhdGEgPSByZWFkTWF0KFwicmFobmV2L2RhdGEvTUVfcGhhc2UyX2V4Y2x1ZGFuYWx5c2VkZGF0X2FsbC5tYXRcIikgIyBsb2FkIHRhc2sgcGVyZm9ybWFuY2UgZGF0YVxuSERETSA9IHJlYWQuY3N2KCdyYWhuZXYvZGF0YS9zdWJqUGFyYW1zXzJrXzNjaGFpbi5jc3YnKSAjIGxvYWQgSERETSBkYXRhXG5IRERNcGFyYSA9IGRhdGEuZnJhbWUodChIRERNWzE6bnJvdyhIRERNKSwyOmxlbmd0aChIRERNKV0pKVxuY29sbmFtZXMoSERETXBhcmEpIDwtIGMoXCJhXCIsIFwidFwiLCBcInZfaW50ZXJcIiwgXCJ2X2RlbHRhXCIpXG5gYGAifQ== -->
-<pre class="r"><code>qnData = readMat(&quot;rahnev/data/ME_phase2_excludqnadata_all.mat&quot;) # load questionnaire data
-taskData = readMat(&quot;rahnev/data/ME_phase2_excludanalyseddat_all.mat&quot;) # load task performance data
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucW5EYXRhID0gcmVhZE1hdChcXHJhaG5ldi9kYXRhL01FX3BoYXNlMl9leGNsdWRxbmFkYXRhX2FsbC5tYXRcXCkgIyBsb2FkIHF1ZXN0aW9ubmFpcmUgZGF0YVxudGFza0RhdGEgPSByZWFkTWF0KFxccmFobmV2L2RhdGEvTUVfcGhhc2UyX2V4Y2x1ZGFuYWx5c2VkZGF0X2FsbC5tYXRcXCkgIyBsb2FkIHRhc2sgcGVyZm9ybWFuY2UgZGF0YVxuSERETSA9IHJlYWQuY3N2KCdyYWhuZXYvZGF0YS9zdWJqUGFyYW1zXzJrXzNjaGFpbi5jc3YnKSAjIGxvYWQgSERETSBkYXRhXG5IRERNcGFyYSA9IGRhdGEuZnJhbWUodChIRERNWzE6bnJvdyhIRERNKSwyOmxlbmd0aChIRERNKV0pKVxuY29sbmFtZXMoSERETXBhcmEpIDwtIGMoXFxhXFwsIFxcdFxcLCBcXHZfaW50ZXJcXCwgXFx2X2RlbHRhXFwpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+qnData = readMat(\rahnev/data/ME_phase2_excludqnadata_all.mat\) # load questionnaire data
+taskData = readMat(\rahnev/data/ME_phase2_excludanalyseddat_all.mat\) # load task performance data
 HDDM = read.csv(&#39;rahnev/data/subjParams_2k_3chain.csv&#39;) # load HDDM data
 HDDMpara = data.frame(t(HDDM[1:nrow(HDDM),2:length(HDDM)]))
-colnames(HDDMpara) &lt;- c(&quot;a&quot;, &quot;t&quot;, &quot;v_inter&quot;, &quot;v_delta&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgb2JqZWN0cyBmb3IgdmFyaWFibGVzIGZyb20gdGFzayBwZXJmb3JtYW5jZSBkYXRhXG5pZDwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBzdWJqZWN0IGlkXG5hZ2U8LW1hdHJpeCgwLGxlbmd0aCh0YXNrRGF0YSRhbmFseXNlZGRhdGEpLDEpXG5nZW5kZXI8LW1hdHJpeCgwLGxlbmd0aCh0YXNrRGF0YSRhbmFseXNlZGRhdGEpLDEpXG5hY2N1cmFjeTwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBhY2N1cmFjeVxubVJhdGlvPC1tYXRyaXgoMCxsZW5ndGgodGFza0RhdGEkYW5hbHlzZWRkYXRhKSwxKSAgICMgbWV0YWNvZ25pdGl2ZSBlZmZpY2llbmN5XG5jb25mTWVhbjwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBtZWFuIGNvbmZpZGVuY2VcbmBgYCJ9 -->
-<pre class="r"><code># create objects for variables from task performance data
+colnames(HDDMpara) &lt;- c(\a\, \t\, \v_inter\, \v_delta\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgb2JqZWN0cyBmb3IgdmFyaWFibGVzIGZyb20gdGFzayBwZXJmb3JtYW5jZSBkYXRhXG5pZDwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBzdWJqZWN0IGlkXG5hZ2U8LW1hdHJpeCgwLGxlbmd0aCh0YXNrRGF0YSRhbmFseXNlZGRhdGEpLDEpXG5nZW5kZXI8LW1hdHJpeCgwLGxlbmd0aCh0YXNrRGF0YSRhbmFseXNlZGRhdGEpLDEpXG5hY2N1cmFjeTwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBhY2N1cmFjeVxubVJhdGlvPC1tYXRyaXgoMCxsZW5ndGgodGFza0RhdGEkYW5hbHlzZWRkYXRhKSwxKSAgICMgbWV0YWNvZ25pdGl2ZSBlZmZpY2llbmN5XG5jb25mTWVhbjwtbWF0cml4KDAsbGVuZ3RoKHRhc2tEYXRhJGFuYWx5c2VkZGF0YSksMSkgIyBtZWFuIGNvbmZpZGVuY2VcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+# create objects for variables from task performance data
 id&lt;-matrix(0,length(taskData$analyseddata),1) # subject id
 age&lt;-matrix(0,length(taskData$analyseddata),1)
 gender&lt;-matrix(0,length(taskData$analyseddata),1)
 accuracy&lt;-matrix(0,length(taskData$analyseddata),1) # accuracy
 mRatio&lt;-matrix(0,length(taskData$analyseddata),1)   # metacognitive efficiency
 confMean&lt;-matrix(0,length(taskData$analyseddata),1) # mean confidence</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgb2JqZWN0cyBmb3IgdmFyaWFibGVzIGZyb20gdGFzayBxdWVzdGlvbm5haXJlIGRhdGFcbnFuaWQ8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKSAjIHN1YmplY3QgaWRcbnp1bmc8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuYW54aWV0eTwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5vY2lyPC1tYXRyaXgoMCxsZW5ndGgocW5EYXRhJGFsbHFuYSksMSlcbmxlYjwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5pcTwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5iaXM8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuc2NoaXpvPC1tYXRyaXgoMCxsZW5ndGgocW5EYXRhJGFsbHFuYSksMSlcbmVhdDwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5hcGF0aHk8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuYWxjb2hvbDwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5gYGAifQ== -->
-<pre class="r"><code># create objects for variables from task questionnaire data
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgb2JqZWN0cyBmb3IgdmFyaWFibGVzIGZyb20gdGFzayBxdWVzdGlvbm5haXJlIGRhdGFcbnFuaWQ8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKSAjIHN1YmplY3QgaWRcbnp1bmc8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuYW54aWV0eTwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5vY2lyPC1tYXRyaXgoMCxsZW5ndGgocW5EYXRhJGFsbHFuYSksMSlcbmxlYjwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5pcTwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5iaXM8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuc2NoaXpvPC1tYXRyaXgoMCxsZW5ndGgocW5EYXRhJGFsbHFuYSksMSlcbmVhdDwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5hcGF0aHk8LW1hdHJpeCgwLGxlbmd0aChxbkRhdGEkYWxscW5hKSwxKVxuYWxjb2hvbDwtbWF0cml4KDAsbGVuZ3RoKHFuRGF0YSRhbGxxbmEpLDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# create objects for variables from task questionnaire data
 qnid&lt;-matrix(0,length(qnData$allqna),1) # subject id
 zung&lt;-matrix(0,length(qnData$allqna),1)
 anxiety&lt;-matrix(0,length(qnData$allqna),1)
@@ -1886,13 +1904,27 @@ schizo&lt;-matrix(0,length(qnData$allqna),1)
 eat&lt;-matrix(0,length(qnData$allqna),1)
 apathy&lt;-matrix(0,length(qnData$allqna),1)
 alcohol&lt;-matrix(0,length(qnData$allqna),1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleHRyYWN0aW5nIGRhdGEgZnJvbSBhbGxxbmEgZGF0YSBmaWxlXG4jIGxvb3Agb3ZlciBmb3IgYWxsIHN1YmplY3RzXG5mb3IgKGkgaW4gMTpsZW5ndGgocW5EYXRhJGFsbHFuYSkpIFxue1xuICBxbmlkW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRpZFxuICB6dW5nW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSR6dW5nWywsMV0kc2NvcmUgI2ZpcnN0IGJyYWNrZXRzIGlzIHN1YmplY3QgbnVtYmVyXG4gIGFueGlldHlbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFueGlldHlbLCwxXSRzY29yZVxuICBvY2lyW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRvY2lyWywsMV0kc2NvcmVcbiAgbGViW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRsZWJbLCwxXSRzY29yZVxuICBpcVtpXSA9IHFuRGF0YSRhbGxxbmFbW2ldXVtbMV1dWywsMV0kaXFbLCwxXSRzY29yZVxuICBiaXNbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGJpc1ssLDFdJHNjb3JlWywsMV0kdG90YWxcbiAgc2NoaXpvW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRzY2hpem9bLCwxXSRzY29yZVssLDFdJHRvdGFsXG4gIGVhdFtpXSA9IHFuRGF0YSRhbGxxbmFbW2ldXVtbMV1dWywsMV0kZWF0WywsMV0kc2NvcmVbLCwxXSR0b3RhbFxuICBhcGF0aHlbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFwYXRoeVssLDFdJHNjb3JlXG4gIGFsY29ob2xbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFsY29ob2xbLCwxXSRzY29yZVxufVxuYGBgIn0= -->
-<pre class="r"><code># extracting data from allqna data file
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBleHRyYWN0aW5nIGRhdGEgZnJvbSBhbGxxbmEgZGF0YSBmaWxlXG4jIGxvb3Agb3ZlciBmb3IgYWxsIHN1YmplY3RzXG5mb3IgKGkgaW4gMTpsZW5ndGgocW5EYXRhJGFsbHFuYSkpIFxue1xuICBxbmlkW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRpZFxuICB6dW5nW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSR6dW5nWywsMV0kc2NvcmUgI2ZpcnN0IGJyYWNrZXRzIGlzIHN1YmplY3QgbnVtYmVyXG4gIGFueGlldHlbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFueGlldHlbLCwxXSRzY29yZVxuICBvY2lyW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRvY2lyWywsMV0kc2NvcmVcbiAgbGViW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRsZWJbLCwxXSRzY29yZVxuICBpcVtpXSA9IHFuRGF0YSRhbGxxbmFbW2ldXVtbMV1dWywsMV0kaXFbLCwxXSRzY29yZVxuICBiaXNbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGJpc1ssLDFdJHNjb3JlWywsMV0kdG90YWxcbiAgc2NoaXpvW2ldID0gcW5EYXRhJGFsbHFuYVtbaV1dW1sxXV1bLCwxXSRzY2hpem9bLCwxXSRzY29yZVssLDFdJHRvdGFsXG4gIGVhdFtpXSA9IHFuRGF0YSRhbGxxbmFbW2ldXVtbMV1dWywsMV0kZWF0WywsMV0kc2NvcmVbLCwxXSR0b3RhbFxuICBhcGF0aHlbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFwYXRoeVssLDFdJHNjb3JlXG4gIGFsY29ob2xbaV0gPSBxbkRhdGEkYWxscW5hW1tpXV1bWzFdXVssLDFdJGFsY29ob2xbLCwxXSRzY29yZVxufVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+# extracting data from allqna data file
 # loop over for all subjects
 for (i in 1:length(qnData$allqna)) 
 {
@@ -1908,13 +1940,27 @@ for (i in 1:length(qnData$allqna))
   apathy[i] = qnData$allqna[[i]][[1]][,,1]$apathy[,,1]$score
   alcohol[i] = qnData$allqna[[i]][[1]][,,1]$alcohol[,,1]$score
 }</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBleHRyYWN0aW5nIGRhdGEgZnJvbSBhbmFseXNlZCBkYXRhXG4jIGxvb3Agb3ZlciBmb3IgYWxsIHN1YmplY3RzXG5mb3IgKGkgaW4gMTpsZW5ndGgodGFza0RhdGEkYW5hbHlzZWRkYXRhKSlcbntcbiAgaWRbaV09dGFza0RhdGEkYW5hbHlzZWRkYXRhW1tpXV1bWzFdXVssLDFdJGRhdGFbMSw0XVxuICBhZ2VbaV0gPXRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWzEsMl1cbiAgZ2VuZGVyW2ldPXRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWzEsM11cbiAgY29uZk1lYW5baV0gPSBtZWFuKHRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWyw5XSlcbiAgYWNjdXJhY3lbaV0gPSBtZWFuKHRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWyw2XSlcbiAgbVJhdGlvW2ldID0gdGFza0RhdGEkYW5hbHlzZWRkYXRhW1tpXV1bWzFdXVssLDFdJG1yYXRpb1xufVxuYGBgIn0= -->
-<pre class="r"><code># extracting data from analysed data
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBleHRyYWN0aW5nIGRhdGEgZnJvbSBhbmFseXNlZCBkYXRhXG4jIGxvb3Agb3ZlciBmb3IgYWxsIHN1YmplY3RzXG5mb3IgKGkgaW4gMTpsZW5ndGgodGFza0RhdGEkYW5hbHlzZWRkYXRhKSlcbntcbiAgaWRbaV09dGFza0RhdGEkYW5hbHlzZWRkYXRhW1tpXV1bWzFdXVssLDFdJGRhdGFbMSw0XVxuICBhZ2VbaV0gPXRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWzEsMl1cbiAgZ2VuZGVyW2ldPXRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWzEsM11cbiAgY29uZk1lYW5baV0gPSBtZWFuKHRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWyw5XSlcbiAgYWNjdXJhY3lbaV0gPSBtZWFuKHRhc2tEYXRhJGFuYWx5c2VkZGF0YVtbaV1dW1sxXV1bLCwxXSRkYXRhWyw2XSlcbiAgbVJhdGlvW2ldID0gdGFza0RhdGEkYW5hbHlzZWRkYXRhW1tpXV1bWzFdXVssLDFdJG1yYXRpb1xufVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+# extracting data from analysed data
 # loop over for all subjects
 for (i in 1:length(taskData$analyseddata))
 {
@@ -1925,35 +1971,77 @@ for (i in 1:length(taskData$analyseddata))
   accuracy[i] = mean(taskData$analyseddata[[i]][[1]][,,1]$data[,6])
   mRatio[i] = taskData$analyseddata[[i]][[1]][,,1]$mratio
 }</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzZXQgZ2VuZGVyIGFzIGZhY3RvciAobWFsZSBvciBmZW1hbGUpXG5nZW5kZXIgPC0gZmFjdG9yKGdlbmRlcilcbmBgYCJ9 -->
-<pre class="r"><code># set gender as factor (male or female)
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBzZXQgZ2VuZGVyIGFzIGZhY3RvciAobWFsZSBvciBmZW1hbGUpXG5nZW5kZXIgPC0gZmFjdG9yKGdlbmRlcilcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+# set gender as factor (male or female)
 gender &lt;- factor(gender)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgZGF0YWZyYW1lIHRvIHN0b3JlIHF1ZXN0aW9ubmFpcmUgZGF0YVxucW5GcmFtZSA9IGRhdGEuZnJhbWUocW5pZCwgYW54aWV0eSwgZWF0LCBhcGF0aHksIGFsY29ob2wsIHp1bmcsIG9jaXIsIGxlYiwgaXEsIGJpcywgc2NoaXpvKVxuIyBjcmVhdGUgZGF0YWZyYW1lIHRvIHN0b3JlIHRhc2sgcGVyZm9ybWFuY2UgZGF0YVxudGFza0ZyYW1lID0gZGF0YS5mcmFtZShpZCxhZ2UsZ2VuZGVyLGNvbmZNZWFuLGFjY3VyYWN5LG1SYXRpbylcbiMgbWVyZ2UgYWxsIGRhdGEgdG9nZXRoZXIgaW50byBvbmUgZGF0YSBmcmFtZVxuYWxsRGF0YSA9bWVyZ2UodGFza0ZyYW1lLCBxbkZyYW1lLGJ5Lng9YyhcImlkXCIpLCBieS55PWMoXCJxbmlkXCIpKVxuIyBqb2luIEhERE0gdmFyaWFibGVzIHRvIGV4aXN0aW5nIGRhdGFmcmFtZVxuYWxsRGF0YT1kYXRhLmZyYW1lKGFsbERhdGEsSERETXBhcmEpXG5gYGAifQ== -->
-<pre class="r"><code># create dataframe to store questionnaire data
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgZGF0YWZyYW1lIHRvIHN0b3JlIHF1ZXN0aW9ubmFpcmUgZGF0YVxucW5GcmFtZSA9IGRhdGEuZnJhbWUocW5pZCwgYW54aWV0eSwgZWF0LCBhcGF0aHksIGFsY29ob2wsIHp1bmcsIG9jaXIsIGxlYiwgaXEsIGJpcywgc2NoaXpvKVxuIyBjcmVhdGUgZGF0YWZyYW1lIHRvIHN0b3JlIHRhc2sgcGVyZm9ybWFuY2UgZGF0YVxudGFza0ZyYW1lID0gZGF0YS5mcmFtZShpZCxhZ2UsZ2VuZGVyLGNvbmZNZWFuLGFjY3VyYWN5LG1SYXRpbylcbiMgbWVyZ2UgYWxsIGRhdGEgdG9nZXRoZXIgaW50byBvbmUgZGF0YSBmcmFtZVxuYWxsRGF0YSA9bWVyZ2UodGFza0ZyYW1lLCBxbkZyYW1lLGJ5Lng9YyhcXGlkXFwpLCBieS55PWMoXFxxbmlkXFwpKVxuIyBqb2luIEhERE0gdmFyaWFibGVzIHRvIGV4aXN0aW5nIGRhdGFmcmFtZVxuYWxsRGF0YT1kYXRhLmZyYW1lKGFsbERhdGEsSERETXBhcmEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# create dataframe to store questionnaire data
 qnFrame = data.frame(qnid, anxiety, eat, apathy, alcohol, zung, ocir, leb, iq, bis, schizo)
 # create dataframe to store task performance data
 taskFrame = data.frame(id,age,gender,confMean,accuracy,mRatio)
 # merge all data together into one data frame
-allData =merge(taskFrame, qnFrame,by.x=c(&quot;id&quot;), by.y=c(&quot;qnid&quot;))
+allData =merge(taskFrame, qnFrame,by.x=c(\id\), by.y=c(\qnid\))
 # join HDDM variables to existing dataframe
 allData=data.frame(allData,HDDMpara)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3NjYWxpbmcgdGhlIHRhc2sgcGVyZm9ybWFuY2VcbmFsbERhdGEkYWdlLnNjID0gc2NhbGUoYWxsRGF0YSRhZ2UpXG5hbGxEYXRhJGNvbmZNZWFuLnNjID0gc2NhbGUoYWxsRGF0YSRjb25mTWVhbilcbmFsbERhdGEkYWNjdXJhY3kuc2MgPSBzY2FsZShhbGxEYXRhJGFjY3VyYWN5KVxuXG4jIHNjYWxpbmcgdGhlIHF1ZXN0aW9ubmFpcmUgc2NvcmVzXG5hbGxEYXRhJHp1bmcuc2MgPSBzY2FsZShsb2coYWxsRGF0YSR6dW5nKSlcbmFsbERhdGEkYW54aWV0eS5zYyA9IHNjYWxlKGxvZyhhbGxEYXRhJGFueGlldHkpKVxuYWxsRGF0YSRvY2lyLnNjID0gc2NhbGUobG9nKGFsbERhdGEkb2NpcisxKSlcbmFsbERhdGEkbGViLnNjID0gc2NhbGUobG9nKGFsbERhdGEkbGViKzEpKVxuYWxsRGF0YSRpcS5zYyA9IHNjYWxlKGFsbERhdGEkaXEpXG5hbGxEYXRhJHNjaGl6by5zYyA9IHNjYWxlKGxvZyhhbGxEYXRhJHNjaGl6bysxKSlcbmFsbERhdGEkYmlzLnNjID0gc2NhbGUobG9nKGFsbERhdGEkYmlzKSlcbmFsbERhdGEkZWF0LnNjID0gc2NhbGUobG9nKGFsbERhdGEkZWF0KzEpKVxuYWxsRGF0YSRhcGF0aHkuc2MgPSBzY2FsZShsb2coYWxsRGF0YSRhcGF0aHkpKVxuYWxsRGF0YSRhbGNvaG9sLnNjID0gc2NhbGUobG9nKGFsbERhdGEkYWxjb2hvbCsxKSlcblxuIyBzY2FsZSBIRERNIHZhcmlhYmxlc1xuYWxsRGF0YSRhLnNjID0gc2NhbGUoYWxsRGF0YSRhKVxuYWxsRGF0YSR0LnNjID0gc2NhbGUoYWxsRGF0YSR0KVxuYWxsRGF0YSR2X2ludGVyLnNjID0gc2NhbGUoYWxsRGF0YSR2X2ludGVyKVxuYWxsRGF0YSR2X2RlbHRhLnNjID0gc2NhbGUoYWxsRGF0YSR2X2RlbHRhKVxuXG4jZXhjbHVkZSBuZWdhdGl2ZSBtUmF0aW9zIGFuZCBzY2FsZSB0aGUgbVJhdGlvcyBvZiB0aGUgc3ViamVjdHMgbGVmdFxubXJFeGNsdWRlZERhdGEgPC0gYWxsRGF0YVthbGxEYXRhJG1SYXRpbz4wLF0gXG5tckV4Y2x1ZGVkRGF0YSRtUmF0aW8uc2MgPSBzY2FsZShsb2cobXJFeGNsdWRlZERhdGEkbVJhdGlvKSlcbmBgYCJ9 -->
-<pre class="r"><code>#scaling the task performance
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI3NjYWxpbmcgdGhlIHRhc2sgcGVyZm9ybWFuY2VcbmFsbERhdGEkYWdlLnNjID0gc2NhbGUoYWxsRGF0YSRhZ2UpXG5hbGxEYXRhJGNvbmZNZWFuLnNjID0gc2NhbGUoYWxsRGF0YSRjb25mTWVhbilcbmFsbERhdGEkYWNjdXJhY3kuc2MgPSBzY2FsZShhbGxEYXRhJGFjY3VyYWN5KVxuXG4jIHNjYWxpbmcgdGhlIHF1ZXN0aW9ubmFpcmUgc2NvcmVzXG5hbGxEYXRhJHp1bmcuc2MgPSBzY2FsZShsb2coYWxsRGF0YSR6dW5nKSlcbmFsbERhdGEkYW54aWV0eS5zYyA9IHNjYWxlKGxvZyhhbGxEYXRhJGFueGlldHkpKVxuYWxsRGF0YSRvY2lyLnNjID0gc2NhbGUobG9nKGFsbERhdGEkb2NpcisxKSlcbmFsbERhdGEkbGViLnNjID0gc2NhbGUobG9nKGFsbERhdGEkbGViKzEpKVxuYWxsRGF0YSRpcS5zYyA9IHNjYWxlKGFsbERhdGEkaXEpXG5hbGxEYXRhJHNjaGl6by5zYyA9IHNjYWxlKGxvZyhhbGxEYXRhJHNjaGl6bysxKSlcbmFsbERhdGEkYmlzLnNjID0gc2NhbGUobG9nKGFsbERhdGEkYmlzKSlcbmFsbERhdGEkZWF0LnNjID0gc2NhbGUobG9nKGFsbERhdGEkZWF0KzEpKVxuYWxsRGF0YSRhcGF0aHkuc2MgPSBzY2FsZShsb2coYWxsRGF0YSRhcGF0aHkpKVxuYWxsRGF0YSRhbGNvaG9sLnNjID0gc2NhbGUobG9nKGFsbERhdGEkYWxjb2hvbCsxKSlcblxuIyBzY2FsZSBIRERNIHZhcmlhYmxlc1xuYWxsRGF0YSRhLnNjID0gc2NhbGUoYWxsRGF0YSRhKVxuYWxsRGF0YSR0LnNjID0gc2NhbGUoYWxsRGF0YSR0KVxuYWxsRGF0YSR2X2ludGVyLnNjID0gc2NhbGUoYWxsRGF0YSR2X2ludGVyKVxuYWxsRGF0YSR2X2RlbHRhLnNjID0gc2NhbGUoYWxsRGF0YSR2X2RlbHRhKVxuXG4jZXhjbHVkZSBuZWdhdGl2ZSBtUmF0aW9zIGFuZCBzY2FsZSB0aGUgbVJhdGlvcyBvZiB0aGUgc3ViamVjdHMgbGVmdFxubXJFeGNsdWRlZERhdGEgPC0gYWxsRGF0YVthbGxEYXRhJG1SYXRpbz4wLF0gXG5tckV4Y2x1ZGVkRGF0YSRtUmF0aW8uc2MgPSBzY2FsZShsb2cobXJFeGNsdWRlZERhdGEkbVJhdGlvKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+#scaling the task performance
 allData$age.sc = scale(allData$age)
 allData$confMean.sc = scale(allData$confMean)
 allData$accuracy.sc = scale(allData$accuracy)
@@ -1979,20 +2067,32 @@ allData$v_delta.sc = scale(allData$v_delta)
 #exclude negative mRatios and scale the mRatios of the subjects left
 mrExcludedData &lt;- allData[allData$mRatio&gt;0,] 
 mrExcludedData$mRatio.sc = scale(log(mrExcludedData$mRatio))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">s01 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuczAxX3RyaWFscyA8LSBkYXRhX3RyaWFscyAlPiVcbiAgZmlsdGVyKHN1YmplY3QgPT0gMSkgJT4lXG4gIG11dGF0ZShzZXNzaW9uID0gMSwgXG4gICAgICAgICBpbnRlcmNlcHQgPSAxLCBcbiAgICAgICAgIHNpZ25lZF9jb250cmFzdCA9IGRvdF9kaWZmKSAlPiUgXG4gIHVuZ3JvdXAoKSAlPiUgXG4gIHNlbGVjdChzZXNzaW9uLCBjb3JyZWN0LCBpbnRlcmNlcHQsIHNpZ25lZF9jb250cmFzdClcblxuczAxX3RyaWFsc1xuYGBgIn0= -->
-<pre class="r"><code>s01_trials &lt;- data_trials %&gt;%
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+--------------------------------------------------------------------------------
+s01 2 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuczAxX3RyaWFscyA8LSBkYXRhX3RyaWFscyAlPiVcbiAgZmlsdGVyKHN1YmplY3QgPT0gMSkgJT4lXG4gIG11dGF0ZShzZXNzaW9uID0gMSwgXG4gICAgICAgICBpbnRlcmNlcHQgPSAxLCBcbiAgICAgICAgIHNpZ25lZF9jb250cmFzdCA9IGRvdF9kaWZmKSAlPiUgXG4gIHVuZ3JvdXAoKSAlPiUgXG4gIHNlbGVjdChzZXNzaW9uLCBjb3JyZWN0LCBpbnRlcmNlcHQsIHNpZ25lZF9jb250cmFzdClcblxuczAxX3RyaWFsc1xuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+s01_trials &lt;- data_trials %&gt;%
   filter(subject == 1) %&gt;%
   mutate(session = 1, 
          intercept = 1, 
@@ -2001,176 +2101,393 @@ mrExcludedData$mRatio.sc = scale(log(mrExcludedData$mRatio))</code></pre>
   select(session, correct, intercept, signed_contrast)
 
 s01_trials</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfczAxXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01 &lt;- s01_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfczAxXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01 &lt;- s01_trials %&gt;% 
   glm_hmm_r(.num_states = 2)
 glm_hmm2_s01</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxJHJlY292ZXJlZF93ZWlnaHRzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfczAxIDwtIGdsbV9obW0yX3MwMSRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_2_s01 &lt;- glm_hmm2_s01$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxJHJlY292ZXJlZF93ZWlnaHRzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfczAxIDwtIGdsbV9obW0yX3MwMSRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_2_s01 &lt;- glm_hmm2_s01$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfczAxIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_2_s01 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfczAxIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_2_s01 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxJHBvc3Rlcmlvcl9wcm9ic1xuYGBgIn0= -->
-<pre class="r"><code>glm_hmm2_s01$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yX3MwMSRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFwifFwiKVxuYGBgIn0= -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxJHBvc3Rlcmlvcl9wcm9ic1xuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+glm_hmm2_s01$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yX3MwMSRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFxcfFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_s01$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfczAxXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01 &lt;- s01_trials %&gt;% 
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfczAxXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01 &lt;- s01_trials %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_s01</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">s01 3 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzLCAuc2VlZHMgPSAxOjIwKVxuZ2xtX2htbTNfczAxXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_s01 &lt;- s01_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+---------------------------------------------------------------
+s01 3 states
+---------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzLCAuc2VlZHMgPSAxOjIwKVxuZ2xtX2htbTNfczAxXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_s01 &lt;- s01_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20)
 glm_hmm3_s01</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfczAxIDwtIGdsbV9obW0zX3MwMSRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_3_s01 &lt;- glm_hmm3_s01$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfczAxIDwtIGdsbV9obW0zX3MwMSRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_3_s01 &lt;- glm_hmm3_s01$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé por qué no aparece la línea correspondiente al estado S1;
-también parece que no hay diferencia entre estados.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfczAxIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_3_s01 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé por qué no aparece la línea correspondiente al estado S1; también parece que no hay diferencia entre estados.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfczAxIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_3_s01 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zX3MwMSRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IHMwMV90cmlhbHMsIGFlcyh4ID0gdHJpYWwsIHkgPSBjb3JyZWN0KSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zX3MwMSRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IHMwMV90cmlhbHMsIGFlcyh4ID0gdHJpYWwsIHkgPSBjb3JyZWN0KSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_s01$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = s01_trials, aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Tres estados con diversas condiciones iniciales</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfczAxXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_s01 &lt;- s01_trials %&gt;% 
+  geom_point(data = s01_trials, aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Tres estados con diversas condiciones iniciales
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxIDwtIHMwMV90cmlhbHMgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfczAxXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_s01 &lt;- s01_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_s01</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_s01 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_s01 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Aparece el siguiente error: Error in UseMethod(“logLik”) : no
-applicable method for ‘logLik’ applied to an object of class
-“c(‘tbl_df’, ‘tbl’, ‘data.frame’)” Creo que esto es por que alguna de
-las funciones de glm_hmm convierte al modelo en df.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQUlDKGdsbV9obW0yX3MwMSwgZ2xtX2htbTNfczAxKVxuYGBgIn0= -->
-<pre class="r"><code>AIC(glm_hmm2_s01, glm_hmm3_s01)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">s01 serial bias 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuczAxX3NiIDwtIGRhdGFfdHJpYWxzICU+JVxuICBmaWx0ZXIoc3ViamVjdCA9PSAxKSAlPiVcbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpICU+JSBcbiAgdW5ncm91cCgpICU+JSBcbiAgc2VsZWN0KHNlc3Npb24sIHNlcmlhbF9iaWFzLCBpbnRlcmNlcHQsIHNpZ25lZF9jb250cmFzdCwgdHJpYWwpXG5cbnMwMV9zYlxuYGBgIn0= -->
-<pre class="r"><code>s01_sb &lt;- data_trials %&gt;%
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+Aparece el siguiente error:
+Error in UseMethod(&quot;logLik&quot;) : 
+  no applicable method for &#39;logLik&#39; applied to an object of class &quot;c(&#39;tbl_df&#39;, &#39;tbl&#39;, &#39;data.frame&#39;)&quot;
+Creo que esto es por que alguna de las funciones de glm_hmm convierte al modelo en df.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuQUlDKGdsbV9obW0yX3MwMSwgZ2xtX2htbTNfczAxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+AIC(glm_hmm2_s01, glm_hmm3_s01)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+---------------------------------------------------------------------
+s01 serial bias 2 states
+---------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuczAxX3NiIDwtIGRhdGFfdHJpYWxzICU+JVxuICBmaWx0ZXIoc3ViamVjdCA9PSAxKSAlPiVcbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpICU+JSBcbiAgdW5ncm91cCgpICU+JSBcbiAgc2VsZWN0KHNlc3Npb24sIHNlcmlhbF9iaWFzLCBpbnRlcmNlcHQsIHNpZ25lZF9jb250cmFzdCwgdHJpYWwpXG5cbnMwMV9zYlxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+s01_sb &lt;- data_trials %&gt;%
   filter(subject == 1) %&gt;%
   mutate(session = 1, 
          intercept = 1, 
@@ -2179,195 +2496,435 @@ las funciones de glm_hmm convierte al modelo en df.</p>
   select(session, serial_bias, intercept, signed_contrast, trial)
 
 s01_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDIpXG5nbG1faG1tMl9zMDFfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_s01_sb &lt;- s01_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDIpXG5nbG1faG1tMl9zMDFfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_s01_sb &lt;- s01_sb %&gt;% 
   glm_hmm_r(.num_states = 2)
 glm_hmm2_s01_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxX3NiJHJlY292ZXJlZF93ZWlnaHRzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfczAxX3NiIDwtIGdsbV9obW0yX3MwMV9zYiRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_2_s01_sb &lt;- glm_hmm2_s01_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxX3NiJHJlY292ZXJlZF93ZWlnaHRzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfczAxX3NiIDwtIGdsbV9obW0yX3MwMV9zYiRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_2_s01_sb &lt;- glm_hmm2_s01_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé si interpretar esto como que no hay diferencia entre dos
-estados o que estos son independientes del contraste mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfczAxX3NiIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_2_s01_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfczAxX3NiIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_2_s01_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxX3NiJHBvc3Rlcmlvcl9wcm9ic1xuYGBgIn0= -->
-<pre class="r"><code>glm_hmm2_s01_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Parece que se va cambiando de estado conforme más trial se
-realiza.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yX3MwMV9zYiRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxX3NiJHBvc3Rlcmlvcl9wcm9ic1xuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+glm_hmm2_s01_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Parece que se va cambiando de estado conforme más trial se realiza.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yX3MwMV9zYiRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_s01_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDIsIC5zZWVkcyA9IDE6MjAsIC5hbGxfc2VlZHMgPSBUUlVFKVxuXG5nbG1faG1tMl9zMDFfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_s01_sb &lt;- s01_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDIsIC5zZWVkcyA9IDE6MjAsIC5hbGxfc2VlZHMgPSBUUlVFKVxuXG5nbG1faG1tMl9zMDFfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_s01_sb &lt;- s01_sb %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_s01_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfczAxX3NiICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_s01_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfczAxX3NiICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_s01_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">s01 serial bias 3 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDMpXG5nbG1faG1tM19zMDFfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_s01_sb &lt;- s01_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+--------------------------------------------------------------------------------
+s01 serial bias 3 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDMpXG5nbG1faG1tM19zMDFfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_s01_sb &lt;- s01_sb %&gt;% 
   glm_hmm_r(.num_states = 3)
 glm_hmm3_s01_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxX3NiJHJlY292ZXJlZF93ZWlnaHRzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_s01_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfczAxX3NiIDwtIGdsbV9obW0zX3MwMV9zYiRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_3_s01_sb &lt;- glm_hmm3_s01_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxX3NiJHJlY292ZXJlZF93ZWlnaHRzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_s01_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfczAxX3NiIDwtIGdsbV9obW0zX3MwMV9zYiRyZWNvdmVyZWRfd2VpZ2h0cyB8PiBcbiAgZ3JvdXBfYnkoc3RhdGUpIHw+IFxuICByZWZyYW1lKGNyZWF0ZV9wc3ljaG9tZXRyaWModmFsdWUpKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_3_s01_sb &lt;- glm_hmm3_s01_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Parece ser que estos estados son independientes del contraste
-mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfczAxX3NiIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_3_s01_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Parece ser que estos estados son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfczAxX3NiIHw+IFxuICBnZ3Bsb3QoYWVzKHggPSBzaWduZWRfY29udHJhc3QsIHkgPSBwcm9wLCBjb2xvciA9IHN0YXRlKSkgKyBcbiAgZ2VvbV9saW5lKCkgKyBcbiAgeWxpbSgwLCAxKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_3_s01_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxX3NiJHBvc3Rlcmlvcl9wcm9ic1xuYGBgIn0= -->
-<pre class="r"><code>glm_hmm3_s01_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Parece ser que los estados son dependientes de la cantidad de trials
-realizada y que S1 y S2 en este modelo corresponden al S1 del modelo de
-dos estados.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zX3MwMV9zYiRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxX3NiJHBvc3Rlcmlvcl9wcm9ic1xuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+glm_hmm3_s01_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Parece ser que los estados son dependientes de la cantidad de trials realizada y que S1 y S2 en este modelo corresponden al S1 del modelo de dos estados.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zX3MwMV9zYiRwb3N0ZXJpb3JfcHJvYnMsIFxuICAgICAgICAgICAgYWVzKHggPSB0cmlhbCwgeSA9IHAsIGNvbG9yID0gc3RhdGUpKSArXG4gIGdlb21fcG9pbnQoZGF0YSA9IGZpbHRlcihkYXRhX3RyaWFscywgc3ViamVjdCA9PSAxKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_s01_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Tres estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDMsIC5zZWVkcyA9IDE6MjAsIC5hbGxfc2VlZHMgPSBUUlVFKVxuXG5nbG1faG1tM19zMDFfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_s01_sb &lt;- s01_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Tres estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxX3NiIDwtIHMwMV9zYiAlPiUgXG4gIGdsbV9obW1fcigubnVtX3N0YXRlcyA9IDMsIC5zZWVkcyA9IDE6MjAsIC5hbGxfc2VlZHMgPSBUUlVFKVxuXG5nbG1faG1tM19zMDFfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_s01_sb &lt;- s01_sb %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_s01_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfczAxX3NiICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_s01_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfczAxX3NiICU+JSBcbiAgYXJyYW5nZShsb2dfbGlrKSAlPiUgXG4gIG11dGF0ZShvcmRlcmVkX3NlZWQgPSByb3dfbnVtYmVyKCkpICU+JSBcbiAgZ2dwbG90KGFlcyhvcmRlcmVkX3NlZWQsIGxvZ19saWspKSArXG4gIGdlb21fbGluZSgpICtcbiAgZ2VvbV9wb2ludCgpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_s01_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>EL mismo error ocurre aquí; creo que aquí es porque la función
-glm_hmm_r lo convirtión en lista (línea 10 de esta función).</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQUlDKGdsbV9obW0yX3MwMV9zYiwgZ2xtX2htbTNfczAxX3NiKVxuYGBgIn0= -->
-<pre class="r"><code>AIC(glm_hmm2_s01_sb, glm_hmm3_s01_sb)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">10 subjects sample 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmFuZF8xMF9zdWIgPC0gdW5pcXVlKGRhdGFfdHJpYWxzJHN1YmplY3QpXG5yYW5kXzEwX3N1YiA8LSByYW5kXzEwX3N1YiB8PlxuICBzYW1wbGUoMTApXG5cbnJhbmRfMTBfc3ViX3RyaWFscyA8LSBkYXRhX3RyaWFscyB8PlxuICBmaWx0ZXIoc3ViamVjdCAlaW4lIHJhbmRfMTBfc3ViKSB8PlxuICBtdXRhdGUoc2Vzc2lvbiA9IDEsIFxuICAgICAgICAgaW50ZXJjZXB0ID0gMSwgXG4gICAgICAgICBzaWduZWRfY29udHJhc3QgPSBkb3RfZGlmZikgfD4gXG4gIHVuZ3JvdXAoKSB8PiBcbiAgc2VsZWN0KHNlc3Npb24sIGNvcnJlY3QsIGludGVyY2VwdCwgc2lnbmVkX2NvbnRyYXN0KVxuYGBgIn0= -->
-<pre class="r"><code>rand_10_sub &lt;- unique(data_trials$subject)
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+EL mismo error ocurre aquí; creo que aquí es porque la función glm_hmm_r lo convirtión en lista (línea 10 de esta función).
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuQUlDKGdsbV9obW0yX3MwMV9zYiwgZ2xtX2htbTNfczAxX3NiKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+AIC(glm_hmm2_s01_sb, glm_hmm3_s01_sb)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+---------------------------------------------------------------------
+10 subjects sample 2 states
+---------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucmFuZF8xMF9zdWIgPC0gdW5pcXVlKGRhdGFfdHJpYWxzJHN1YmplY3QpXG5yYW5kXzEwX3N1YiA8LSByYW5kXzEwX3N1YiB8PlxuICBzYW1wbGUoMTApXG5cbnJhbmRfMTBfc3ViX3RyaWFscyA8LSBkYXRhX3RyaWFscyB8PlxuICBmaWx0ZXIoc3ViamVjdCAlaW4lIHJhbmRfMTBfc3ViKSB8PlxuICBtdXRhdGUoc2Vzc2lvbiA9IDEsIFxuICAgICAgICAgaW50ZXJjZXB0ID0gMSwgXG4gICAgICAgICBzaWduZWRfY29udHJhc3QgPSBkb3RfZGlmZikgfD4gXG4gIHVuZ3JvdXAoKSB8PiBcbiAgc2VsZWN0KHNlc3Npb24sIGNvcnJlY3QsIGludGVyY2VwdCwgc2lnbmVkX2NvbnRyYXN0KVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+rand_10_sub &lt;- unique(data_trials$subject)
 rand_10_sub &lt;- rand_10_sub |&gt;
   sample(10)
 
@@ -2378,360 +2935,824 @@ rand_10_sub_trials &lt;- data_trials |&gt;
          signed_contrast = dot_diff) |&gt; 
   ungroup() |&gt; 
   select(session, correct, intercept, signed_contrast)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMClcbmdsbV9obW0yXzEwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_10 &lt;- rand_10_sub_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMClcbmdsbV9obW0yXzEwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_10 &lt;- rand_10_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20)
 glm_hmm2_10</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMTAgPC0gZ2xtX2htbTJfMTAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_2_10 &lt;- glm_hmm2_10$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMTAgPC0gZ2xtX2htbTJfMTAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_2_10 &lt;- glm_hmm2_10$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMTAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_2_10 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMTAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_2_10 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTAkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_10$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Me parece que este chunk no se debe hacer con tantos sujetos</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzEwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFwifFwiKVxuYGBgIn0= -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTAkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_10$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Me parece que este chunk no se debe hacer con tantos sujetos
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzEwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFxcfFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_10$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0yXzEwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_10 &lt;- rand_10_sub_trials %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0yXzEwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_10 &lt;- rand_10_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_10</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">10 subjects sample 3 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMClcbmdsbV9obW0zXzEwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_10 &lt;- rand_10_sub_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+---------------------------------------------------------------------
+10 subjects sample 3 states
+---------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMClcbmdsbV9obW0zXzEwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_10 &lt;- rand_10_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20)
 glm_hmm3_10</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMTAgPC0gZ2xtX2htbTNfMTAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_3_10 &lt;- glm_hmm3_10$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMTAgPC0gZ2xtX2htbTNfMTAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_3_10 &lt;- glm_hmm3_10$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMTAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_3_10 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMTAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_3_10 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTAkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_10$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Me parece que este chunk no se debe hacer con tantos sujetos</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzEwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFwifFwiKVxuYGBgIn0= -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTAkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_10$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Me parece que este chunk no se debe hacer con tantos sujetos
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzEwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFxcfFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_10$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0zXzEwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_10 &lt;- rand_10_sub_trials %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTAgPC0gcmFuZF8xMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0zXzEwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_10 &lt;- rand_10_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_10</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">10 subjects serial bias 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmFuZF8xMF9zdWJfc2IgPC0gZGF0YV90cmlhbHMgfD5cbiAgZmlsdGVyKHN1YmplY3QgJWluJSByYW5kXzEwX3N1YikgfD5cbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpIHw+IFxuICB1bmdyb3VwKCkgfD4gXG4gIHNlbGVjdChzZXNzaW9uLCBzZXJpYWxfYmlhcywgaW50ZXJjZXB0LCBzaWduZWRfY29udHJhc3QpXG5gYGAifQ== -->
-<pre class="r"><code>rand_10_sub_sb &lt;- data_trials |&gt;
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+--------------------------------------------------------------------------------
+10 subjects serial bias 2 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucmFuZF8xMF9zdWJfc2IgPC0gZGF0YV90cmlhbHMgfD5cbiAgZmlsdGVyKHN1YmplY3QgJWluJSByYW5kXzEwX3N1YikgfD5cbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpIHw+IFxuICB1bmdyb3VwKCkgfD4gXG4gIHNlbGVjdChzZXNzaW9uLCBzZXJpYWxfYmlhcywgaW50ZXJjZXB0LCBzaWduZWRfY29udHJhc3QpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+rand_10_sub_sb &lt;- data_trials |&gt;
   filter(subject %in% rand_10_sub) |&gt;
   mutate(session = 1, 
          intercept = 1, 
          signed_contrast = dot_diff) |&gt; 
   ungroup() |&gt; 
   select(session, serial_bias, intercept, signed_contrast)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfMTBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10_sb &lt;- rand_10_sub_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfMTBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10_sb &lt;- rand_10_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2)
 glm_hmm2_10_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMTBfc2IgPC0gZ2xtX2htbTJfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_2_10_sb &lt;- glm_hmm2_10_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMTBfc2IgPC0gZ2xtX2htbTJfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_2_10_sb &lt;- glm_hmm2_10_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé si interpretar esto como que no hay diferencia entre dos
-estados o que estos son independientes del contraste mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMTBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_2_10_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMTBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_2_10_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_10_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzEwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_10_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzEwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_10_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfMTBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10_sb &lt;- rand_10_sub_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfMTBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10_sb &lt;- rand_10_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_10_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMTBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_10_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMTBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_10_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">10 subjects serial bias 3 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzKVxuZ2xtX2htbTNfMTBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10_sb &lt;- rand_10_sub_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+--------------------------------------------------------------------------------
+10 subjects serial bias 3 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzKVxuZ2xtX2htbTNfMTBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10_sb &lt;- rand_10_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 3)
 glm_hmm3_10_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMTBfc2IgPC0gZ2xtX2htbTNfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_3_10_sb &lt;- glm_hmm3_10_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMTBfc2IgPC0gZ2xtX2htbTNfMTBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_3_10_sb &lt;- glm_hmm3_10_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé si interpretar esto como que no hay diferencia entre dos
-estados o que estos son independientes del contraste mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMTBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_3_10_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMTBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_3_10_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_10_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzEwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_10_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzEwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8xMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_10_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfMTBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10_sb &lt;- rand_10_sub_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTBfc2IgPC0gcmFuZF8xMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfMTBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10_sb &lt;- rand_10_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_10_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMTBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_10_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMTBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_10_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">30 subjects sample 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmFuZF8zMF9zdWIgPC0gdW5pcXVlKGRhdGFfdHJpYWxzJHN1YmplY3QpXG5yYW5kXzMwX3N1YiA8LSByYW5kXzMwX3N1YiB8PlxuICBzYW1wbGUoMzApXG5cbnJhbmRfMzBfc3ViX3RyaWFscyA8LSBkYXRhX3RyaWFscyB8PlxuICBmaWx0ZXIoc3ViamVjdCAlaW4lIHJhbmRfMzBfc3ViKSB8PlxuICBtdXRhdGUoc2Vzc2lvbiA9IDEsIFxuICAgICAgICAgaW50ZXJjZXB0ID0gMSwgXG4gICAgICAgICBzaWduZWRfY29udHJhc3QgPSBkb3RfZGlmZikgfD4gXG4gIHVuZ3JvdXAoKSB8PiBcbiAgc2VsZWN0KHNlc3Npb24sIGNvcnJlY3QsIGludGVyY2VwdCwgc2lnbmVkX2NvbnRyYXN0KVxuYGBgIn0= -->
-<pre class="r"><code>rand_30_sub &lt;- unique(data_trials$subject)
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+---------------------------------------------------------------------
+30 subjects sample 2 states
+---------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucmFuZF8zMF9zdWIgPC0gdW5pcXVlKGRhdGFfdHJpYWxzJHN1YmplY3QpXG5yYW5kXzMwX3N1YiA8LSByYW5kXzMwX3N1YiB8PlxuICBzYW1wbGUoMzApXG5cbnJhbmRfMzBfc3ViX3RyaWFscyA8LSBkYXRhX3RyaWFscyB8PlxuICBmaWx0ZXIoc3ViamVjdCAlaW4lIHJhbmRfMzBfc3ViKSB8PlxuICBtdXRhdGUoc2Vzc2lvbiA9IDEsIFxuICAgICAgICAgaW50ZXJjZXB0ID0gMSwgXG4gICAgICAgICBzaWduZWRfY29udHJhc3QgPSBkb3RfZGlmZikgfD4gXG4gIHVuZ3JvdXAoKSB8PiBcbiAgc2VsZWN0KHNlc3Npb24sIGNvcnJlY3QsIGludGVyY2VwdCwgc2lnbmVkX2NvbnRyYXN0KVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+rand_30_sub &lt;- unique(data_trials$subject)
 rand_30_sub &lt;- rand_30_sub |&gt;
   sample(30)
 
@@ -2742,347 +3763,800 @@ rand_30_sub_trials &lt;- data_trials |&gt;
          signed_contrast = dot_diff) |&gt; 
   ungroup() |&gt; 
   select(session, correct, intercept, signed_contrast)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMClcbmdsbV9obW0yXzMwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_30 &lt;- rand_30_sub_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMClcbmdsbV9obW0yXzMwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_30 &lt;- rand_30_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20)
 glm_hmm2_30</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMzAgPC0gZ2xtX2htbTJfMzAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_2_30 &lt;- glm_hmm2_30$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMzAgPC0gZ2xtX2htbTJfMzAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_2_30 &lt;- glm_hmm2_30$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Lo mismo aquí.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMzAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_2_30 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Lo mismo aquí.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMzAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_2_30 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzAkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_30$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Me parece que este chunk no se debe hacer con tantos sujetos</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzMwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFwifFwiKVxuYGBgIn0= -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzAkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_30$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Me parece que este chunk no se debe hacer con tantos sujetos
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzMwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFxcfFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_30$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0yXzMwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_30 &lt;- rand_30_sub_trials %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMiwgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0yXzMwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_30 &lt;- rand_30_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_30</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">30 subjects sample 3 states</td>
-</tr>
-</tbody>
-</table>
-<p>No logro correr esto</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMClcbmdsbV9obW0zXzMwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_30 &lt;- rand_30_sub_trials %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+---------------------------------------------------------------------
+30 subjects sample 3 states
+---------------------------------------------------------------------
+
+No logro correr esto
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMClcbmdsbV9obW0zXzMwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_30 &lt;- rand_30_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20)
 glm_hmm3_30</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMzAgPC0gZ2xtX2htbTNfMzAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_3_30 &lt;- glm_hmm3_30$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzAkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMzAgPC0gZ2xtX2htbTNfMzAkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_3_30 &lt;- glm_hmm3_30$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMzAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKVxuYGBgIn0= -->
-<pre class="r"><code>psycho_3_30 |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMzAgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+psycho_3_30 |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzAkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_30$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Me parece que este chunk no se debe hacer con tantos sujetos</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzMwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFwifFwiKVxuYGBgIn0= -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzAkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_30$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Me parece que este chunk no se debe hacer con tantos sujetos
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzMwJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IGNvcnJlY3QpLCBzaGFwZSA9IFxcfFxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_30$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = correct), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0zXzMwXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_30 &lt;- rand_30_sub_trials %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = correct), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzAgPC0gcmFuZF8zMF9zdWJfdHJpYWxzICU+JSBcbiAgZ2xtX2htbV9yKC5udW1fc3RhdGVzID0gMywgLnNlZWRzID0gMToyMCwgLmFsbF9zZWVkcyA9IFRSVUUpXG5cbmdsbV9obW0zXzMwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_30 &lt;- rand_30_sub_trials %&gt;% 
   glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_30</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30 %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzAgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30 %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">30 subjects serial bias 2 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmFuZF8zMF9zdWJfc2IgPC0gZGF0YV90cmlhbHMgfD5cbiAgZmlsdGVyKHN1YmplY3QgJWluJSByYW5kXzMwX3N1YikgfD5cbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpIHw+IFxuICB1bmdyb3VwKCkgfD4gXG4gIHNlbGVjdChzZXNzaW9uLCBzZXJpYWxfYmlhcywgaW50ZXJjZXB0LCBzaWduZWRfY29udHJhc3QpXG5gYGAifQ== -->
-<pre class="r"><code>rand_30_sub_sb &lt;- data_trials |&gt;
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+--------------------------------------------------------------------------------
+30 subjects serial bias 2 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucmFuZF8zMF9zdWJfc2IgPC0gZGF0YV90cmlhbHMgfD5cbiAgZmlsdGVyKHN1YmplY3QgJWluJSByYW5kXzMwX3N1YikgfD5cbiAgbXV0YXRlKHNlc3Npb24gPSAxLCBcbiAgICAgICAgIGludGVyY2VwdCA9IDEsIFxuICAgICAgICAgc2lnbmVkX2NvbnRyYXN0ID0gZG90X2RpZmYpIHw+IFxuICB1bmdyb3VwKCkgfD4gXG4gIHNlbGVjdChzZXNzaW9uLCBzZXJpYWxfYmlhcywgaW50ZXJjZXB0LCBzaWduZWRfY29udHJhc3QpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+rand_30_sub_sb &lt;- data_trials |&gt;
   filter(subject %in% rand_30_sub) |&gt;
   mutate(session = 1, 
          intercept = 1, 
          signed_contrast = dot_diff) |&gt; 
   ungroup() |&gt; 
   select(session, serial_bias, intercept, signed_contrast)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfMzBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30_sb &lt;- rand_30_sub_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyKVxuZ2xtX2htbTJfMzBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30_sb &lt;- rand_30_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2)
 glm_hmm2_30_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMzBfc2IgPC0gZ2xtX2htbTJfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_2_30_sb &lt;- glm_hmm2_30_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMzBfc2IgPC0gZ2xtX2htbTJfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_2_30_sb &lt;- glm_hmm2_30_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé si interpretar esto como que no hay diferencia entre dos
-estados o que estos son independientes del contraste mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzJfMzBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_2_30_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzJfMzBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_2_30_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm2_30_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzMwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm2_30_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0yXzMwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm2_30_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfMzBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30_sb &lt;- rand_30_sub_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTJfMzBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30_sb &lt;- rand_30_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm2_30_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfMzBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm2_30_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTJfMzBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm2_30_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">30 subjects serial bias 3 states</td>
-</tr>
-</tbody>
-</table>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzKVxuZ2xtX2htbTNfMzBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30_sb &lt;- rand_30_sub_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+--------------------------------------------------------------------------------
+30 subjects serial bias 3 states
+--------------------------------------------------------------------------------
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAzKVxuZ2xtX2htbTNfMzBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30_sb &lt;- rand_30_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 3)
 glm_hmm3_30_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30_sb$recovered_weights</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMzBfc2IgPC0gZ2xtX2htbTNfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYCJ9 -->
-<pre class="r"><code>psycho_3_30_sb &lt;- glm_hmm3_30_sb$recovered_weights |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHNcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30_sb$recovered_weights</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMzBfc2IgPC0gZ2xtX2htbTNfMzBfc2IkcmVjb3ZlcmVkX3dlaWdodHMgfD4gXG4gIGdyb3VwX2J5KHN0YXRlKSB8PiBcbiAgcmVmcmFtZShjcmVhdGVfcHN5Y2hvbWV0cmljKHZhbHVlKSlcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+psycho_3_30_sb &lt;- glm_hmm3_30_sb$recovered_weights |&gt; 
   group_by(state) |&gt; 
   reframe(create_psychometric(value))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>No sé si interpretar esto como que no hay diferencia entre dos
-estados o que estos son independientes del contraste mostrado.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHN5Y2hvXzNfMzBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGAifQ== -->
-<pre class="r"><code>psycho_3_30_sb |&gt; 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucHN5Y2hvXzNfMzBfc2IgfD4gXG4gIGdncGxvdChhZXMoeCA9IHNpZ25lZF9jb250cmFzdCwgeSA9IHByb3AsIGNvbG9yID0gc3RhdGUpKSArIFxuICBnZW9tX2xpbmUoKSArIFxuICB5bGltKDAsIDEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+psycho_3_30_sb |&gt; 
   ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
   geom_line() + 
   ylim(0, 1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGAifQ== -->
-<pre class="r"><code>glm_hmm3_30_sb$posterior_probs</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzMwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcInxcIilcbmBgYCJ9 -->
-<pre class="r"><code>ggplot() +
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzBfc2IkcG9zdGVyaW9yX3Byb2JzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+glm_hmm3_30_sb$posterior_probs</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2dwbG90KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdsbV9obW0zXzMwX3NiJHBvc3Rlcmlvcl9wcm9icywgXG4gICAgICAgICAgICBhZXMoeCA9IHRyaWFsLCB5ID0gcCwgY29sb3IgPSBzdGF0ZSkpICtcbiAgZ2VvbV9wb2ludChkYXRhID0gZmlsdGVyKGRhdGFfdHJpYWxzLCBzdWJqZWN0ICVpbiUgcmFuZF8zMF9zdWJfdHJpYWxzKSwgYWVzKHggPSB0cmlhbCwgeSA9IHNlcmlhbF9iaWFzKSwgc2hhcGUgPSBcXHxcXClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+ggplot() +
   geom_line(data = glm_hmm3_30_sb$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = &quot;|&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Dos estados con diversas condiciones iniciales:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfMzBfc2JcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30_sb &lt;- rand_30_sub_sb %&gt;% 
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = \|\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Dos estados con diversas condiciones iniciales:
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzBfc2IgPC0gcmFuZF8zMF9zdWJfc2IgJT4lIFxuICBnbG1faG1tX3IoLm51bV9zdGF0ZXMgPSAyLCAuc2VlZHMgPSAxOjIwLCAuYWxsX3NlZWRzID0gVFJVRSlcblxuZ2xtX2htbTNfMzBfc2JcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30_sb &lt;- rand_30_sub_sb %&gt;% 
   glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
 
 glm_hmm3_30_sb</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTNfMzBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYCJ9 -->
-<pre class="r"><code>glm_hmm3_30_sb %&gt;% 
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZ2xtX2htbTNfMzBfc2IgJT4lIFxuICBhcnJhbmdlKGxvZ19saWspICU+JSBcbiAgbXV0YXRlKG9yZGVyZWRfc2VlZCA9IHJvd19udW1iZXIoKSkgJT4lIFxuICBnZ3Bsb3QoYWVzKG9yZGVyZWRfc2VlZCwgbG9nX2xpaykpICtcbiAgZ2VvbV9saW5lKCkgK1xuICBnZW9tX3BvaW50KClcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+glm_hmm3_30_sb %&gt;% 
   arrange(log_lik) %&gt;% 
   mutate(ordered_seed = row_number()) %&gt;% 
   ggplot(aes(ordered_seed, log_lik)) +
   geom_line() +
   geom_point()</code></pre>
+<p>```</p>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 

@@ -1,6 +1,0 @@
-"0","```r
-library(reticulate)
-use_condaenv(\"glmhmm\")
-
-source_python(\"python/glm_hmm.py\")
-```"
