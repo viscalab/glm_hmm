@@ -219,6 +219,8 @@ glm_hmm2_s01 <- s01_trials %>%
 glm_hmm2_s01
 ```
 
+
+
 ```{r}
 glm_hmm2_s01$recovered_weights
 ```
@@ -240,7 +242,7 @@ create_psychometric <- function(.value, min_signed_contrast, max_signed_contrast
 
 ```{r}
 ggplot() +
-  geom_line(data = psycho_2_s01, 
+  geom_line(data = psycho_2_s01,
             aes(x = dot_diff, y = prop, color = state)) +
   ylim(0, 1)
 ```
