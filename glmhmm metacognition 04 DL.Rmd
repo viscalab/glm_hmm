@@ -1,0 +1,1436 @@
+---
+title: "glmhmm metacognition"
+output: html_notebook
+---
+
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+#from ssm.util import find_permutation
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+----------------------------------------------------
+Download of data (Buno)
+----------------------------------------------------
+
+In experiment 2, a calibration procedure was added to
+maintain a constant level of performance both during the
+experiment and across participants
+
+- stimulus refers to which group of dots (right or left) has more of them (check; the quantity of trials with more dots either on the left or right group varies from subject to subject).
+- dot_diff is the difference of dots between stimuli (subject where asked which stimulus had more dots).
+- confidence is the confidence scale meassured with a 11-point probabilistic 
+rating scale (1=certainly wrong, 3=probably wrong, 5=maybe wrong, 7=maybe correct, 9=probably correct, 11=certainly correct)
+
+```{r}
+data_trials <- read_csv("data/data_Rouault_2018_Expt1.csv", show_col_types = FALSE) 
+data_trials <- rename(data_trials, subject = Subj_idx, stimulus = Stimulus, response = Response, confidence = Confidence, RT = RT_dec, dot_diff = DotDiff, correct = Accuracy)
+
+data_trials <- data_trials |>
+  group_by(subject) |>
+  mutate(trial = row_number()) |>
+  ungroup() |> 
+  mutate(stimulus = if_else(stimulus == 0, -1, 1), 
+         dot_diff = stimulus * dot_diff, 
+         prev_resp = lag(response), 
+         fing_err = if_else(confidence == 1, 1, 0)) |>
+  drop_na()
+  
+data_trials
+```
+
+
+---------------------------------------------------------------------
+General analysis
+--------------------------------------------------------------------
+
+
+Proportions of left (-1) and right (1) stimuli
+```{r}
+data_trials |> 
+  group_by(subject) |> 
+  count(stimulus) |>
+  group_by(subject) |> 
+  mutate(prop = n / sum(n)) |> 
+  select(-n) |> 
+  pivot_wider(names_from = stimulus, values_from = prop)
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+2S GENERAL
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+MEJOR LLAMAR A s01_trials ALGO QUE PONGA DESIGN MATRIX QUE ES LO QUE ES 
+
+```{r}
+s01_trials <- data_trials %>%
+  filter(subject == 1) %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) %>% 
+  ungroup() %>% 
+  select(session, response, intercept, dot_diff)
+
+s01_trials
+```
+
+```{r}
+s02_trials <- data_trials %>%
+  filter(subject == 2) %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) %>% 
+  ungroup() %>% 
+  select(session, response, intercept, dot_diff)
+
+s02_trials
+```
+
+---------------------------------------------------------------------
+s01 1S
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm2_s01_seeds <- s01_trials %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:40, .all_seeds = TRUE)
+
+glm_hmm2_s01_seeds
+```
+
+```{r}
+glm_hmm2_s01_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+```{r}
+glm_hmm2_s01 <- glm_hmm2_s01_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm2_s01
+```
+
+```{r}
+psycho_2_s01 <- glm_hmm2_s01$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+```{r}
+posterior_wins2_s01 <- glm_hmm2_s01$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins2_s01
+```
+
+
+```{r}
+averages_states2_s01 <- glm_hmm2_s01$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins2_s01, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+
+
+```{r}
+ggplot() + 
+  geom_point(data = averages_states2_S01, 
+             aes(dot_diff, prob, color = state)) + 
+  geom_line(data = psycho_2_s01,
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+
+```{r}
+s01_2_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm2_s01$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = response), shape = "|")
+
+s01_2_trials_plot
+```
+
+```{r}
+posterior_wins2_s01 |> 
+  ungroup() |> 
+  count(state)
+```
+
+MEJOR HACER FUNCIONES PARA EL PLOT 
+
+```{r}
+plotting_psycho_one_participant <- function(.fit) {
+  
+  posterior_wins <- .fit$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+  
+  averages <- .fit$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+  
+  psycho <- glm_hmm2_s01$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+  
+  ggplot() + 
+  geom_point(data = averages, 
+             aes(dot_diff, prob, color = state)) + 
+  geom_line(data = psycho,
+            aes(x = dot_diff, y = prop, color = state)) 
+}
+```
+
+```{r}
+plotting_psycho_one_participant(glm_hmm2_s01)
+```
+
+
+```{r}
+plotting_trials_one_participant <- function(.fit) {
+  
+  ggplot() +
+  geom_line(data = .fit$posterior_probs, 
+            aes(x = trial, y = p, color = state)) 
+}
+```
+
+Esto lo tienes que arreglar para que tambien plotee las respuestas como antes
+
+```{r}
+plotting_trials_one_participant(glm_hmm2_s01)
+```
+
+Necistas instalar cowplot:
+```{r}
+plot_grid(plotting_psycho_one_participant(glm_hmm2_s01), 
+          plotting_trials_one_participant(glm_hmm2_s01), 
+          rel_widths = c(.5, .5), 
+          labels = "AUTO")
+```
+
+```{r}
+plotting_one_participant <- function(.fit) {
+  plot_grid(plotting_psycho_one_participant(.fit), 
+          plotting_trials_one_participant(.fit), 
+          rel_widths = c(.5, .5), 
+          labels = "AUTO")
+}
+```
+
+```{r}
+plotting_one_participant(glm_hmm2_s01)
+```
+
+---------------------------------------------------------------------
+MUCHOS PARTICIPANTES
+---------------------------------------------------------------------
+
+
+Solo lo hago con 10 participantes porque tarda mucho. Después habra que hacerlo con todos
+
+```{r}
+design_matrix <- data_trials %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) %>% 
+  ungroup() %>% 
+  select(subject, session, response, intercept, dot_diff) |> 
+  filter(subject <= 10) # solo 10 participantes
+
+design_matrix
+```
+
+Esto tarda mucho porque hace muchos ajustes: 
+
+```{r}
+glm_hmm_all_seeds_2 <- design_matrix |> 
+  group_by(subject) |> 
+  nest() %>%
+  rowwise() %>%
+  mutate(fit = list(glm_hmm_r(data, 
+                              .num_states = 2, .seeds = 1:20,
+                              .all_seeds = TRUE)))
+```
+
+Como tarda tanto habra que usar save para guardar los resultados
+```{r}
+#save(glm_hmm2, file = "RData/glm_hmm_all_seeds_2.RData")
+```
+
+y load cuando quieras cargarlos: 
+
+```{r}
+#load("RData/glm_hmm_all_seeds_2.RData")
+```
+
+```{r}
+glm_hmm_extract_best <- function(.fits) {
+  .fits %>% 
+    filter(log_lik == max(log_lik)) %>% 
+    pluck("fit") %>% 
+    pluck(1)
+}
+
+```
+
+```{r}
+glm_hmm_2 <- glm_hmm_all_seeds_2 %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit)))
+```
+
+
+Los parametros estimados para cada sujeto
+
+```{r}
+glm_hmm_2 %>% 
+      select(-data) %>% 
+      unnest_wider(fit) %>% 
+      select(subject, recovered_weights) %>% 
+      unnest(recovered_weights)
+```
+```{r}
+liks_glm_hmm_2 <- glm_hmm_2 %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 2")
+```
+
+
+plotting
+
+```{r}
+plots_2 <- glm_hmm_2 %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit)))
+  
+plots_2_grid <- plot_grid(plotlist = plots_2$p, ncol = 2)
+  
+  file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_2_grid.pdf", 
+       plots_2_grid, width = 20, height = 20)
+```
+
+Habria que añadir el nombre del participante. Una solucion es que la función plotting_one_participant le pases (fit, subject) y 
+
+que uses un geom_text en el plot para que te ponga en algun sitio del grafico el número de participante. Puedes intentarlo y si no lo hablamos. 
+
+
+HASTA AQUI
+
+
+
+
+
+
+
+---------------------------------------------------------------------
+10 rand 2S
+---------------------------------------------------------------------
+
+
+```{r}
+rand_10_sub <- unique(data_trials$subject)
+rand_10_sub <- rand_10_sub |>
+  sample(10)
+
+rand_10_sub_trials <- data_trials |>
+  filter(subject %in% rand_10_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) |> 
+  ungroup() |> 
+  select(session, response, intercept, dot_diff)
+```
+
+```{r}
+glm_hmm2_10 <- rand_10_sub_trials %>% 
+  glm_hmm_r(.num_states = 2)
+glm_hmm2_10
+```
+
+```{r}
+glm_hmm2_10$recovered_weights
+```
+
+```{r}
+psycho_2_10 <- glm_hmm2_10$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+Esto ya aparece muy diferente al modelo de un sólo sujeto, creo que debe ser por la varianza intersujeto de los distintos estados que componen el estado de disengaged.
+```{r}
+psycho_2_10 |> 
+  ggplot(aes(x = dot_diff, y = prop, color = state)) +
+  geom_line() 
+```
+
+Predominancia:
+```{r}
+posterior_wins2_10 <- glm_hmm2_10$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins2_10
+```
+
+```{r}
+posterior_wins2_10 |> 
+  ungroup() |> 
+  count(state)
+```
+
+```{r}
+glm_hmm2_10$posterior_probs
+```
+
+No entiendo por qué aparecen tantos trails. Aquí también supongo que el S1 es dominante, porque en realidad está compuesto por varios estados distintos.
+```{r}
+rand_10_2_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm2_10$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub), aes(x = trial, y = response), shape = "|")
+
+rand_10_2_trials_plot
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+rand_10_sub_trials <- select(rand_10_sub_trials, session, response, intercept, dot_diff)
+
+glm_hmm2_10_seeds <- rand_10_sub_trials %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm2_10_seeds
+```
+
+```{r}
+glm_hmm2_10_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+Selección de mejor seed:
+```{r}
+glm_hmm2_10_best <- glm_hmm2_10_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm2_10_best
+```
+
+```{r}
+psycho_2_10_best <- glm_hmm2_10_best$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+El S1 parece estar muy sesgado a la izquierdo y el S2, ligeramente a la derecha.
+```{r}
+ggplot() +
+  geom_line(data = psycho_2_10_best, 
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+Modelo por proporciones:
+```{r}
+averages_states2_10 <- glm_hmm2_10_best$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins2_10, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+```{r}
+averages_states2_10 |>
+  ggplot(aes(dot_diff, prob, color = state)) + 
+  geom_point() + 
+  geom_line(data = psycho_2_10_best,
+            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+```
+
+
+---------------------------------------------------------------------
+30 rand 2S
+---------------------------------------------------------------------
+
+```{r}
+rand_30_sub <- unique(data_trials$subject)
+rand_30_sub <- rand_30_sub |>
+  sample(30)
+
+rand_30_sub_trials <- data_trials |>
+  filter(subject %in% rand_30_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) |> 
+  ungroup() |> 
+  select(session, correct, intercept, dot_diff)
+```
+
+```{r}
+glm_hmm2_30 <- rand_30_sub_trials %>% 
+  glm_hmm_r(.num_states = 2)
+glm_hmm2_30
+```
+
+```{r}
+glm_hmm2_30$recovered_weights
+```
+
+```{r}
+psycho_2_30 <- glm_hmm2_30$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+Aquí el estado S1 se parece más al disengaged.
+```{r}
+psycho_2_30 |> 
+  ggplot(aes(x = dot_diff, y = prop, color = state)) + 
+  geom_line() 
+```
+
+Predominancia:
+```{r}
+posterior_wins2_30 <- glm_hmm2_30$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins2_30
+```
+
+```{r}
+posterior_wins2_30 |> 
+  ungroup() |> 
+  count(state)
+```
+
+```{r}
+glm_hmm2_30$posterior_probs
+```
+
+```{r}
+rand_30_2_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm2_30$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub), aes(x = trial, y = response), shape = "|")
+
+rand_30_2_trials_plot
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+rand_30_sub_trials <- select(rand_30_sub_trials, session, response, intercept, dot_diff)
+
+glm_hmm2_30_seeds <- rand_30_sub_trials %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm2_30_seeds
+```
+
+```{r}
+glm_hmm2_30_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+Selección de mejor seed:
+```{r}
+glm_hmm2_30_best <- glm_hmm2_30_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm2_30_best
+```
+
+```{r}
+psycho_2_30_best <- glm_hmm2_30_best$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+```{r}
+ggplot() +
+  geom_line(data = psycho_2_30_best, 
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+Modelo por proporciones:
+```{r}
+averages_states2_30 <- glm_hmm2_30_best$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins2_30, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+```{r}
+averages_states2_30 |>
+  ggplot(aes(dot_diff, prob, color = state)) + 
+  geom_point() + 
+  geom_line(data = psycho_2_30_best,
+            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+3S GENERAL
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+s01 3S
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_s01 <- s01_trials %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_s01
+```
+
+```{r}
+psycho_3_s01 <- glm_hmm3_s01$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+Tanto el estado S1 como S3 parecen tener un bias a la derecha, pero puede que uno en realidad sea el win-stay. 
+```{r}
+psycho_3_s01 |> ggplot(aes(x = dot_diff, y = prop, color = state)) +
+  geom_line() 
+```
+
+Predominancia:
+```{r}
+posterior_wins3_s01 <- glm_hmm3_s01$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins3_s01
+```
+
+```{r}
+posterior_wins3_s01 |> 
+  ungroup() |> 
+  count(state)
+```
+
+```{r}
+s01_trials <- data_trials %>%
+  filter(subject == 1) %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) %>% 
+  ungroup() %>% 
+  select(session, response, intercept, dot_diff, trial)
+
+s01_3_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm3_s01$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = s01_trials, aes(x = trial, y = response), shape = "|")
+
+s01_3_trials_plot
+```
+
+Tres estados con diversas condiciones iniciales
+```{r}
+glm_hmm3_s01_seeds <- s01_trials %>% 
+  glm_hmm_r(.num_states = 3, .seeds = 1:40, .all_seeds = TRUE)
+
+glm_hmm3_s01_seeds
+```
+
+No sé si esto sea normal
+```{r}
+glm_hmm3_s01_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+```{r}
+glm_hmm3_s01_best <- glm_hmm3_s01_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm3_s01_best
+```
+
+```{r}
+psycho_3_s01_best <- glm_hmm3_s01_best$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+Esto también lo veo muy extraño
+```{r}
+ggplot() +
+  geom_line(data = psycho_3_s01_best, 
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+Modelo por proporciones:
+```{r}
+averages_states3_S01 <- glm_hmm3_s01_best$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins3_s01, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+```{r}
+averages_states3_S01 |>
+  ggplot(aes(dot_diff, prob, color = state)) + 
+  geom_point() + 
+  geom_line(data = psycho_3_s01_best,
+            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+```
+
+
+---------------------------------------------------------------------
+10 rand 3S
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_10 <- rand_10_sub_trials %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_10
+```
+
+```{r}
+glm_hmm3_10$recovered_weights
+```
+
+```{r}
+psycho_3_10 <- glm_hmm3_10$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+No sé si S2 y S3 correpondan a bias left y right.
+```{r}
+psycho_3_10 |> 
+  ggplot(aes(x = dot_diff, y = prop, color = state)) + 
+  geom_line() 
+```
+
+Predominancia:
+```{r}
+posterior_wins3_10 <- glm_hmm3_10$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins3_10
+```
+
+```{r}
+posterior_wins3_10 |> 
+  ungroup() |> 
+  count(state)
+```
+
+```{r}
+glm_hmm3_10$posterior_probs
+```
+
+No sé cómo interpretar esto o si esté bien.
+```{r}
+rand_10_3_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm3_10$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub), aes(x = trial, y = response), shape = "|")
+
+rand_10_3_trials_plot
+```
+
+Tres estados con diversas condiciones iniciales:
+```{r}
+rand_10_sub_trials <- select(rand_10_sub_trials, session, response, intercept, dot_diff)
+
+glm_hmm3_10_seeds <- rand_10_sub_trials %>% 
+  glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm3_10_seeds
+```
+
+```{r}
+glm_hmm3_10_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+Selección de mejor seed:
+```{r}
+glm_hmm3_10_best <- glm_hmm3_10_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm3_10_best
+```
+
+```{r}
+psycho_3_10_best <- glm_hmm3_10_best$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+```{r}
+ggplot() +
+  geom_line(data = psycho_3_10_best, 
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+Modelo por proporciones:
+```{r}
+averages_states3_10 <- glm_hmm3_10_best$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins3_10, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+No sé por qué aquí los colores y los puntos no se corresponden.
+```{r}
+averages_states3_10 |>
+  ggplot(aes(dot_diff, prob, color = state)) + 
+  geom_point() + 
+  geom_line(data = psycho_3_10_best,
+            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+```
+
+
+---------------------------------------------------------------------
+30 rand 3S
+---------------------------------------------------------------------
+
+```{r}
+glm_hmm3_30 <- rand_30_sub_trials %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_30
+```
+
+```{r}
+glm_hmm3_30$recovered_weights
+```
+
+```{r}
+psycho_3_30 <- glm_hmm3_30$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+El S1 y S2 parecen ser el left/right bias.
+```{r}
+psycho_3_30 |> 
+  ggplot(aes(x = dot_diff, y = prop, color = state)) + 
+  geom_line()
+```
+
+Predominancia:
+```{r}
+posterior_wins3_30 <- glm_hmm3_30$posterior_probs |> 
+    group_by(trial) %>%
+    filter(p == max(p)) %>%
+    select(-p) 
+
+posterior_wins3_30
+```
+
+```{r}
+posterior_wins3_30 |> 
+  ungroup() |> 
+  count(state)
+```
+
+```{r}
+glm_hmm3_30$posterior_probs
+```
+
+Me parece que este chunk no se debe hacer con tantos sujetos o se debe sacar la media de cada uno por cada trial
+```{r}
+rand_30_3_trials_plot <- ggplot() +
+  geom_line(data = glm_hmm3_30$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub), aes(x = trial, y = response), shape = "|")
+
+rand_30_3_trials_plot
+```
+
+Tres estados con diversas condiciones iniciales:
+```{r}
+rand_30_sub_trials <- select(rand_30_sub_trials, session, response, intercept, dot_diff)
+
+glm_hmm3_30_seeds <- rand_30_sub_trials %>% 
+  glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm3_30_seeds
+```
+
+```{r}
+glm_hmm3_30_seeds %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+Selección de mejor seed:
+```{r}
+glm_hmm3_30_best <- glm_hmm3_30_seeds |> 
+   filter(log_lik == max(log_lik)) |> 
+   pluck("fit") %>% 
+   pluck(1)
+  
+glm_hmm3_30_best
+```
+
+```{r}
+psycho_3_30_best <- glm_hmm3_30_best$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(dot_diff, value))
+```
+
+```{r}
+ggplot() +
+  geom_line(data = psycho_3_30_best, 
+            aes(x = dot_diff, y = prop, color = state)) 
+```
+
+Modelo por proporciones:
+```{r}
+averages_states3_30 <- glm_hmm3_30_best$model_matrix_with_session %>% 
+    mutate(trial = row_number()) %>%
+    left_join(posterior_wins3_30, by = c("session", "trial")) %>%
+    mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
+    group_by(dot_diff_bin, state) %>%
+    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+```
+
+Aquí tampoco coinciden los colores
+```{r}
+averages_states3_30 |>
+  ggplot(aes(dot_diff, prob, color = state)) + 
+  geom_point() + 
+  geom_line(data = psycho_3_30_best,
+            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+MODEL COMPARISON GENERAL
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+S01 2S vs 3S
+---------------------------------------------------------------------
+
+
+Método Akaike: -2ln(L) + 2k (L = log_lik y k = n_par)
+ES LIGERAMENTE MEJOR EL MODELO DE TRES ESTADOS
+```{r}
+glm_hmm2_s01_best_AIC <- -2 * glm_hmm2_s01_best$log_lik + 2 * glm_hmm2_s01_best$n_par
+glm_hmm3_s01_best_AIC <- -2 * glm_hmm3_s01_best$log_lik + 2 * glm_hmm3_s01_best$n_par
+
+glm_hmm2_s01_best_AIC
+glm_hmm3_s01_best_AIC
+```
+
+
+
+---------------------------------------------------------------------
+10 rand 2S vs 3S
+---------------------------------------------------------------------
+
+
+AIC:
+ES MEJOR EL DE DOS ESTADOS
+```{r}
+glm_hmm2_10_best_AIC <- -2 * glm_hmm2_10_best$log_lik + 2 * glm_hmm2_10$n_par
+glm_hmm3_10_best_AIC <- -2 * glm_hmm3_10_best$log_lik + 2 * glm_hmm3_10$n_par
+
+glm_hmm2_10_best_AIC
+glm_hmm3_10_best_AIC
+```
+
+
+---------------------------------------------------------------------
+30 rand 2S vs 3S
+---------------------------------------------------------------------
+
+
+AIC:
+ES MEJOR EL DE TRES ESTADOS.
+```{r}
+glm_hmm2_30_best_AIC <- -2 * glm_hmm2_30_best$log_lik + 2 * glm_hmm2_30_best$n_par
+glm_hmm3_30_best_AIC <- -2 * glm_hmm3_30_best$log_lik + 2 * glm_hmm3_30_best$n_par
+
+glm_hmm2_30_best_AIC
+glm_hmm3_30_best_AIC
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+2S SERIAL BIAS
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+s01 serial bias 2 states
+---------------------------------------------------------------------
+
+```{r}
+s01_sb <- data_trials %>%
+  filter(subject == 1) %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) %>% 
+  ungroup() %>% 
+  select(session, serial_bias, intercept, signed_contrast, trial)
+
+s01_sb
+```
+
+```{r}
+glm_hmm2_s01_sb <- s01_sb %>% 
+  glm_hmm_r(.num_states = 2)
+glm_hmm2_s01_sb
+```
+
+```{r}
+glm_hmm2_s01_sb$recovered_weights
+```
+
+```{r}
+psycho_2_s01_sb <- glm_hmm2_s01_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+```{r}
+psycho_2_s01_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state), xlim(-70, 70), ylim(0, 1)) +
+  geom_line() 
+```
+
+```{r}
+glm_hmm2_s01_sb$posterior_probs
+```
+
+Parece que se va cambiando de estado conforme más trial se realiza.
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm2_s01_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+glm_hmm2_s01_sb <- s01_sb %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm2_s01_sb
+```
+
+```{r}
+glm_hmm2_s01_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+
+--------------------------------------------------------------------------------
+10 subjects serial bias 2 states
+--------------------------------------------------------------------------------
+
+```{r}
+rand_10_sub_sb <- data_trials |>
+  filter(subject %in% rand_10_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, serial_bias, intercept, signed_contrast)
+```
+
+```{r}
+glm_hmm2_10_sb <- rand_10_sub_sb %>% 
+  glm_hmm_r(.num_states = 2)
+glm_hmm2_10_sb
+```
+
+```{r}
+glm_hmm2_10_sb$recovered_weights
+```
+
+```{r}
+psycho_2_10_sb <- glm_hmm2_10_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+```{r}
+psycho_2_10_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
+  geom_line() + 
+  ylim(0, 1)
+```
+
+```{r}
+glm_hmm2_10_sb$posterior_probs
+```
+
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm2_10_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+glm_hmm2_10_sb <- rand_10_sub_sb %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm2_10_sb
+```
+
+```{r}
+glm_hmm2_10_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+
+---------------------------------------------------------------------
+30 subjects serial bias 2 states
+---------------------------------------------------------------------
+
+
+```{r}
+rand_30_sub_sb <- data_trials |>
+  filter(subject %in% rand_30_sub) |>
+  mutate(session = 1, 
+         intercept = 1, 
+         signed_contrast = dot_diff) |> 
+  ungroup() |> 
+  select(session, serial_bias, intercept, signed_contrast)
+```
+
+```{r}
+glm_hmm2_30_sb <- rand_30_sub_sb %>% 
+  glm_hmm_r(.num_states = 2)
+glm_hmm2_30_sb
+```
+
+```{r}
+glm_hmm2_30_sb$recovered_weights
+```
+
+```{r}
+psycho_2_30_sb <- glm_hmm2_30_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+```{r}
+psycho_2_30_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
+  geom_line() + 
+  ylim(0, 1)
+```
+
+```{r}
+glm_hmm2_30_sb$posterior_probs
+```
+
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm2_30_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+glm_hmm2_30_sb <- rand_30_sub_sb %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm2_30_sb
+```
+
+```{r}
+glm_hmm2_30_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+3S SERIAL BIAS
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+s01 serial bias 3 states
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_s01_sb <- s01_sb %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_s01_sb
+```
+
+```{r}
+glm_hmm3_s01_sb$recovered_weights
+```
+
+```{r}
+psycho_3_s01_sb <- glm_hmm3_s01_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+Parece ser que estos estados son independientes del contraste mostrado.
+```{r}
+psycho_3_s01_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
+  geom_line() + 
+  ylim(0, 1)
+```
+
+```{r}
+glm_hmm3_s01_sb$posterior_probs
+```
+
+Parece ser que los estados son dependientes de la cantidad de trials realizada y que S1 y S2 en este modelo corresponden al S1 del modelo de dos estados.
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm3_s01_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Tres estados con diversas condiciones iniciales:
+```{r}
+glm_hmm3_s01_sb <- s01_sb %>% 
+  glm_hmm_r(.num_states = 3, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm3_s01_sb
+```
+
+```{r}
+glm_hmm3_s01_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+
+---------------------------------------------------------------------
+10 subjects serial bias 3 states
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_10_sb <- rand_10_sub_sb %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_10_sb
+```
+
+```{r}
+glm_hmm3_10_sb$recovered_weights
+```
+
+```{r}
+psycho_3_10_sb <- glm_hmm3_10_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+```{r}
+psycho_3_10_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
+  geom_line() + 
+  ylim(0, 1)
+```
+
+```{r}
+glm_hmm3_10_sb$posterior_probs
+```
+
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm3_10_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_10_sub_trials), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Dos estados con diversas condiciones iniciales:
+```{r}
+glm_hmm3_10_sb <- rand_10_sub_sb %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm3_10_sb
+```
+
+```{r}
+glm_hmm3_10_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
+
+---------------------------------------------------------------------
+30 subjects serial bias 3 states
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_30_sb <- rand_30_sub_sb %>% 
+  glm_hmm_r(.num_states = 3)
+glm_hmm3_30_sb
+```
+
+```{r}
+glm_hmm3_30_sb$recovered_weights
+```
+
+```{r}
+psycho_3_30_sb <- glm_hmm3_30_sb$recovered_weights |> 
+  group_by(state) |> 
+  reframe(create_psychometric(value))
+```
+
+No sé si interpretar esto como que no hay diferencia entre dos estados o que estos son independientes del contraste mostrado.
+```{r}
+psycho_3_30_sb |> 
+  ggplot(aes(x = signed_contrast, y = prop, color = state)) + 
+  geom_line() + 
+  ylim(0, 1)
+```
+
+```{r}
+glm_hmm3_30_sb$posterior_probs
+```
+
+```{r}
+ggplot() +
+  geom_line(data = glm_hmm3_30_sb$posterior_probs, 
+            aes(x = trial, y = p, color = state)) +
+  geom_point(data = filter(data_trials, subject %in% rand_30_sub_trials), aes(x = trial, y = serial_bias), shape = "|")
+```
+
+Tres estados con diversas condiciones iniciales:
+```{r}
+glm_hmm3_30_sb <- rand_30_sub_sb %>% 
+  glm_hmm_r(.num_states = 2, .seeds = 1:20, .all_seeds = TRUE)
+
+glm_hmm3_30_sb
+```
+
+```{r}
+glm_hmm3_30_sb %>% 
+  arrange(log_lik) %>% 
+  mutate(ordered_seed = row_number()) %>% 
+  ggplot(aes(ordered_seed, log_lik)) +
+  geom_line() +
+  geom_point()
+```
+
