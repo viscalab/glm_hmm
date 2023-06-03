@@ -12,7 +12,7 @@ plotting_psycho_one_participant <- function(.fit) {
     group_by(dot_diff_bin, state) %>%
     summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
   
-  psycho <- glm_hmm2_s01$recovered_weights |> 
+  psycho <- .fit$recovered_weights |> 
     group_by(state) |> 
     reframe(create_psychometric(dot_diff, value))
   

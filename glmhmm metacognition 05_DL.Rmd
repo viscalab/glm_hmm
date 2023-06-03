@@ -99,8 +99,12 @@ s01 2S
 
 S01
 ```{r}
-s01_design_matrix <- data_trials %>%
-  filter(subject == 1) %>%
+data_trials_s01 <- data_trials %>%
+  filter(subject == 1) 
+```
+
+```{r}
+s01_design_matrix <- data_trials_s01 %>%
   mutate(session = 1, 
          intercept = 1, 
          dot_diff = dot_diff) %>% 
@@ -123,7 +127,6 @@ s02_design_matrix <- data_trials %>%
 s02_design_matrix
 ```
 
-DL: ES MEJOR NO SOBREESCRIBIR, POR ESO HE CAMBIADO A glm_hmm2_seeds_s01
 
 ```{r}
 glm_hmm2_seeds_s01 <- s01_design_matrix %>% 
@@ -151,7 +154,7 @@ glm_hmm2_s01
 ```
 
 ```{r}
-psycho_2_s01 <- glm_hmm2_s01$recovered_weights |> 
+psycho2_s01 <- glm_hmm2_s01$recovered_weights |> 
   group_by(state) |> 
   reframe(create_psychometric(dot_diff, value))
 ```
@@ -171,14 +174,17 @@ averages_states2_s01 <- glm_hmm2_s01$model_matrix_with_session %>%
     left_join(posterior_wins2_s01, by = c("session", "trial")) %>%
     mutate(dot_diff_bin = cut_interval(dot_diff, 10)) |> 
     group_by(dot_diff_bin, state) %>%
-    summarise(dot_diff = mean(dot_diff), prob = mean(response), n = n(), .groups = "keep") 
+    summarise(dot_diff = mean(dot_diff), 
+              prob = mean(response), 
+              n = n(), 
+              .groups = "keep") 
 ```
 
 ```{r}
 ggplot() + 
   geom_point(data = averages_states2_s01, 
              aes(dot_diff, prob, color = state)) + 
-  geom_line(data = psycho_2_s01,
+  geom_line(data = psycho2_s01,
             aes(x = dot_diff, y = prop, color = state)) 
 ```
 
@@ -186,7 +192,8 @@ ggplot() +
 s01_2_trials_plot <- ggplot() +
   geom_line(data = glm_hmm2_s01$posterior_probs, 
             aes(x = trial, y = p, color = state)) +
-  geom_point(data = filter(data_trials, subject == 1), aes(x = trial, y = response), shape = "|")
+  geom_point(data = data_trials_s01, 
+             aes(x = trial, y = response), shape = "|")
 
 s01_2_trials_plot
 ```
@@ -205,18 +212,19 @@ plotting_psycho_one_participant(glm_hmm2_s01)
 plotting_trials_one_participant ME DA ERROR
 
 ```{r}
-plotting_trials_one_participant(glm_hmm2_s01)
+plotting_trials_one_participant_DL(glm_hmm2_s01)
 ```
 
 ```{r}
 plot_grid(plotting_psycho_one_participant(glm_hmm2_s01), 
-          plotting_trials_one_participant(glm_hmm2_s01), 
+          plotting_trials_one_participant_DL(glm_hmm2_s01), 
           rel_widths = c(.5, .5), 
           labels = "AUTO")
 ```
 
+
 ```{r}
-plotting_one_participant(glm_hmm2_s01)
+plotting_one_participant_DL(glm_hmm2_s01)
 ```
 
 ---------------------------------------------------------------------
@@ -241,7 +249,7 @@ design_matrix_all
 Esto tarda mucho porque hace muchos ajustes: 
 
 ```{r}
-glm_hmm2_all_seeds_2 <- design_matrix_all |> 
+glm_hmm2_all_seeds <- design_matrix_all |> 
   group_by(subject) |> 
   nest() %>%
   rowwise() %>%
@@ -257,26 +265,29 @@ glm_hmm_extract_best <- function(.fits) {
     pluck("fit") %>% 
     pluck(1)
 }
-
 ```
 
 ```{r}
-glm_hmm_2_all <- glm_hmm2_all_seeds_2 %>% 
+glm_hmm_2_all <- glm_hmm2_all_seeds %>% 
   mutate(fit = list(glm_hmm_extract_best(fit)))
 ```
 
 Me aparece este error: Error in gzfile(file, "wb") : cannot open the connection
 Pero creo que de todas formas se está salvando en RData con el resto de objetos
+
 ```{r}
-save(glm_hmm_2_all, file = "RData/glm_hmm_all_seeds_2.RData")
+#save(glm_hmm_2_all, file = "RData/glm_hmm_all_seeds_2.RData")
 ```
 
 ```{r}
-load("RData/glm_hmm_all_seeds_2.RData")
+#load("RData/glm_hmm_all_seeds_2.RData")
 ```
 
 Los parametros estimados para cada sujeto
 No entiendo por qué el - en -data
+
+DL select(-algo) lo que hace es seleccionar todas las columnas del data frame menos algo
+
 ```{r}
 glm_hmm_2_all |> 
       select(-data) |> 
@@ -299,11 +310,11 @@ plotting
 ```{r}
 plots_2_all <- glm_hmm_2_all %>% 
     rowwise() %>% 
-    mutate(p = list(plotting_one_participant(fit)))
+    mutate(p = list(plotting_one_participant_DL(fit, subject)))
   
 plots_2_all_grid <- plot_grid(plotlist = plots_2_all$p, ncol = 2)
   
-  file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
   
 ggsave("figures/plots_2_grid.pdf", 
        plots_2_all_grid, width = 20, height = 20)
