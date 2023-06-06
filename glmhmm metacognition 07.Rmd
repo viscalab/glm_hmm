@@ -57,14 +57,10 @@ data_trials <- rename(data_trials, subject = Subj_idx, stimulus = Stimulus, resp
 data_trials <- data_trials |>
   group_by(subject) |>
   mutate(trial = row_number()) |>
-  ungroup() |> 
   mutate(stimulus = if_else(stimulus == 0, -1, 1), 
-         dot_diff = stimulus * dot_diff, 
-         prev_resp = lag(response), 
-         fing_err = if_else(confidence == 1, 1, 0)) |>
-  drop_na()
+         dot_diff = stimulus * dot_diff) 
   
-data_trials
+data_trials 
 ```
 
 
@@ -109,7 +105,7 @@ s01_design_matrix <- data_trials_s01 %>%
          intercept = 1, 
          dot_diff = dot_diff) %>% 
   ungroup() %>% 
-  select(session, response, intercept, dot_diff)
+  select(session, response, intercept, dot_diff) 
 
 s01_design_matrix
 ```
@@ -165,7 +161,7 @@ posterior_wins2_s01 <- glm_hmm2_s01$posterior_probs |>
     filter(p == max(p)) %>%
     select(-p) 
 
-posterior_wins2_s01
+posterior_wins2_s01 |> ungroup() |> count(state)
 ```
 
 ```{r}
@@ -229,7 +225,7 @@ design_matrix_all <- data_trials %>%
          dot_diff = dot_diff) %>% 
   ungroup() %>% 
   select(subject, session, response, intercept, dot_diff) |> 
-  filter(subject <= 10) # solo 10 participantes
+  filter(subject <= 50) # solo 10 participantes
 
 design_matrix_all
 ```
@@ -286,7 +282,7 @@ plots_2_all_grid <- plot_grid(plotlist = plots_2_all$p, ncol = 2)
 file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
   
 ggsave("figures/plots_2_grid.pdf", 
-       plots_2_all_grid, width = 20, height = 20)
+       plots_2_all_grid, width = 10, height = 10)
 ```
 
 
@@ -336,6 +332,8 @@ posterior_wins3_s01 |>
   ungroup() |> 
   count(state)
 ```
+
+
 
 ```{r}
 s01_trials <- data_trials %>%
@@ -387,12 +385,11 @@ psycho_3_s01_best <- glm_hmm3_s01_best$recovered_weights |>
   reframe(create_psychometric(dot_diff, value))
 ```
 
+
+DL: AÑADIR PUNTOS
+
+
 Esto también lo veo muy extraño
-```{r}
-ggplot() +
-  geom_line(data = psycho_3_s01_best, 
-            aes(x = dot_diff, y = prop, color = state)) 
-```
 
 Modelo por proporciones:
 ```{r}
@@ -409,7 +406,11 @@ averages_states3_S01 |>
   ggplot(aes(dot_diff, prob, color = state)) + 
   geom_point() + 
   geom_line(data = psycho_3_s01_best,
-            aes(x = dot_diff, y = prop, color = state, groups = state)) 
+            aes(x = dot_diff, y = prop)) 
+```
+```{r}
+averages_states3_S01 |> 
+  filter(state == "S2")
 ```
 
 
@@ -447,7 +448,7 @@ liks_glm_hmm3_all <- glm_hmm3_all %>%
   mutate(n = map(data, count)) %>% 
   unnest(n) %>% 
   select(subject, log_lik, n_par, n) %>% 
-  mutate(model = "int-slo 2")
+  mutate(model = "int-slo 3")
 ```
 
 plotting
@@ -456,12 +457,12 @@ plots_3_all <- glm_hmm3_all %>%
     rowwise() %>% 
     mutate(p = list(plotting_one_participant(fit, subject)))
   
-plots_3_all_grid <- plot_grid(plotlist = plots_3_all$p, ncol = 2)
+plots_3_all_grid <- plot_grid(plotlist = plots_3_all$p, ncol =3)
   
 file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
   
-ggsave("figures/plots_3_grid.pdf", 
-       plots_3_all_grid, width = 20, height = 20)
+ggsave("figures/plots_3_grid.pdf" ,
+       plots_3_all_grid, width = 40, height = 40)
 ```
 
 
@@ -479,51 +480,71 @@ All 4S
 
 Hecho con los mismos 10 sujetos que el de 2 estados y con una sola seed
 ```{r}
-glm_hmm4_all_seeds <- design_matrix_all |> 
-  group_by(subject) |> 
-  nest() %>%
-  rowwise() %>%
-  mutate(fit = list(glm_hmm_r(data, 
-                              .num_states = 4)))#, .seeds = 1:20,
-                              #.all_seeds = TRUE)))
+# glm_hmm4_all_seeds <- design_matrix_all |> 
+#   group_by(subject) |> 
+#   nest() %>%
+#   rowwise() %>%
+#   mutate(fit = list(glm_hmm_r(data, 
+#                               .num_states = 4, .seeds = 1:20,
+#                               .all_seeds = TRUE)))
 ```
 
 ```{r}
-glm_hmm4_all <- glm_hmm4_all_seeds #%>% 
+#glm_hmm4_all <- glm_hmm4_all_seeds %>% 
   #mutate(fit = list(glm_hmm_extract_best(fit)))
 ```
 
 ```{r}
-glm_hmm4_all |> 
-      select(-data) |> 
-      unnest_wider(fit) |> 
-      select(subject, recovered_weights) |> 
-      unnest(recovered_weights)
+# glm_hmm4_all |> 
+#       select(-data) |> 
+#       unnest_wider(fit) |> 
+#       select(subject, recovered_weights) |> 
+#       unnest(recovered_weights)
 ```
 
 ```{r}
-liks_glm_hmm4_all <- glm_hmm4_all %>% 
-  unnest_wider(fit) %>% 
-  mutate(n = map(data, count)) %>% 
-  unnest(n) %>% 
-  select(subject, log_lik, n_par, n) %>% 
-  mutate(model = "int-slo 2")
+# liks_glm_hmm4_all <- glm_hmm4_all %>% 
+#   unnest_wider(fit) %>% 
+#   mutate(n = map(data, count)) %>% 
+#   unnest(n) %>% 
+#   select(subject, log_lik, n_par, n) %>% 
+#   mutate(model = "int-slo 4")
 ```
 
 plotting
 ```{r}
-plots_4_all <- glm_hmm4_all %>% 
-    rowwise() %>% 
-    mutate(p = list(plotting_one_participant(fit, subject)))
-  
-plots_4_all_grid <- plot_grid(plotlist = plots_4_all$p, ncol = 2)
-  
-file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
-  
-ggsave("figures/plots_4_grid.pdf", 
-       plots_4_all_grid, width = 20, height = 20)
+# plots_4_all <- glm_hmm4_all %>% 
+#     rowwise() %>% 
+#     mutate(p = list(plotting_one_participant(fit, subject)))
+#   
+# plots_4_all_grid <- plot_grid(plotlist = plots_4_all$p, ncol = 2)
+#   
+# file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+#   
+# ggsave("figures/plots_4_grid.pdf", 
+#        plots_4_all_grid, width = 20, height = 20)
 ```
 
+
+#### Comparisons
+
+```{r}
+liks_glm_hmm <- liks_glm_hmm2_all |> 
+  bind_rows(liks_glm_hmm3_all) |> 
+  # bind_rows(liks_glm_hmm4_all) |> 
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+
+
+liks_glm_hmm_best <- liks_glm_hmm |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) |> view()
+
+liks_glm_hmm_best |> 
+  ungroup() |> 
+  count(model)
+  
+```
 
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------
