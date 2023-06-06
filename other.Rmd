@@ -8,7 +8,7 @@ Renames the states according to their values (so similar states between subjects
 glm_hmm1 <- glm_hmm1_seeds %>% 
     mutate(fit = list(glm_hmm_extract_best(fit))) %>%
     order_states_glm_hmm()
-glm_hmm1
+
 ```
 
 

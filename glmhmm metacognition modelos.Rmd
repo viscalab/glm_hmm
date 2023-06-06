@@ -95,14 +95,13 @@ glm_hmm1_seeds <- design_matrix |>
   nest() %>%
   rowwise() %>%
   mutate(fit = list(glm_hmm_r(data, 
-                              .num_states = 1, .seeds = n_seeds,
+                              .num_states = 1, .seeds = 1:n_seeds,
                               .all_seeds = TRUE)))
 ```
 
 
-
 ```{r}
-save(glm_hmm1, file = "RData/glm_hmm1.RData")
+#save(glm_hmm1_seeds, file = "RData/glm_hmm1_seeds.RData")
 ```
 
 
@@ -117,13 +116,13 @@ glm_hmm2_seeds <- design_matrix |>
   nest() %>%
   rowwise() %>%
   mutate(fit = list(glm_hmm_r(data, 
-                              .num_states = 2, .seeds = n_seeds,
+                              .num_states = 2, .seeds = 1:n_seeds,
                               .all_seeds = TRUE)))
 ```
 
 
 ```{r}
-save(glm_hmm2, file = "RData/glm_hmm2.RData")
+#save(glm_hmm2_seeds, file = "RData/glm_hmm2_seeds.RData")
 ```
 
 ---------------------------------------------------------------------
@@ -137,13 +136,13 @@ glm_hmm3_seeds <- design_matrix |>
   nest() %>%
   rowwise() %>%
   mutate(fit = list(glm_hmm_r(data, 
-                              .num_states = 3, .seeds = n_seeds,
+                              .num_states = 3, .seeds = 1:n_seeds,
                               .all_seeds = TRUE)))
 ```
 
 
 ```{r}
-save(glm_hmm3, file = "RData/glm_hmm3.RData")
+#save(glm_hmm2_seeds, file = "RData/glm_hmm3_seeds.RData")
 ```
 
 
