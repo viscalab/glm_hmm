@@ -1,0 +1,231 @@
+---
+title: "glmhmm metacognition"
+output: html_notebook
+---
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+LIBRARIES AND FUNCTIONS
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+
+----------------------------------------------------------------------
+Download of data
+----------------------------------------------------------------------
+
+- stimulus refers to which group of dots (right or left) has more of them (check; the quantity of trials with more dots either on the left or right group varies from subject to subject).
+- dot_diff is the difference of dots between stimuli (subject where asked which stimulus had more dots).
+- confidence is the confidence scale meassured with a 11-point probabilistic 
+rating scale (1=certainly wrong, 3=probably wrong, 5=maybe wrong, 7=maybe correct, 9=probably correct, 11=certainly correct)
+
+```{r}
+data_trials <- read_csv("data/data_Rouault_2018_Expt1.csv", show_col_types = FALSE) 
+data_trials <- rename(data_trials, subject = Subj_idx, stimulus = Stimulus, response = Response, confidence = Confidence, RT = RT_dec, dot_diff = DotDiff, correct = Accuracy)
+
+data_trials <- data_trials |>
+  group_by(subject) |>
+  mutate(trial = row_number()) |>
+  mutate(stimulus = if_else(stimulus == 0, -1, 1), 
+         dot_diff = stimulus * dot_diff) 
+  
+design_matrix <- data_trials %>%
+  mutate(session = 1, 
+         intercept = 1, 
+         dot_diff = dot_diff) %>% 
+  ungroup() %>% 
+  select(subject, session, response, intercept, dot_diff) 
+
+design_matrix
+```
+
+
+----------------------------------------------------------------------
+Modify number of seeds
+----------------------------------------------------------------------
+
+
+```{r}
+n_seeds <- 20
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+MODELS:
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+1S
+----------------------------------------------------------------------
+
+
+```{r}
+glm_hmm1_seeds <- design_matrix |> 
+  group_by(subject) |> 
+  nest() %>%
+  rowwise() %>%
+  mutate(fit = list(glm_hmm_r(data, 
+                              .num_states = 1, .seeds = n_seeds,
+                              .all_seeds = TRUE)))
+```
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+glm_hmm1 <- glm_hmm1_seeds %>% 
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+glm_hmm1
+```
+
+```{r}
+save(glm_hmm1, file = "RData/glm_hmm1.RData")
+```
+
+```{r}
+load("RData/glm_hmm1.RData")
+```
+
+
+---------------------------------------------------------------------
+2S 
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm2_seeds <- design_matrix |> 
+  group_by(subject) |> 
+  nest() %>%
+  rowwise() %>%
+  mutate(fit = list(glm_hmm_r(data, 
+                              .num_states = 2, .seeds = n_seeds,
+                              .all_seeds = TRUE)))
+```
+
+```{r}
+glm_hmm2 <- glm_hmm2_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+glm_hmm2
+```
+
+```{r}
+save(glm_hmm2, file = "RData/glm_hmm2.RData")
+```
+
+```{r}
+load("RData/glm_hmm2.RData")
+```
+
+
+---------------------------------------------------------------------
+3S 
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm3_seeds <- design_matrix |> 
+  group_by(subject) |> 
+  nest() %>%
+  rowwise() %>%
+  mutate(fit = list(glm_hmm_r(data, 
+                              .num_states = 3, .seeds = n_seeds,
+                              .all_seeds = TRUE)))
+```
+
+```{r}
+glm_hmm3 <- glm_hmm3_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+glm_hmm3
+```
+
+```{r}
+save(glm_hmm3, file = "RData/glm_hmm3.RData")
+```
+
+```{r}
+load("RData/glm_hmm3.RData")
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+MODEL COMPARISON 
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+liks de cada modelo
+```{r}
+liks_glm_hmm1 <- glm_hmm1_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 1")
+
+liks_glm_hmm2 <- glm_hmm2_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 2")
+
+liks_glm_hmm3 <- glm_hmm3_seeds %>% 
+  #mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 3")
+```
+
+DL:
+```{r}
+liks_glm_hmm <- liks_glm_hmm1 |> 
+  bind_rows(liks_glm_hmm2) |> 
+  bind_rows(liks_glm_hmm3) |> 
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+liks_glm_hmm_best <- liks_glm_hmm |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_glm_hmm_best |> 
+  ungroup() |> 
+  count(model)
+```
+
