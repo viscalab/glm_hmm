@@ -1,0 +1,82 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+glm_hmm1 <- glm_hmm1_seeds %>% 
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+glm_hmm1
+```
+
+
+```{r}
+glm_hmm2 <- glm_hmm2_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+glm_hmm2
+```
+
+
+```{r}
+glm_hmm3 <- glm_hmm3_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+glm_hmm3
+```
+
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+MODEL COMPARISON 
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+liks de cada modelo
+```{r}
+liks_glm_hmm1 <- glm_hmm1_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 1")
+
+liks_glm_hmm2 <- glm_hmm2_seeds %>% 
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 2")
+
+liks_glm_hmm3 <- glm_hmm3_seeds %>% 
+  #mutate(fit = list(glm_hmm_extract_best(fit))) %>% 
+  unnest_wider(fit) %>% 
+  mutate(n = map(data, count)) %>% 
+  unnest(n) %>% 
+  select(subject, log_lik, n_par, n) %>% 
+  mutate(model = "int-slo 3")
+```
+
+DL:
+```{r}
+liks_glm_hmm <- liks_glm_hmm1 |> 
+  bind_rows(liks_glm_hmm2) |> 
+  bind_rows(liks_glm_hmm3) |> 
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+liks_glm_hmm_best <- liks_glm_hmm |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_glm_hmm_best |> 
+  ungroup() |> 
+  count(model)
+```
+
