@@ -48,14 +48,46 @@ Renames the states according to their values (so similar states between subjects
 # save(glm_hmm1, file = "RData/glm_hmm1.RData")
 ```
 
+
+
 ```{r}
-# glm_hmm2 <- glm_hmm2_seeds %>% 
-#   mutate(fit = list(glm_hmm_extract_best(fit))) %>%
-#   order_states_glm_hmm()
-# 
-# glm_hmm2
-# 
-# save(glm_hmm2, file = "RData/glm_hmm2.RData")
+glm_hmm2 <- glm_hmm2_seeds %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+glm_hmm2_weights <- glm_hmm2 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+glm_hmm2_order <- glm_hmm2_weights |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+
+glm_hmm2_posterior_probs <- glm_hmm2 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+glm_hmm2_posterior_wins <- glm_hmm2_posterior_probs |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(glm_hmm2_order) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+
+#save(glm_hmm2, file = "RData/glm_hmm2.RData")
+```
+
+```{r}
+
 ```
 
 ```{r}

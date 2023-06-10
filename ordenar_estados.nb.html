@@ -1754,6 +1754,25 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xtX2htbTJfd2VpZ2h0cyAgPC0gZ2xtX2htbTJfc2VlZHMgJT4lXG4gIG11dGF0ZShmaXQgPSBsaXN0KGdsbV9obW1fZXh0cmFjdF9iZXN0KGZpdCkpKSB8PiBcbiAgc2VsZWN0KC1kYXRhKSB8PiBcbiAgdW5uZXN0X3dpZGVyKGZpdCkgfD4gXG4gIHNlbGVjdChzdWJqZWN0LCByZWNvdmVyZWRfd2VpZ2h0cykgfD4gXG4gIHVubmVzdChyZWNvdmVyZWRfd2VpZ2h0cylcblxuYGBgIn0= -->
+<pre class="r"><code>glm_hmm2_weights  &lt;- glm_hmm2_seeds %&gt;%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |&gt; 
+  select(-data) |&gt; 
+  unnest_wider(fit) |&gt; 
+  select(subject, recovered_weights) |&gt; 
+  unnest(recovered_weights)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZXhpc3RzKGNhY2hlS2V5LCB3aGVyZSA9IC5ycy5Xb3JraW5nRGF0YUVudiwgaW5oZXJpdHMgPSBGQUxTRSkgOiBcbiAgaW52YWxpZCBmaXJzdCBhcmd1bWVudFxuRXJyb3IgaW4gYXNzaWduKGNhY2hlS2V5LCBmcmFtZSwgLnJzLkNhY2hlZERhdGFFbnYpIDogXG4gIGF0dGVtcHQgdG8gdXNlIHplcm8tbGVuZ3RoIHZhcmlhYmxlIG5hbWVcbiJ9 -->
+<pre><code>Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub3JkZXJfc3RhdGVzX2dsbV9obW1cblxuYGBgIn0= -->
 <pre class="r"><code>order_states_glm_hmm
 </code></pre>
@@ -1788,7 +1807,7 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9Cnh4MiA8LSBnbG1faG1tMl9zZWVkcyAlPiUKICBtdXRhdGUoZml0ID0gbGlzdChnbG1faG1tX2V4dHJhY3RfYmVzdChmaXQpKSkgJT4lCiAgb3JkZXJfc3RhdGVzX2dsbV9obW0oKSB8PiAKICBmaWx0ZXIoY29lZiA9PSAiVjIiKQoKeHgyCgoKeXkgPC0gIGdsbV9obW0yX3NlZWRzICU+JQogIG11dGF0ZShmaXQgPSBsaXN0KGdsbV9obW1fZXh0cmFjdF9iZXN0KGZpdCkpKSAKCnl5eSA8LSB5eSB8PiAKICBzZWxlY3QoLWRhdGEpIHw+IAogIHVubmVzdF93aWRlcihmaXQpIHw+IAogIHNlbGVjdChzdWJqZWN0LCByZWNvdmVyZWRfd2VpZ2h0cykgfD4gCiAgdW5uZXN0KHJlY292ZXJlZF93ZWlnaHRzKSB8PiAKICAgZmlsdGVyKGNvZWYgPT0gIlYyIikKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmdsbV9obW0yX3dlaWdodHMgIDwtIGdsbV9obW0yX3NlZWRzICU+JQogIG11dGF0ZShmaXQgPSBsaXN0KGdsbV9obW1fZXh0cmFjdF9iZXN0KGZpdCkpKSB8PiAKICBzZWxlY3QoLWRhdGEpIHw+IAogIHVubmVzdF93aWRlcihmaXQpIHw+IAogIHNlbGVjdChzdWJqZWN0LCByZWNvdmVyZWRfd2VpZ2h0cykgfD4gCiAgdW5uZXN0KHJlY292ZXJlZF93ZWlnaHRzKQoKb3JkZXIgPC0gZ2xtX2htbTJfd2VpZ2h0cyB8PiAKICAgZmlsdGVyKGNvZWYgPT0gIlYyIikgfD4gCiAgIGdyb3VwX2J5KHN1YmplY3QpIHw+IAogICBhcnJhbmdlKGRlc2ModmFsdWUpLCAuYnlfZ3JvdXAgPSBUUlVFKSB8PiAKICAgbXV0YXRlKG9yZGVyZWRfc3RhdGUgPSBwYXN0ZTAoIlMiLCByb3dfbnVtYmVyKCkpKSB8PiAKICAgc2VsZWN0KHN1YmplY3QsIHN0YXRlLCBvcmRlcmVkX3N0YXRlKQoKZ2xtX2htbTJfd2VpZ2h0cyB8PiAKICAgbGVmdF9qb2luKG9yZGVyKSB8PiAKICAgc2VsZWN0KC1zdGF0ZSkgfD4gCiAgIHJlbmFtZShzdGF0ZSA9IG9yZGVyZWRfc3RhdGUpCmBgYAoKCmBgYHtyfQp4eDIgPC0gZ2xtX2htbTJfc2VlZHMgJT4lCiAgbXV0YXRlKGZpdCA9IGxpc3QoZ2xtX2htbV9leHRyYWN0X2Jlc3QoZml0KSkpICU+JQogIG9yZGVyX3N0YXRlc19nbG1faG1tKCkgfD4gCiAgZmlsdGVyKGNvZWYgPT0gIlYyIikKCnh4MgoKCnl5IDwtICBnbG1faG1tMl9zZWVkcyAlPiUKICBtdXRhdGUoZml0ID0gbGlzdChnbG1faG1tX2V4dHJhY3RfYmVzdChmaXQpKSkgCgp5eXkgPC0geXkgfD4gCiAgc2VsZWN0KC1kYXRhKSB8PiAKICB1bm5lc3Rfd2lkZXIoZml0KSB8PiAKICBzZWxlY3Qoc3ViamVjdCwgcmVjb3ZlcmVkX3dlaWdodHMpIHw+IAogIHVubmVzdChyZWNvdmVyZWRfd2VpZ2h0cykgfD4gCiAgIGZpbHRlcihjb2VmID09ICJWMiIpCmBgYAoK</div>
 
 
 
