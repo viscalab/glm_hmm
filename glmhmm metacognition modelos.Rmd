@@ -122,7 +122,7 @@ glm_hmm2_seeds <- design_matrix |>
 
 
 ```{r}
-save(glm_hmm2_seeds, file = "RData/glm_hmm2_seeds.RData")
+#save(glm_hmm2_seeds, file = "RData/glm_hmm2_seeds.RData")
 ```
 
 ---------------------------------------------------------------------
@@ -142,7 +142,26 @@ glm_hmm3_seeds <- design_matrix |>
 
 
 ```{r}
-save(glm_hmm3_seeds, file = "RData/glm_hmm3_seeds.RData")
+#save(glm_hmm3_seeds, file = "RData/glm_hmm3_seeds.RData")
 ```
 
+---------------------------------------------------------------------
+4S 
+---------------------------------------------------------------------
+
+
+```{r}
+glm_hmm4_seeds <- design_matrix |> 
+  group_by(subject) |> 
+  nest() %>%
+  rowwise() %>%
+  mutate(fit = list(glm_hmm_r(data, 
+                              .num_states = 4, .seeds = 1:n_seeds,
+                              .all_seeds = TRUE)))
+```
+
+
+```{r}
+#save(glm_hmm3_seeds, file = "RData/glm_hmm3_seeds.RData")
+```
 
