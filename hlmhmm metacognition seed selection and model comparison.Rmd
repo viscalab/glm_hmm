@@ -1,0 +1,1143 @@
+---
+title: "hlmhmm metacognition seed selection and model comparison"
+output: html_notebook
+---
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+LIBRARIES
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+SEED SELECTION AND STATES ORDERING
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+All trials
+---------------------------------------------------------------------
+
+
+```{r}
+load("RData/data_trials.RData")
+
+load("RData/m1_s.RData")
+load("RData/m2_s.RData")
+load("RData/m3_s.RData")
+load("RData/m4_s.RData")
+```
+
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+m1 <- m1_s %>%
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+
+m1
+
+save(m1, file = "RData/m1.RData")
+```
+
+```{r}
+m2 <- m2_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m2
+
+save(m2, file = "RData/m2.RData")
+```
+
+```{r}
+m3 <- m3_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m3
+
+save(m3, file = "RData/m3.RData")
+```
+
+```{r}
+m4 <- m4_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m4
+
+save(m4, file = "RData/m4.RData")
+```
+
+```{r}
+load("RData/m1.RData")
+load("RData/m2.RData")
+load("RData/m3.RData")
+load("RData/m4.RData")
+```
+
+Does the same and adds the confidence rating for each trial
+```{r}
+m1_conf <- m1_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m1_conf_w <- m1_conf |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m1_conf_ord <- m1_conf_w |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m1_conf_post_prob <- m1_conf |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m1_conf_post_wins <- m1_conf_post_prob |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m1_conf, file = "RData/m1_conf.RData")
+```
+
+```{r}
+m2_conf <- m2_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m2_conf_w <- m2_conf |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m2_conf_ord <- m2_conf_w |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m2_conf_post_prob <- m2_conf |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m2_conf_post_wins <- m2_conf_post_prob |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m2_conf, file = "RData/m2_conf.RData")
+```
+
+```{r}
+m3_conf <- m3_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m3_conf_w <- m3_conf |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m3_conf_ord <- m3_conf_w |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m3_conf_post_prob <- m3_conf |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m3_conf_post_wins <- m3_conf_post_prob |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m3_conf, file = "RData/m3_conf.RData")
+```
+
+```{r}
+m4_conf <- m4_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m4_conf_w <- m4_conf |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m4_conf_ord <- m4_conf_w |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m4_conf_post_prob <- m4_conf |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m4_conf_post_wins <- m4_conf_post_prob |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m4_conf, file = "RData/m4_conf.RData")
+```
+
+
+---------------------------------------------------------------------
+First 52 trials
+---------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_s_52.RData")
+load("RData/m2_s_52.RData")
+load("RData/m3_s_52.RData")
+load("RData/m4_s_52.RData")
+```
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+m1_52 <- m1_s_52 %>%
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+
+m1_52
+
+save(m1_52, file = "RData/m1_52.RData")
+```
+
+```{r}
+m2_52 <- m2_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m2_52
+
+save(m2_52, file = "RData/m2_52.RData")
+```
+
+```{r}
+m3_52 <- m3_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m3_52
+
+save(m3_52, file = "RData/m3_52.RData")
+```
+
+```{r}
+m4_52 <- m4_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m4_52
+
+save(m4_52, file = "RData/m4_52.RData")
+```
+
+```{r}
+load("RData/m1_52.RData")
+load("RData/m2_52.RData")
+load("RData/m3_52.RData")
+load("RData/m4_52.RData")
+```
+
+Does the same and adds the confidence rating for each trial
+```{r}
+m1_conf_52 <- m1_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m1_conf_w_52 <- m1_conf_52 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m1_conf_ord_52 <- m1_conf_w_52 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m1_conf_post_prob_52 <- m1_conf_52 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m1_conf_post_wins_52 <- m1_conf_post_prob_52 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m1_conf_52, file = "RData/m1_conf_52.RData")
+```
+
+```{r}
+m2_conf_52 <- m2_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m2_conf_w_52 <- m2_conf_52 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m2_conf_ord_52 <- m2_conf_w_52 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m2_conf_post_prob_52 <- m2_conf_52 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m2_conf_post_wins_52 <- m2_conf_post_prob_52 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m2_conf_52, file = "RData/m2_conf_52.RData")
+```
+
+```{r}
+m3_conf_52 <- m3_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m3_conf_w_52 <- m3_conf_52 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m3_conf_ord_52 <- m3_conf_w_52 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m3_conf_post_prob_52 <- m3_conf_52 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m3_conf_post_wins_52 <- m3_conf_post_prob_52 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m3_conf_52, file = "RData/m3_conf_52.RData")
+```
+
+```{r}
+m4_conf_52 <- m4_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m4_conf_w_52 <- m4_conf_52 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m4_conf_ord_52 <- m4_conf_w_52 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m4_conf_post_prob_52 <- m4_conf_52 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m4_conf_post_wins_52 <- m4_conf_post_prob_52 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m4_conf_52, file = "RData/m4_conf_52.RData")
+```
+
+
+---------------------------------------------------------------------
+First 104 trials
+---------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_s_104.RData")
+load("RData/m2_s_104.RData")
+load("RData/m3_s_104.RData")
+load("RData/m4_s_104.RData")
+```
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+m1_104 <- m1_s_104 %>%
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+
+m1_104
+
+save(m1_104, file = "RData/m1_104.RData")
+```
+
+```{r}
+m2_104 <- m2_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m2_104
+
+save(m2_104, file = "RData/m2_104.RData")
+```
+
+```{r}
+m3_104 <- m3_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m3_104
+
+save(m3_104, file = "RData/m3_104.RData")
+```
+
+```{r}
+m4_104 <- m4_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m4_104
+
+save(m4_104, file = "RData/m4_104.RData")
+```
+
+```{r}
+load("RData/m1_104.RData")
+load("RData/m2_104.RData")
+load("RData/m3_104.RData")
+load("RData/m4_104.RData")
+```
+
+Does the same and adds the confidence rating for each trial
+```{r}
+m1_conf_104 <- m1_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m1_conf_w_104 <- m1_conf_104 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m1_conf_ord_104 <- m1_conf_w_104 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m1_conf_post_prob_104 <- m1_conf_104 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m1_conf_post_wins_104 <- m1_conf_post_prob_104 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m1_conf_104, file = "RData/m1_conf_104.RData")
+```
+
+```{r}
+m2_conf_104 <- m2_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m2_conf_w_104 <- m2_conf_104 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m2_conf_ord_104 <- m2_conf_w_104 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m2_conf_post_prob_104 <- m2_conf_104 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m2_conf_post_wins_104 <- m2_conf_post_prob_104 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m2_conf_104, file = "RData/m2_conf_104.RData")
+```
+
+```{r}
+m3_conf_104 <- m3_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m3_conf_w_104 <- m3_conf_104 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m3_conf_ord_104 <- m3_conf_w_104 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m3_conf_post_prob_104 <- m3_conf_104 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m3_conf_post_wins_104 <- m3_conf_post_prob_104 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m3_conf_104, file = "RData/m3_conf_104.RData")
+```
+
+```{r}
+m4_conf_104 <- m4_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m4_conf_w_104 <- m4_conf_104 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m4_conf_ord_104 <- m4_conf_w_104 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m4_conf_post_prob_104 <- m4_conf_104 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m4_conf_post_wins_104 <- m4_conf_post_prob_104 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m4_conf_104, file = "RData/m4_conf_104.RData")
+```
+
+
+---------------------------------------------------------------------
+First 156 trials
+---------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_s_156.RData")
+load("RData/m2_s_156.RData")
+load("RData/m3_s_156.RData")
+load("RData/m4_s_156.RData")
+```
+
+Renames the states according to their values (so similar states between subjects can be identified)
+```{r}
+m1_156 <- m1_s_156 %>%
+    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+    order_states_glm_hmm()
+
+m1_156
+
+save(m1_156, file = "RData/m1_156.RData")
+```
+
+```{r}
+m2_156 <- m2_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m2_156
+
+save(m2_156, file = "RData/m2_156.RData")
+```
+
+```{r}
+m3_156 <- m3_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m3_156
+
+save(m3_156, file = "RData/m3_156.RData")
+```
+
+```{r}
+m4_156 <- m4_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm()
+
+m4_156
+
+save(m4_156, file = "RData/m4_156.RData")
+```
+
+```{r}
+load("RData/m1_156.RData")
+load("RData/m2_156.RData")
+load("RData/m3_156.RData")
+load("RData/m4_156.RData")
+```
+
+Does the same and adds the confidence rating for each trial
+```{r}
+m1_conf_156 <- m1_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m1_conf_w_156 <- m1_conf_156 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m1_conf_ord_156 <- m1_conf_w_156 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m1_conf_post_prob_156 <- m1_conf_156 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m1_conf_post_wins_156 <- m1_conf_post_prob_156 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m1_conf_156, file = "RData/m1_conf_156.RData")
+```
+
+```{r}
+m2_conf_156 <- m2_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m2_conf_w_156 <- m2_conf_156 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m2_conf_ord_156 <- m2_conf_w_156 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m2_conf_post_prob_156 <- m2_conf_156 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m2_conf_post_wins_156 <- m2_conf_post_prob_156 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m2_conf_156, file = "RData/m2_conf_156.RData")
+```
+
+```{r}
+m3_conf_156 <- m3_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m3_conf_w_156 <- m3_conf_156 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m3_conf_ord_156 <- m3_conf_w_156 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m3_conf_post_prob_156 <- m3_conf_156 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m3_conf_post_wins_156 <- m3_conf_post_prob_156 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m3_conf_156, file = "RData/m3_conf_156.RData")
+```
+
+```{r}
+m4_conf_156 <- m4_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
+  select(-data) |> 
+  unnest_wider(fit)
+
+m4_conf_w_156 <- m4_conf_156 |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights)
+
+m4_conf_ord_156 <- m4_conf_w_156 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) |> 
+   select(subject, state, ordered_state)
+
+m4_conf_post_prob_156 <- m4_conf_156 |> 
+  select(subject, posterior_probs) |> 
+  unnest(posterior_probs)
+
+m4_conf_post_wins_156 <- m4_conf_post_prob_156 |> 
+  group_by(subject, trial) %>%
+  filter(p == max(p)) %>%
+  select(-p) |> 
+  left_join(m1_conf_ord) |> 
+  select(-state) |> 
+  rename(state = ordered_state) |> 
+  left_join(data_trials, 
+            by = join_by(subject, trial))
+
+save(m4_conf_156, file = "RData/m4_conf_156.RData")
+```
+
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+MODEL COMPARISON 
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+All trials
+---------------------------------------------------------------------
+
+
+liks for each model
+```{r}
+liks_m1 <- m1_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 1")
+
+liks_m2 <- m2_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 2")
+
+liks_m3 <- m3_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 3")
+
+liks_m4 <- m4_s %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 4")
+
+save(liks_m1, file = "RData/liks_m1.RData")
+save(liks_m2, file = "RData/liks_m2.RData")
+save(liks_m3, file = "RData/liks_m3.RData")
+save(liks_m4, file = "RData/liks_m4.RData")
+```
+
+```{r}
+load("RData/liks_m1.RData")
+load("RData/liks_m2.RData")
+load("RData/liks_m3.RData")
+load("RData/liks_m4.RData")
+```
+
+Calculates the number of subjects for which each model fits the best
+```{r}
+liks_all <- liks_m1 |> 
+  bind_rows(liks_m2) |> 
+  bind_rows(liks_m3) |> 
+  bind_rows(liks_m4) |>
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+save(liks_all, file = "RData/liks_all.RData")
+
+liks_all_best <- liks_all |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_all_best |> 
+  ungroup() |> 
+  count(model)
+
+save(liks_all_best, file = "RData/liks_all_best.RData")
+```
+
+
+---------------------------------------------------------------------
+First 52 trials
+---------------------------------------------------------------------
+
+
+liks for each model
+```{r}
+liks_m1_52 <- m1_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 1")
+
+liks_m2_52 <- m2_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 2")
+
+liks_m3_52 <- m3_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 3")
+
+liks_m4_52 <- m4_s_52 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 4")
+
+save(liks_m1_52, file = "RData/liks_m1_52.RData")
+save(liks_m2_52, file = "RData/liks_m2_52.RData")
+save(liks_m3_52, file = "RData/liks_m3_52.RData")
+save(liks_m4_52, file = "RData/liks_m4_52.RData")
+```
+
+```{r}
+load("RData/liks_m1_52.RData")
+load("RData/liks_m2_52.RData")
+load("RData/liks_m3_52.RData")
+load("RData/liks_m4_52.RData")
+```
+
+Calculates the number of subjects for which each model fits the best
+```{r}
+liks_52 <- liks_m1_52 |> 
+  bind_rows(liks_m2_52) |> 
+  bind_rows(liks_m3_52) |> 
+  bind_rows(liks_m4_52) |>
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+save(liks_all, file = "RData/liks_52.RData")
+
+liks_52_best <- liks_52 |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_52_best |> 
+  ungroup() |> 
+  count(model)
+
+save(liks_52_best, file = "RData/liks_52_best.RData")
+```
+
+
+---------------------------------------------------------------------
+First 104 trials
+---------------------------------------------------------------------
+
+
+liks for each model
+```{r}
+liks_m1_104 <- m1_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 1")
+
+liks_m2_104 <- m2_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 2")
+
+liks_m3_104 <- m3_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 3")
+
+liks_m4_104 <- m4_s_104 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 4")
+
+save(liks_m1_104, file = "RData/liks_m1_104.RData")
+save(liks_m2_104, file = "RData/liks_m2_104.RData")
+save(liks_m3_104, file = "RData/liks_m3_104.RData")
+save(liks_m4_104, file = "RData/liks_m4_104.RData")
+```
+
+```{r}
+load("RData/liks_m1_104.RData")
+load("RData/liks_m2_104.RData")
+load("RData/liks_m3_104.RData")
+load("RData/liks_m4_104.RData")
+```
+
+Calculates the number of subjects for which each model fits the best
+```{r}
+liks_104 <- liks_m1_104 |> 
+  bind_rows(liks_m2_104) |> 
+  bind_rows(liks_m3_104) |> 
+  bind_rows(liks_m4_104) |>
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+save(liks_all, file = "RData/liks_104.RData")
+
+liks_104_best <- liks_104 |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_104_best |> 
+  ungroup() |> 
+  count(model)
+
+save(liks_104_best, file = "RData/liks_104_best.RData")
+```
+
+
+---------------------------------------------------------------------
+First 156 trials
+---------------------------------------------------------------------
+
+
+liks for each model
+```{r}
+liks_m1_156 <- m1_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 1")
+
+liks_m2_156 <- m2_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 2")
+
+liks_m3_156 <- m3_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 3")
+
+liks_m4_156 <- m4_s_156 %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  unnest_wider(fit) %>%
+  mutate(n = map(data, count)) %>%
+  unnest(n) %>%
+  select(subject, log_lik, n_par, n) %>%
+  mutate(model = "int-slo 4")
+
+save(liks_m1_156, file = "RData/liks_m1_156.RData")
+save(liks_m2_156, file = "RData/liks_m2_156.RData")
+save(liks_m3_156, file = "RData/liks_m3_156.RData")
+save(liks_m4_156, file = "RData/liks_m4_156.RData")
+```
+
+```{r}
+load("RData/liks_m1_156.RData")
+load("RData/liks_m2_156.RData")
+load("RData/liks_m3_156.RData")
+load("RData/liks_m4_156.RData")
+```
+
+Calculates the number of subjects for which each model fits the best
+```{r}
+liks_156 <- liks_m1_156 |> 
+  bind_rows(liks_m2_156) |> 
+  bind_rows(liks_m3_156) |> 
+  bind_rows(liks_m4_156) |>
+  mutate(aic = -2 * log_lik + 2 *n_par)
+
+save(liks_all, file = "RData/liks_156.RData")
+
+liks_156_best <- liks_156 |> 
+  group_by(subject) |> 
+  filter(aic == min(aic)) 
+
+liks_156_best |> 
+  ungroup() |> 
+  count(model)
+
+save(liks_156_best, file = "RData/liks_156_best.RData")
+```
+
