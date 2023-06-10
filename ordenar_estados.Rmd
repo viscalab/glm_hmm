@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+xx2 <- glm_hmm2_seeds %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+  order_states_glm_hmm() |> 
+  filter(coef == "V2")
+
+xx2
+
+
+yy <-  glm_hmm2_seeds %>%
+  mutate(fit = list(glm_hmm_extract_best(fit))) 
+
+yyy <- yy |> 
+  select(-data) |> 
+  unnest_wider(fit) |> 
+  select(subject, recovered_weights) |> 
+  unnest(recovered_weights) |> 
+   filter(coef == "V2")
+```
+

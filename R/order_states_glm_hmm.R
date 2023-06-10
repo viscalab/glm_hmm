@@ -13,11 +13,11 @@ order_states_glm_hmm <- function(glm_hmm){
    mutate(ordered_state = paste0("S", row_number())) |> 
    select(subject, state, ordered_state)
 
-  weights_glm_hmm |> 
-   left_join(order) |> 
-   select(-state) |> 
-   rename(state = ordered_state)
+  ordered_weights_glm_hmm <- weights_glm_hmm |> 
+    left_join(order) |> 
+    select(-state) |> 
+    rename(state = ordered_state) 
 
-  weights_glm_hmm
+  ordered_weights_glm_hmm
 
 } 
