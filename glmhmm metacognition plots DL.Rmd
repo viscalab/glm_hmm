@@ -1,0 +1,312 @@
+---
+title: "glmhmm metacognition plots"
+output: html_notebook
+---
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+library(flexplot)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+```{r}
+load("RData/data_trials.RData")
+```
+
+```{r}
+load("RData/m1.RData")
+load("RData/m1_52.RData")
+load("RData/m1_104.RData")
+load("RData/m1_156.RData")
+
+load("RData/m2.RData")
+load("RData/m2_52.RData")
+load("RData/m2_104.RData")
+load("RData/m2_156.RData")
+
+load("RData/m3.RData")
+load("RData/m3_52.RData")
+load("RData/m3_104.RData")
+load("RData/m3_156.RData")
+
+load("RData/m4.RData")
+load("RData/m4_52.RData")
+load("RData/m4_104.RData")
+load("RData/m4_156.RData")
+```
+
+```{r}
+load("RData/liks_all_best.RData")
+load("RData/liks_52_best.RData")
+load("RData/liks_104_best.RData")
+load("RData/liks_156_best.RData")
+
+```
+
+```{r}
+load("RData/m1_conf.RData")
+load("RData/m1_conf_52.RData")
+load("RData/m1_conf_104.RData")
+load("RData/m1_conf_156.RData")
+
+load("RData/m2_conf.RData")
+load("RData/m2_conf_52.RData")
+load("RData/m2_conf_104.RData")
+load("RData/m2_conf_156.RData")
+
+load("RData/m3_conf.RData")
+load("RData/m3_conf_52.RData")
+load("RData/m3_conf_104.RData")
+load("RData/m3_conf_156.RData")
+
+load("RData/m4_conf.RData")
+load("RData/m4_conf_52.RData")
+load("RData/m4_conf_104.RData")
+load("RData/m4_conf_156.RData")
+```
+
+```{r}
+load("RData/m1_conf_sub.RData")
+load("RData/m2_conf_sub.RData")
+load("RData/m3_conf_sub.RData")
+load("RData/m4_conf_sub.RData")
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+PLOTTING SUBJECT DISTRIBUTION OF BEST MODEL 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+Including all trials
+```{r}
+plot_dist_best <- flexplot(model~1, liks_all_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best
+
+ggsave("figures/plot_dist_best.pdf")
+```
+
+First 52 trials
+```{r}
+plot_dist_best_52 <- flexplot(model~1, liks_52_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_52
+
+ggsave("figures/plot_dist_best_52.pdf")
+```
+
+First 104 trials
+```{r}
+plot_dist_best_104 <- flexplot(model~1, liks_104_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_104
+
+ggsave("figures/plot_dist_best_104.pdf")
+```
+
+First 156 trials
+```{r}
+plot_dist_best_156 <- flexplot(model~1, liks_156_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_156
+
+ggsave("figures/plot_dist_best_156.pdf")
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+INDIVIDUAL MODEL PLOTTING
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+All trials
+----------------------------------------------------------------------
+
+
+Plotting one state:
+```{r}
+plots_1 <- m1 %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_1_grid <- plot_grid(plotlist = plots_1_all$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_1_grid.pdf", 
+       plots_1_grid, width = 10, height = 10)
+m1
+```
+
+Plotting two states:
+```{r fig.height=5, fig.width=10}
+plots_2 <- m2_fit %>% 
+  filter(subject < 5) |> 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_2_grid <- plot_grid(plotlist = plots_2$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_2_grid.pdf", 
+       plots_2_grid, width = 10, height = 10)
+```
+
+Plotting three states:
+```{r}
+plots_3 <- m3 %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_3_grid <- plot_grid(plotlist = plots_3_all$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_3_grid.pdf", 
+       plots_3_grid, width = 10, height = 10)
+```
+
+Plotting four states:
+```{r}
+plots_4 <- m4 %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_4_grid <- plot_grid(plotlist = plots_3_all$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_3_grid.pdf", 
+       plots_3_grid, width = 10, height = 10)
+```
+
+
+----------------------------------------------------------------------
+First 52 trials
+----------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------
+First 104 trials
+----------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------
+First 156 trials
+----------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIDENCE
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+All trials
+----------------------------------------------------------------------
+
+
+
+1S model:
+```{r}
+
+```
+
+2S model:
+(Subject 11 had a mean confidience of 11 and a sd of 0)
+```{r}
+means_conf_m2 <- aggregate(mean_confidence ~ state, data = m2_conf_sub, FUN = mean)
+ci_conf_m2 <- aggregate(mean_confidence ~ state, data = m2_conf_sub, FUN = function(x) t.test(x)$conf.int)
+
+result_conf_2S <- merge(means_conf_m2, ci_conf_m2, by = "state")
+
+#result_conf_2S$state <- factor(result_conf_2S$state)
+
+means_conf_m2_plot <- ggplot() +
+  geom_point(data = m2_conf_sub, aes(x = state, y = mean_confidence), alpha = .4) +
+ # geom_line(data = m2_conf_sub, aes(x = state, y = mean_confidence, group = subject), alpha = .2, size = 0.25) +
+  geom_errorbar(data = result_conf_2S, aes(x = state, y = mean_confidence.x, ymin = mean_confidence.y[,1], ymax = mean_confidence.y[,2], color = state), width = 0.2) +
+  labs(x = "State", y = "Confidence")
+
+means_conf_m2_plot
+```
+
+3S model:
+```{r}
+# Define a custom function to calculate the confidence interval
+calculate_ci <- function(x) {
+  mean_val <- mean(x)
+  n <- length(x)
+  se <- sd(x) / sqrt(n)
+  margin_error <- qt(0.975, df = n - 1) * se
+  ci_lower <- mean_val - margin_error
+  ci_upper <- mean_val + margin_error
+  return(c(ci_lower, ci_upper))
+}
+
+# Calculate the mean and confidence intervals for each group
+ci <- tapply(df$value, df$group, calculate_ci)
+
+# Create a new dataframe with group, mean, and confidence intervals
+result <- data.frame(group = names(ci), mean = sapply(ci, function(x) mean(x)), ci)
+
+# Plot the means and confidence intervals using ggplot2
+ggplot(result, aes(x = group, y = mean, ymin = ci[, 1], ymax = ci[, 2])) +
+  geom_point() +
+  geom_errorbar(width = 0.2) +
+  labs(x = "Group", y = "Mean", title = "Mean and Confidence Intervals by Group")
+```
+
+4S model:
+```{r}
+
+```
+
+
+

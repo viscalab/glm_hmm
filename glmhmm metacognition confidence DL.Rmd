@@ -93,14 +93,27 @@ save(m1_conf_sub, file = "RData/m1_conf_sub.RData")
 ```{r}
 m2_conf_sub <- m2_conf_post_wins %>%
   group_by(subject, state) %>%
-  mutate(confidence = as.numeric(confidence)) %>%
-  filter(!is.na(confidence)) %>%
   summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
 
 m2_conf_sub
 
-save(m2_conf_sub, file = "RData/m2_conf_sub.RData")
+#save(m2_conf_sub, file = "RData/m2_conf_sub.RData")
 ```
+```{r}
+m2_conf_sub |> 
+  ggplot(aes(x = state, y = mean_confidence)) +
+  geom_jitter() 
+```
+
+
+```{r}
+m2_conf_t.test <- t.test(mean_confidence ~ state, m2_conf_sub, paired = TRUE)
+m2_conf_t.test
+```
+
+
+
+
 3S
 ```{r}
 m3_conf_sub <- m3_conf_post_wins %>%
@@ -137,6 +150,7 @@ M2:
 m2_conf_t.test <- t.test(mean_confidence ~ state, m2_conf_dist, paired = T)
 m2_conf_t.test
 ```
+
 ```{r}
 model <- lm(mean_confidence ~ state, m2_conf_dist)
 residuals <- residuals(model)
@@ -147,11 +161,38 @@ bptest(model)
 
 
 M3 (I don't know if this is good with dependant samples):
+
 ```{r}
-m3_conf_aov <- aov(mean_confidence ~ state, data = m3_conf_dist)
-m3_conf_aov
-shapiro.test(m3_conf_aov$residuals)
+
 ```
+
+```{r}
+m3_conf_aov <- aov(mean_confidence ~ state + Error(subject / state), data = m3_conf_sub)
+
+summary(m3_conf_aov)
+#shapiro.test(m3_conf_aov$residuals)
+```
+
+```{r}
+m3_conf_sub |> 
+  ggplot(aes(x = state, y = mean_confidence)) +
+ # geom_jitter() +
+   stat_summary(
+    fun = "mean",
+    geom = "point",
+    shape = 16,
+    size = 3,
+    color = "red"
+  ) +
+  stat_summary(
+    fun.data = mean_cl_normal,
+    geom = "errorbar",
+    width = 0.2,
+    color = "red"
+  )
+```
+
+
 ```{r}
 m3_conf_aov_result <- Anova(m3_conf_aov, idata = m3_conf_dist, idesign = ~ subject, type = "III", white.adjust = "hc3")
 m3_conf_aov_result
