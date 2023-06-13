@@ -175,7 +175,7 @@ m1
 Plotting two states:
 ```{r fig.height=5, fig.width=10}
 plots_2 <- m2_fit %>% 
-  filter(subject < 5) |> 
+  filter(subject < 10) |> 
     rowwise() %>% 
     mutate(p = list(plotting_one_participant(fit, subject)))
   

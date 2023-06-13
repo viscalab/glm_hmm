@@ -81,34 +81,13 @@ m2 |>
 
 
 ```{r}
-glm_hmm2_weights  <- glm_hmm2_seeds %>%
-  mutate(fit = list(glm_hmm_extract_best(fit))) |> 
-  select(-data) |> 
-  unnest_wider(fit) |> 
-  select(subject, recovered_weights) |> 
-  unnest(recovered_weights)
-
-order <- glm_hmm2_weights |> 
-   filter(coef == "V2") |> 
-   group_by(subject) |> 
-   arrange(desc(value), .by_group = TRUE) |> 
-   mutate(ordered_state = paste0("S", row_number())) |> 
-   select(subject, state, ordered_state)
-
-glm_hmm2_weights |> 
-   left_join(order) |> 
-   select(-state) |> 
-   rename(state = ordered_state)
-```
-
-
-```{r}
- m2_fit <- m2_s %>%
+m2_fit <- m2_s %>%
   mutate(fit = list(glm_hmm_extract_best_precision(fit))) |> 
   select(-data) 
 
 m2_fit
 ```
+
 
 ```{r}
 m2 <- m2_s %>%
