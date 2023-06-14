@@ -61,43 +61,84 @@ load("RData/m4_s.RData")
 
 Renames the states according to their values (so similar states between subjects can be identified)
 ```{r}
-m1 <- m1_s %>%
-    mutate(fit = list(glm_hmm_extract_best(fit))) %>%
-    order_states_glm_hmm()
-
-m1
-
-save(m1, file = "RData/m1.RData")
+# m1 <- m1_s %>%
+#     mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+#     order_states_glm_hmm()
+# 
+# m1
+# 
+# save(m1, file = "RData/m1.RData")
 ```
 
 ```{r}
-m2 <- m2_s %>%
-  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
-  order_states_glm_hmm()
+m1_fit <- m1_s %>%
+  mutate(fit = list(glm_hmm_extract_best_precision(fit))) |> 
+  select(-data) 
 
-m2
+save(m1_fit, file = "RData/m1_fit.RData")
 
-save(m2, file = "RData/m2.RData")
+m1_fit
 ```
 
 ```{r}
-m3 <- m3_s %>%
-  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
-  order_states_glm_hmm()
-
-m3
-
-save(m3, file = "RData/m3.RData")
+# m2 <- m2_s %>%
+#   mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+#   order_states_glm_hmm()
+# 
+# m2
+# 
+# save(m2, file = "RData/m2.RData")
 ```
 
 ```{r}
-m4 <- m4_s %>%
-  mutate(fit = list(glm_hmm_extract_best(fit))) %>%
-  order_states_glm_hmm()
+m2_fit <- m2_s %>%
+  mutate(fit = list(glm_hmm_extract_best_precision(fit))) |> 
+  select(-data) 
 
-m4
+save(m2_fit, file = "RData/m2_fit.RData")
 
-save(m4, file = "RData/m4.RData")
+m2_fit
+```
+
+```{r}
+# m3 <- m3_s %>%
+#   mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+#   order_states_glm_hmm()
+# 
+# m3
+# 
+# save(m3, file = "RData/m3.RData")
+```
+
+```{r}
+m3_fit <- m3_s %>%
+  mutate(fit = list(glm_hmm_extract_best_precision(fit))) |> 
+  select(-data) 
+
+save(m3_fit, file = "RData/m3_fit.RData")
+
+m3_fit
+```
+
+
+```{r}
+# m4 <- m4_s %>%
+#   mutate(fit = list(glm_hmm_extract_best(fit))) %>%
+#   order_states_glm_hmm()
+# 
+# m4
+# 
+# save(m4, file = "RData/m4.RData")
+```
+
+```{r}
+m4_fit <- m4_s %>%
+  mutate(fit = list(glm_hmm_extract_best_precision(fit))) |> 
+  select(-data) 
+
+save(m4_fit, file = "RData/m4_fit.RData")
+
+m4_fit
 ```
 
 ```{r}
@@ -139,7 +180,7 @@ m1_conf_post_wins <- m1_conf_post_prob |>
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m1_conf, file = "RData/m1_conf.RData")
+save(m1_conf_post_wins, file = "RData/m1_conf_post_wins.RData")
 ```
 
 ```{r}
@@ -167,13 +208,13 @@ m2_conf_post_wins <- m2_conf_post_prob |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m2_conf_ord) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m2_conf, file = "RData/m2_conf.RData")
+save(m2_conf_post_wins, file = "RData/m2_conf_post_wins.RData")
 ```
 
 ```{r}
@@ -201,13 +242,13 @@ m3_conf_post_wins <- m3_conf_post_prob |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m3_conf_ord) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m3_conf, file = "RData/m3_conf.RData")
+save(m3_conf_post_wins, file = "RData/m3_conf_post_wins.RData")
 ```
 
 ```{r}
@@ -235,13 +276,13 @@ m4_conf_post_wins <- m4_conf_post_prob |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m4_conf_ord) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m4_conf, file = "RData/m4_conf.RData")
+save(m4_conf_post_wins, file = "RData/m4_conf_post_wins.RData")
 ```
 
 
@@ -268,6 +309,38 @@ m1_52
 save(m1_52, file = "RData/m1_52.RData")
 ```
 
+Intentando que la variable incluya la información suficiente para poder graficarla teniendo los estados ordenados
+```{r}
+m1_52_ex <- m1_s_52 %>%
+    mutate(fit = list(glm_hmm_extract_best(fit)))  
+  
+  weights_glm_hmm <- m1_52_ex |> 
+   unnest_wider(fit) |> 
+   #select(subject, recovered_weights) |> 
+   unnest(recovered_weights)
+
+  order <- weights_glm_hmm |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) #|> 
+   #select(subject, state, ordered_state)
+
+  ordered_weights_glm_hmm <- weights_glm_hmm |> 
+    left_join(order) |> 
+    select(-state) |> 
+    rename(state = ordered_state)
+
+  ordered_weights_glm_hmm
+  
+  filled_ordered_weights_glm_hmm <- ordered_weights_glm_hmm |>
+    group_by(subject) |>
+    fill(state)
+  
+  filled_ordered_weights_glm_hmm
+```
+
+
 ```{r}
 m2_52 <- m2_s_52 %>%
   mutate(fit = list(glm_hmm_extract_best(fit))) %>%
@@ -277,6 +350,41 @@ m2_52
 
 save(m2_52, file = "RData/m2_52.RData")
 ```
+
+
+
+```{r}
+m2_52_ex <- m2_s_52 %>%
+    mutate(fit = list(glm_hmm_extract_best(fit)))  
+  
+  weights_glm_hmm_2 <- m2_52_ex |> 
+   unnest_wider(fit) |> 
+   #select(subject, recovered_weights) |> 
+   unnest(recovered_weights)
+
+  order_2 <- weights_glm_hmm_2 |> 
+   filter(coef == "V2") |> 
+   group_by(subject) |> 
+   arrange(desc(value), .by_group = TRUE) |> 
+   mutate(ordered_state = paste0("S", row_number())) #|> 
+   #select(subject, state, ordered_state)
+  
+  ordered_weights_glm_hmm_2 <- weights_glm_hmm_2 |> 
+    left_join(order_2) |> 
+    select(-state) |> 
+    rename(state = ordered_state)
+  
+  ordered_weights_glm_hmm_2_ex <- ordered_weights_glm_hmm_2 |>
+    group_by(subject) |>
+    mutate(state = c("S1", "S1", "S2", "S2")) |>
+    ungroup()
+
+  ordered_weights_glm_hmm_2
+  ordered_weights_glm_hmm_2_ex
+```
+
+
+
 
 ```{r}
 m3_52 <- m3_s_52 %>%
@@ -331,13 +439,13 @@ m1_conf_post_wins_52 <- m1_conf_post_prob_52 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m1_conf_ord_52) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m1_conf_52, file = "RData/m1_conf_52.RData")
+save(m1_conf_post_wins_52, file = "RData/m1_conf_post_wins_52.RData")
 ```
 
 ```{r}
@@ -365,13 +473,13 @@ m2_conf_post_wins_52 <- m2_conf_post_prob_52 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m2_conf_ord_52) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m2_conf_52, file = "RData/m2_conf_52.RData")
+save(m2_conf_post_wins_52, file = "RData/m2_conf_post_wins_52.RData")
 ```
 
 ```{r}
@@ -399,13 +507,13 @@ m3_conf_post_wins_52 <- m3_conf_post_prob_52 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m3_conf_ord_52) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m3_conf_52, file = "RData/m3_conf_52.RData")
+save(m3_conf_post_wins_52, file = "RData/m3_conf_post_wins_52.RData")
 ```
 
 ```{r}
@@ -433,13 +541,13 @@ m4_conf_post_wins_52 <- m4_conf_post_prob_52 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m4_conf_ord_52) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m4_conf_52, file = "RData/m4_conf_52.RData")
+save(m4_conf_post_wins_52, file = "RData/m4_conf_post_wins_52.RData")
 ```
 
 
@@ -529,13 +637,13 @@ m1_conf_post_wins_104 <- m1_conf_post_prob_104 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m1_conf_ord_104) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m1_conf_104, file = "RData/m1_conf_104.RData")
+save(m1_conf_post_wins_104, file = "RData/m1_conf_post_wins_104.RData")
 ```
 
 ```{r}
@@ -563,13 +671,13 @@ m2_conf_post_wins_104 <- m2_conf_post_prob_104 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m2_conf_ord_104) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m2_conf_104, file = "RData/m2_conf_104.RData")
+save(m2_conf_post_wins_104, file = "RData/m2_conf_post_wins_104.RData")
 ```
 
 ```{r}
@@ -597,13 +705,13 @@ m3_conf_post_wins_104 <- m3_conf_post_prob_104 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m3_conf_ord_104) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m3_conf_104, file = "RData/m3_conf_104.RData")
+save(m3_conf_post_wins_104, file = "RData/m3_conf_post_wins_104.RData")
 ```
 
 ```{r}
@@ -631,13 +739,13 @@ m4_conf_post_wins_104 <- m4_conf_post_prob_104 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m4_conf_ord_104) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m4_conf_104, file = "RData/m4_conf_104.RData")
+save(m4_conf_post_wins_104, file = "RData/m4_conf_post_wins_104.RData")
 ```
 
 
@@ -727,13 +835,13 @@ m1_conf_post_wins_156 <- m1_conf_post_prob_156 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m1_conf_ord_156) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m1_conf_156, file = "RData/m1_conf_156.RData")
+save(m1_conf_post_wins_156, file = "RData/m1_conf_post_wins_156.RData")
 ```
 
 ```{r}
@@ -761,13 +869,13 @@ m2_conf_post_wins_156 <- m2_conf_post_prob_156 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m2_conf_ord_156) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m2_conf_156, file = "RData/m2_conf_156.RData")
+save(m2_conf_post_wins_156, file = "RData/m2_conf_post_wins_156.RData")
 ```
 
 ```{r}
@@ -795,13 +903,13 @@ m3_conf_post_wins_156 <- m3_conf_post_prob_156 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m3_conf_ord_156) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m3_conf_156, file = "RData/m3_conf_156.RData")
+save(m3_conf_post_wins_156, file = "RData/m3_conf_post_wins_156.RData")
 ```
 
 ```{r}
@@ -829,13 +937,13 @@ m4_conf_post_wins_156 <- m4_conf_post_prob_156 |>
   group_by(subject, trial) %>%
   filter(p == max(p)) %>%
   select(-p) |> 
-  left_join(m1_conf_ord) |> 
+  left_join(m4_conf_ord_156) |> 
   select(-state) |> 
   rename(state = ordered_state) |> 
   left_join(data_trials, 
             by = join_by(subject, trial))
 
-save(m4_conf_156, file = "RData/m4_conf_156.RData")
+save(m4_conf_post_wins_156, file = "RData/m4_conf_post_wins_156.RData")
 ```
 
 
