@@ -1,0 +1,274 @@
+---
+title: "glmhmm metacognition confidence"
+output: html_notebook
+---
+
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+library(flexplot)
+library(lmtest)
+library(car)
+library(emmeans)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+```{r}
+options(scipen = 1000)
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+STATES ORDERED BY PRECISON
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_conf_prec_post_wins.RData")
+load("RData/m2_conf_prec_post_wins.RData")
+load("RData/m3_conf_prec_post_wins.RData")
+load("RData/m4_conf_prec_post_wins.RData")
+```
+
+
+----------------------------------------------------------------------
+Mean and SD
+----------------------------------------------------------------------
+
+
+Individual mean across all trials:
+1S
+```{r}
+m1_conf_prec_sub <- m1_conf_prec_post_wins %>%
+  group_by(subject) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m1_conf_prec_sub
+
+save(m1_conf_prec_sub, file = "RData/m1_conf_prec_sub.RData")
+```
+2S
+```{r}
+m2_conf_prec_sub <- m2_conf_prec_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m2_conf_prec_sub
+
+save(m2_conf_prec_sub, file = "RData/m2_conf_prec_sub.RData")
+```
+3S
+```{r}
+m3_conf_prec_sub <- m3_conf_prec_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m3_conf_prec_sub
+
+save(m3_conf_prec_sub, file = "RData/m3_conf_prec_sub.RData")
+```
+4S
+```{r}
+m4_conf_prec_sub <- m4_conf_prec_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m4_conf_prec_sub
+
+save(m4_conf_prec_sub, file = "RData/m4_conf_prec_sub.RData")
+```
+
+
+----------------------------------------------------------------------
+State comparison
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m2_conf_prec_sub.RData")
+load("RData/m3_conf_prec_sub.RData")
+load("RData/m4_conf_prec_sub.RData")
+```
+
+
+M2:
+```{r}
+m2_conf_prec_t.test <- t.test(mean_confidence ~ state, m2_conf_prec_sub, paired = T)
+m2_conf_prec_t.test
+```
+
+```{r}
+model <- lm(mean_confidence ~ state, m2_conf_prec_sub)
+residuals <- residuals(model)
+
+shapiro.test(residuals)
+bptest(model)
+```
+
+M3 (I don't know if this is good with dependant samples):
+```{r}
+m3_conf_prec_aov <- aov(mean_confidence ~ state + Error(subject / state), data = m3_conf_prec_sub)
+
+summary(m3_conf_prec_aov)
+pairs(emmeans(m3_conf_prec_aov, "state"))
+
+#shapiro.test(m3_conf_aov$residuals)
+```
+
+M4:
+```{r}
+m4_conf_prec_aov <- aov(mean_confidence ~ state + Error(subject / state), data = m4_conf_prec_sub)
+
+summary(m4_conf_prec_aov)
+pairs(emmeans(m4_conf_prec_aov, "state"))
+
+#shapiro.test(m3_conf_aov$residuals)
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+STATES ORDERED BY bias
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_conf_bias_post_wins.RData")
+load("RData/m2_conf_bias_post_wins.RData")
+load("RData/m3_conf_bias_post_wins.RData")
+load("RData/m4_conf_bias_post_wins.RData")
+```
+
+
+----------------------------------------------------------------------
+Mean and SD
+----------------------------------------------------------------------
+
+
+Individual mean across all trials:
+1S
+```{r}
+m1_conf_bias_sub <- m1_conf_bias_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m1_conf_bias_sub
+
+save(m1_conf_bias_sub, file = "RData/m1_conf_bias_sub.RData")
+```
+2S
+```{r}
+m2_conf_bias_sub <- m2_conf_bias_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m2_conf_bias_sub
+
+save(m2_conf_bias_sub, file = "RData/m2_conf_bias_sub.RData")
+```
+3S
+```{r}
+m3_conf_bias_sub <- m3_conf_bias_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m3_conf_bias_sub
+
+save(m3_conf_bias_sub, file = "RData/m3_conf_bias_sub.RData")
+```
+4S
+```{r}
+m4_conf_bias_sub <- m4_conf_bias_post_wins %>%
+  group_by(subject, state) %>%
+  mutate(confidence = as.numeric(confidence)) %>%
+  filter(!is.na(confidence)) %>%
+  summarize(mean_confidence = mean(confidence), sd_confidence = sd(confidence))
+
+m4_conf_bias_sub
+
+save(m4_conf_bias_sub, file = "RData/m4_conf_bias_sub.RData")
+```
+
+
+----------------------------------------------------------------------
+State comparison
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m2_conf_bias_sub.RData")
+load("RData/m3_conf_bias_sub.RData")
+load("RData/m4_conf_bias_sub.RData")
+```
+
+
+M2:
+```{r}
+m2_conf_bias_t.test <- t.test(mean_confidence ~ state, m2_conf_bias_sub, paired = T)
+m2_conf_bias_t.test
+```
+
+```{r}
+model <- lm(mean_confidence ~ state, m2_conf_bias_sub)
+residuals <- residuals(model)
+
+shapiro.test(residuals)
+bptest(model)
+```
+
+M3 (No entiendo cómo aquí no hay diferencia entre estados si lo único que cambia es el orden de ellos):
+```{r}
+m3_conf_bias_aov <- aov(mean_confidence ~ state + Error(subject / state), data = m3_conf_bias_sub)
+
+summary(m3_conf_bias_aov)
+pairs(emmeans(m3_conf_bias_aov, "state"))
+
+#shapiro.test(m3_conf_aov$residuals)
+```
+
+M4:
+```{r}
+m4_conf_bias_aov <- aov(mean_confidence ~ state + Error(subject / state), data = m4_conf_bias_sub)
+
+summary(m4_conf_bias_aov)
+pairs(emmeans(m4_conf_bias_aov, "state"))
+
+#shapiro.test(m3_conf_aov$residuals)
+```
