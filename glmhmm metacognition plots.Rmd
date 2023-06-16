@@ -1,0 +1,401 @@
+---
+title: "glmhmm metacognition plots"
+output: html_notebook
+---
+
+```{r}
+library(reticulate)
+use_condaenv("glmhmm")
+
+source_python("python/glm_hmm.py")
+```
+
+```{python}
+import numpy as np
+import numpy.random as npr
+import matplotlib.pyplot as plt
+import ssm 
+```
+
+```{r}
+library(tidyverse)
+library(broom)
+library(dplyr)
+library(R.matlab)
+library(cowplot)
+library(flexplot)
+library(ggforce)
+
+list.files("R", full.names = TRUE) |> 
+  walk(source)
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+INDIVIDUAL MODEL PLOTTING
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/data_trials.RData")
+```
+
+```{r}
+load("RData/m1_fit.RData")
+# load("RData/m1_52.RData")
+# load("RData/m1_104.RData")
+# load("RData/m1_156.RData")
+
+load("RData/m2_fit.RData")
+# load("RData/m2_52.RData")
+# load("RData/m2_104.RData")
+# load("RData/m2_156.RData")
+
+load("RData/m3_fit.RData")
+# load("RData/m3_52.RData")
+# load("RData/m3_104.RData")
+# load("RData/m3_156.RData")
+
+load("RData/m4_fit.RData")
+# load("RData/m4_52.RData")
+# load("RData/m4_104.RData")
+# load("RData/m4_156.RData")
+```
+
+Plotting one state:
+```{r}
+plots_1 <- m1_fit[m1_fit$subject %in% unique(m1_fit$subject)[1:10], ] %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_1_grid <- plot_grid(plotlist = plots_1$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+
+ggsave("figures/plots_1_grid.pdf",
+       plots_1_grid, width = 15, height = 15)
+```
+
+Plotting two states:
+```{r}
+plots_2 <- m2_fit[m2_fit$subject %in% unique(m2_fit$subject)[1:10], ] %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_2_grid <- plot_grid(plotlist = plots_2$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_2_grid.pdf", 
+       plots_2_grid, width = 15, height = 15)
+```
+
+Plotting three states:
+```{r}
+plots_3 <- m3_fit[m3_fit$subject %in% unique(m3_fit$subject)[1:10], ] %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_3_grid <- plot_grid(plotlist = plots_3$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_3_grid.pdf", 
+       plots_3_grid, width = 15, height = 15)
+```
+
+Plotting four states:
+```{r}
+plots_4 <- m4_fit[m4_fit$subject %in% unique(m4_fit$subject)[1:10], ] %>% 
+    rowwise() %>% 
+    mutate(p = list(plotting_one_participant(fit, subject)))
+  
+plots_4_grid <- plot_grid(plotlist = plots_4$p, ncol = 2)
+  
+file_name <- paste0("figures/", deparse(substitute(.glm_hmm)), ".pdf")
+  
+ggsave("figures/plots_4_grid.pdf", 
+       plots_4_grid, width = 15, height = 15)
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+SUBJECT DISTRIBUTION OF BEST MODEL 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/liks_all_best.RData")
+load("RData/liks_52_best.RData")
+load("RData/liks_104_best.RData")
+load("RData/liks_156_best.RData")
+```
+
+Including all trials
+```{r}
+plot_dist_best <- flexplot(model~1, liks_all_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best
+
+ggsave("figures/plot_dist_best.pdf")
+```
+
+First 52 trials
+```{r}
+plot_dist_best_52 <- flexplot(model~1, liks_52_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_52
+
+ggsave("figures/plot_dist_best_52.pdf")
+```
+
+First 104 trials
+```{r}
+plot_dist_best_104 <- flexplot(model~1, liks_104_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_104
+
+ggsave("figures/plot_dist_best_104.pdf")
+```
+
+First 156 trials
+```{r}
+plot_dist_best_156 <- flexplot(model~1, liks_156_best) +
+  ggtitle("Best model subject count") +
+  scale_x_discrete(labels = c("1 state", "2 states", "3 states", "4 states"))
+
+plot_dist_best_156
+
+ggsave("figures/plot_dist_best_156.pdf")
+```
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+DWELL TIME DISTRIBUTION
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData")
+```
+
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+CONFIDENCE
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+----------------------------------------------------------------------
+States ordered based on precision
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_conf_prec.RData")
+# load("RData/m1_conf_52.RData")
+# load("RData/m1_conf_104.RData")
+# load("RData/m1_conf_156.RData")
+
+load("RData/m2_conf_prec.RData")
+# load("RData/m2_conf_52.RData")
+# load("RData/m2_conf_104.RData")
+# load("RData/m2_conf_156.RData")
+
+load("RData/m3_conf_prec.RData")
+# load("RData/m3_conf_52.RData")
+# load("RData/m3_conf_104.RData")
+# load("RData/m3_conf_156.RData")
+
+load("RData/m4_conf_prec.RData")
+# load("RData/m4_conf_52.RData")
+# load("RData/m4_conf_104.RData")
+# load("RData/m4_conf_156.RData")
+```
+
+```{r}
+load("RData/m1_conf_prec_sub.RData")
+load("RData/m2_conf_prec_sub.RData")
+load("RData/m3_conf_prec_sub.RData")
+load("RData/m4_conf_prec_sub.RData")
+```
+
+Define a custom function to calculate the confidence interval
+```{r}
+calculate_ci <- function(x) {
+  mean_val <- mean(x)
+  n <- length(x)
+  se <- sd(x) / sqrt(n)
+  margin_error <- qt(0.975, df = n - 1) * se
+  ci_inf <- mean_val - margin_error
+  ci_sup <- mean_val + margin_error
+  return(as.numeric(c(ci_inf, ci_sup)))
+}
+```
+
+1S model:
+CREO QUE HAY ALGO MAL EN EL CÁLCULO DE LOS CIS.
+```{r}
+n_m1_prec <- length(m1_conf_prec_sub)
+se_m1_prec <- mean(m1_conf_prec_sub$sd_confidence / sqrt(n_m1_prec))
+margin_error_m1_prec <- mean(qt(0.975, df = n_m1_prec - 1) * se_m1_prec)
+ci_inf_m1_prec <- mean(m1_conf_prec_sub$mean_confidence - margin_error_m1_prec)
+ci_sup_m1_prec <- mean(m1_conf_prec_sub$mean_confidence + margin_error_m1_prec)
+mean_m1_prec <- mean(m1_conf_prec_sub$mean_confidence)
+
+means_conf_prec_m1_plot <- ggplot() +
+  geom_sina(data = m1_conf_prec_sub, aes(x = 1, y = mean_confidence), binwidth = .02, maxwidth = .5, size = .75) +
+  geom_crossbar(size = .10, width = 0.2, aes(x = 1, y = mean_m1_prec, ymin = ci_inf_m1_prec, ymax = ci_sup_m1_prec)) +
+  labs(x = " ", y = "Confidence") +
+  theme_classic() +
+   theme(legend.position = "none",
+     strip.background = element_blank(),
+     axis.title.x = element_blank(),
+           axis.line = element_line(size = .25), 
+         axis.ticks = element_line(size = .25))
+
+ggsave("figures/means_conf_prec_m1_plot.pdf")
+
+means_conf_prec_m1_plot
+```
+
+2S model:
+(Subject 11 had a mean confidience of 11 and a sd of 0)
+```{r}
+means_conf_prec_m2 <- aggregate(mean_confidence ~ state, data = m2_conf_prec_sub, FUN = mean)
+ci_conf_prec_m2 <- aggregate(mean_confidence ~ state, data = m2_conf_prec_sub, FUN = function(x) t.test(x)$conf.int)
+
+result_conf_prec_2S <- merge(means_conf_prec_m2, ci_conf_prec_m2, by = "state")
+
+means_conf_prec_m2_plot <- ggplot() +
+  geom_sina(data = m2_conf_prec_sub, aes(x = state, y = mean_confidence), binwidth = .02, maxwidth = .5, size = .50) +
+  geom_crossbar(data = result_conf_prec_2S, size = .30, width = 0.5, aes(x = state, y = mean_confidence.x, ymin = mean_confidence.y[,1], ymax = mean_confidence.y[,2], color = state)) +
+  labs(x = "State", y = "Confidence") +
+  theme_classic() +
+   theme(legend.position = "none",
+     strip.background = element_blank(),
+     axis.title.x = element_blank(),
+           axis.line = element_line(size = .25), 
+         axis.ticks = element_line(size = .25))
+
+ggsave("figures/means_conf_prec_m2_plot.pdf")
+
+means_conf_prec_m2_plot
+```
+
+3S model:
+```{r}
+ci_conf_prec_m3 <- sapply(
+  split(m3_conf_prec_sub$mean_confidence, m3_conf_prec_sub$state),
+  function(x) {
+    result <- calculate_ci(x)
+    print(result)
+    result
+  }
+)
+ci_conf_prec_m3 <- t(ci_conf_prec_m3)
+
+ci_conf_prec_m3 <- data.frame(
+  state = rownames(ci_conf_prec_m3),
+  ci_inf = ci_conf_prec_m3[, 1],
+  ci_sup = ci_conf_prec_m3[, 2]
+)
+
+# Create a new dataframe with group, mean, and confidence intervals
+result_conf_prec_3S <- as.data.frame(ci_conf_prec_m3) |>
+  group_by(state) |>
+  mutate(mean = (ci_inf + ci_sup)/2)
+
+result_conf_prec_3S
+
+means_conf_prec_m3_plot <- ggplot() +
+  geom_sina(data = m3_conf_prec_sub, aes(x = state, y = mean_confidence), binwidth = .02, maxwidth = .5, size = .50) +
+  geom_crossbar(data = result_conf_prec_3S, size = .30, width = 0.5, aes(x = state, y = mean, ymin = ci_inf, ymax = ci_sup, color = state)) +
+  labs(x = "State", y = "Confidence") +
+  theme_classic() +
+   theme(legend.position = "none",
+     strip.background = element_blank(),
+     axis.title.x = element_blank(),
+           axis.line = element_line(size = .25), 
+         axis.ticks = element_line(size = .25))
+
+ggsave("figures/means_conf_prec_m3_plot.pdf")
+
+means_conf_prec_m3_plot
+```
+
+4S model:
+```{r}
+ci_conf_prec_m4 <- sapply(
+  split(m4_conf_prec_sub$mean_confidence, m4_conf_prec_sub$state),
+  function(x) {
+    result <- calculate_ci(x)
+    print(result)
+    result
+  }
+)
+ci_conf_prec_m4 <- t(ci_conf_prec_m4)
+
+ci_conf_prec_m4 <- data.frame(
+  state = rownames(ci_conf_prec_m4),
+  ci_inf = ci_conf_prec_m4[, 1],
+  ci_sup = ci_conf_prec_m4[, 2]
+)
+
+# Create a new dataframe with group, mean, and confidence intervals
+result_conf_prec_4S <- as.data.frame(ci_conf_prec_m4) |>
+  group_by(state) |>
+  mutate(mean = (ci_inf + ci_sup)/2)
+
+result_conf_prec_4S
+
+means_conf_prec_m4_plot <- ggplot() +
+  geom_sina(data = m4_conf_prec_sub, aes(x = state, y = mean_confidence), binwidth = .02, maxwidth = .5, size = .50) +
+  geom_crossbar(data = result_conf_prec_4S, size = .30, width = 0.5, aes(x = state, y = mean, ymin = ci_inf, ymax = ci_sup, color = state)) +
+  labs(x = "State", y = "Confidence") +
+  theme_classic() +
+   theme(legend.position = "none",
+     strip.background = element_blank(),
+     axis.title.x = element_blank(),
+           axis.line = element_line(size = .25), 
+         axis.ticks = element_line(size = .25))
+
+ggsave("figures/means_conf_prec_m4_plot.pdf")
+
+means_conf_prec_m4_plot
+```
+
+
+----------------------------------------------------------------------
+States ordered based on bias
+----------------------------------------------------------------------
+
+
+```{r}
+load("RData/m1_conf_bias_sub.RData")
+load("RData/m2_conf_bias_sub.RData")
+load("RData/m3_conf_bias_sub.RData")
+load("RData/m4_conf_bias_sub.RData")
+```
+
+
+
+
+
+
+
+
